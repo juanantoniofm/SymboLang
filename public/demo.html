@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SymbolLang · Demo Composition</title>
+<title>SymbolLang v5 · Demos</title>
 <style>
   @font-face {
     font-family: "SymbolLang";
@@ -10,80 +10,232 @@
     font-weight: 100 900;
   }
   :root {
-    --bg: #0a0a12;
+    --bg: #0b0b0d;
+    --panel: #111116;
+    --ink: #f3f3f3;
+    --dim: #8a8a90;
+    --border: #222228;
   }
   html, body {
-    margin: 0; padding: 0;
-    background: var(--bg);
-    min-height: 100vh;
+    margin: 0; padding: 3rem 1.5rem;
+    font-family: ui-sans-serif, -apple-system, system-ui, sans-serif;
+    background: var(--bg); color: var(--ink);
+    display: flex; flex-direction: column; align-items: center; gap: 3rem;
+  }
+  h1 { font-size: 1.2rem; font-weight: 600; margin: 0; letter-spacing: 0.02em; }
+  .subtitle { font-size: 0.8rem; color: var(--dim); margin: 0.3rem 0 0; }
+  .sym { font-family: "SymbolLang"; line-height: 1; }
+
+  /* ---- demo cards ---- */
+  .demo {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    width: min(900px, 92vw);
+  }
+  .demo-label {
+    font-size: 0.65rem; color: var(--dim);
+    text-transform: uppercase; letter-spacing: 0.14em;
+    margin: 0 0 1.2rem;
+  }
+  .demo-label code { color: #5eead4; font-family: ui-monospace, monospace; }
+
+  /* ---- Demo 1: Hub composition ---- */
+  .hub {
     display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
+    gap: 0;
+    padding: 1rem 0;
   }
-  .canvas {
+  .hub .sym { color: #c8d4f0; }
+
+  /* ---- Demo 2: State triptych ---- */
+  .triptych {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 3rem;
+    padding: 1rem 0;
+  }
+  .triptych-item {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  }
+  .triptych-item small {
+    font-size: 0.65rem; color: var(--dim);
+    font-family: ui-monospace, monospace;
+  }
+
+  /* ---- Demo 3: Network diagram ---- */
+  .network {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0;
+    padding: 1rem 0;
+  }
+
+  /* ---- Demo 4: Poster mark ---- */
+  .poster {
+    display: flex; align-items: center; justify-content: center;
+    padding: 2rem 0;
     position: relative;
-    width: 800px;
-    height: 800px;
-  }
-  .sym {
-    font-family: "SymbolLang";
-    position: absolute;
-    line-height: 1;
-    transform: translate(-50%, -50%);
   }
 
-  /* ---- lattice background ---- */
-  .lattice {
-    font-variation-settings: "wght" 500, "MORF" 900;
-    color: #1a3a6e;
-    text-shadow: 0 0 30px #00e5ff88, 0 0 60px #00e5ff44;
+  /* ---- Demo 5: Word as logo ---- */
+  .wordmark {
+    display: flex; align-items: center; justify-content: center;
+    gap: 2.5rem;
+    padding: 1rem 0;
+    flex-wrap: wrap;
+  }
+  .wordmark-item {
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  }
+  .wordmark-item small {
+    font-size: 0.7rem; color: var(--dim); letter-spacing: 0.15em;
+    text-transform: uppercase;
   }
 
-  /* ---- central hex ---- */
-  .hex-center {
-    font-variation-settings: "wght" 700, "MORF" 500;
-    color: #e0e8ff;
-    text-shadow: 0 0 40px #7090ffaa, 0 0 80px #4060dd66;
-    z-index: 10;
+  /* ---- Demo 6: Animated loader ---- */
+  .loader-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem;
+    padding: 1rem 0;
   }
-
-  /* ---- directional triangles ---- */
-  .tri {
-    font-variation-settings: "wght" 600, "MORF" 500;
-    color: #5eead4;
-    text-shadow: 0 0 20px #5eead488, 0 0 50px #5eead444;
-    z-index: 10;
+  .loader-item {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
   }
+  .loader-item small {
+    font-size: 0.65rem; color: var(--dim);
+    font-family: ui-monospace, monospace;
+  }
+  @keyframes phase-pulse {
+    0%, 100% { font-variation-settings: "wght" 100, "MORF" 500; }
+    50%      { font-variation-settings: "wght" 900, "MORF" 500; }
+  }
+  @keyframes form-bloom {
+    0%, 100% { font-variation-settings: "wght" 500, "MORF" 100; }
+    50%      { font-variation-settings: "wght" 500, "MORF" 900; }
+  }
+  @keyframes both-breathe {
+    0%, 100% { font-variation-settings: "wght" 200, "MORF" 200; }
+    50%      { font-variation-settings: "wght" 800, "MORF" 800; }
+  }
+  .anim-phase  { animation: phase-pulse 2s ease-in-out infinite; }
+  .anim-form   { animation: form-bloom 2.5s ease-in-out infinite; }
+  .anim-both   { animation: both-breathe 3s ease-in-out infinite; }
 </style>
 </head>
 <body>
-  <div class="canvas">
 
-    <!-- lattice background: 3x3 grid of G glyphs -->
-    <span class="sym lattice" style="font-size:220px; left:10%;  top:10%;  opacity:0.3;">G</span>
-    <span class="sym lattice" style="font-size:220px; left:50%;  top:10%;  opacity:0.25;">G</span>
-    <span class="sym lattice" style="font-size:220px; left:90%;  top:10%;  opacity:0.3;">G</span>
-    <span class="sym lattice" style="font-size:220px; left:10%;  top:50%;  opacity:0.35;">G</span>
-    <span class="sym lattice" style="font-size:220px; left:50%;  top:50%;  opacity:0.2;">G</span>
-    <span class="sym lattice" style="font-size:220px; left:90%;  top:50%;  opacity:0.35;">G</span>
-    <span class="sym lattice" style="font-size:220px; left:10%;  top:90%;  opacity:0.3;">G</span>
-    <span class="sym lattice" style="font-size:220px; left:50%;  top:90%;  opacity:0.25;">G</span>
-    <span class="sym lattice" style="font-size:220px; left:90%;  top:90%;  opacity:0.3;">G</span>
+<header style="text-align:center;">
+  <h1>SymbolLang · Compositions</h1>
+  <p class="subtitle">Demos from the visual identity guide. Each locks a design-space coordinate.</p>
+</header>
 
-    <!-- scattered smaller lattice for depth -->
-    <span class="sym lattice" style="font-size:140px; left:30%;  top:30%;  opacity:0.15;">G</span>
-    <span class="sym lattice" style="font-size:140px; left:70%;  top:30%;  opacity:0.15;">G</span>
-    <span class="sym lattice" style="font-size:140px; left:30%;  top:70%;  opacity:0.15;">G</span>
-    <span class="sym lattice" style="font-size:140px; left:70%;  top:70%;  opacity:0.15;">G</span>
-
-    <!-- central hexagon -->
-    <span class="sym hex-center" style="font-size:280px; left:50%; top:50%;">H</span>
-
-    <!-- triangles pointing at hex from each side -->
-    <span class="sym tri" style="font-size:120px; left:50%; top:18%;">N</span>
-    <span class="sym tri" style="font-size:120px; left:50%; top:82%;">S</span>
-    <span class="sym tri" style="font-size:120px; left:18%; top:50%;">W</span>
-    <span class="sym tri" style="font-size:120px; left:82%; top:50%;">E</span>
-
+<!-- Demo 1: Triplet logomark — service mesh -->
+<div class="demo">
+  <div class="demo-label">Pattern A · Triplet logomark — <code>H C H</code> "service mesh"</div>
+  <div class="hub">
+    <span class="sym" style="font-size:140px; font-variation-settings:'wght' 500,'MORF' 700; color:#7eb8da;">H</span>
+    <span class="sym" style="font-size:100px; font-variation-settings:'wght' 700,'MORF' 700; color:#5eead4;">C</span>
+    <span class="sym" style="font-size:140px; font-variation-settings:'wght' 500,'MORF' 700; color:#7eb8da;">H</span>
   </div>
+</div>
+
+<!-- Demo 2: State triptych — hex at 3 phases -->
+<div class="demo">
+  <div class="demo-label">Pattern B · State triptych — <code>H</code> at Phase 100 / 500 / 900</div>
+  <div class="triptych">
+    <div class="triptych-item">
+      <span class="sym" style="font-size:160px; font-variation-settings:'wght' 100,'MORF' 700; color:#3a4a60;">H</span>
+      <small>dormant</small>
+    </div>
+    <div class="triptych-item">
+      <span class="sym" style="font-size:160px; font-variation-settings:'wght' 500,'MORF' 700; color:#7eb8da;">H</span>
+      <small>active</small>
+    </div>
+    <div class="triptych-item">
+      <span class="sym" style="font-size:160px; font-variation-settings:'wght' 900,'MORF' 700; color:#e0ecff;">H</span>
+      <small>saturated</small>
+    </div>
+  </div>
+</div>
+
+<!-- Demo 3: Pipeline — D A H "ingest pipeline" -->
+<div class="demo">
+  <div class="demo-label">Pattern A · Pipeline — <code>D A H</code> "ingest pipeline"</div>
+  <div class="network">
+    <span class="sym" style="font-size:110px; font-variation-settings:'wght' 400,'MORF' 500; color:#f0a978;">D</span>
+    <span class="sym" style="font-size:130px; font-variation-settings:'wght' 600,'MORF' 600; color:#d4956a;">A</span>
+    <span class="sym" style="font-size:150px; font-variation-settings:'wght' 700,'MORF' 800; color:#e8c49a;">H</span>
+  </div>
+</div>
+
+<!-- Demo 4: Poster mark — single glyph, large -->
+<div class="demo">
+  <div class="demo-label">Poster mark — <code>M</code> at (900, 900) "audio-wave skyline"</div>
+  <div class="poster">
+    <span class="sym" style="font-size:400px; font-variation-settings:'wght' 900,'MORF' 900; color:#e0e0e8;">M</span>
+  </div>
+</div>
+
+<!-- Demo 5: Word as logo -->
+<div class="demo">
+  <div class="demo-label">Pattern E · Word as logo — glyph sequences that spell real words</div>
+  <div class="wordmark">
+    <div class="wordmark-item">
+      <span class="sym" style="font-size:80px; font-variation-settings:'wght' 600,'MORF' 600; color:#c0d0e8; letter-spacing:0.05em;">MESH</span>
+      <small>mesh</small>
+    </div>
+    <div class="wordmark-item">
+      <span class="sym" style="font-size:80px; font-variation-settings:'wght' 500,'MORF' 400; color:#a0c4b0; letter-spacing:0.05em;">HASH</span>
+      <small>hash</small>
+    </div>
+    <div class="wordmark-item">
+      <span class="sym" style="font-size:80px; font-variation-settings:'wght' 700,'MORF' 700; color:#d0b898; letter-spacing:0.05em;">SEND</span>
+      <small>send</small>
+    </div>
+    <div class="wordmark-item">
+      <span class="sym" style="font-size:80px; font-variation-settings:'wght' 400,'MORF' 800; color:#b0a8c8; letter-spacing:0.05em;">CAGE</span>
+      <small>cage</small>
+    </div>
+  </div>
+</div>
+
+<!-- Demo 6: Animated loaders -->
+<div class="demo">
+  <div class="demo-label">Motion · Animated loaders — Phase pulse, Form bloom, dual breathe</div>
+  <div class="loader-row">
+    <div class="loader-item">
+      <span class="sym anim-phase" style="font-size:120px; color:#5eead4;">D</span>
+      <small>phase pulse</small>
+    </div>
+    <div class="loader-item">
+      <span class="sym anim-form" style="font-size:120px; color:#7eb8da;">H</span>
+      <small>form bloom</small>
+    </div>
+    <div class="loader-item">
+      <span class="sym anim-both" style="font-size:120px; color:#f0a978;">B</span>
+      <small>dual breathe</small>
+    </div>
+  </div>
+</div>
+
+<!-- Demo 7: Pairs of opposites -->
+<div class="demo">
+  <div class="demo-label">Pattern D · Pairs of opposites — duality, before/after, in/out</div>
+  <div style="display:flex; align-items:center; justify-content:center; gap:3rem; padding:1rem 0; flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:0.3rem;">
+      <span class="sym" style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:#5eead4;">E</span>
+      <span class="sym" style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:#5eead4;">W</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:0.3rem;">
+      <span class="sym" style="font-size:100px; font-variation-settings:'wght' 700,'MORF' 500; color:#f0a978;">R</span>
+      <span class="sym" style="font-size:100px; font-variation-settings:'wght' 700,'MORF' 500; color:#f0a978;">B</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;">
+      <span class="sym" style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:#7eb8da;">N</span>
+      <span class="sym" style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:#7eb8da;">S</span>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
