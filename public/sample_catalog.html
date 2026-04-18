@@ -58,7 +58,9 @@
       padding: 1rem 0;
     }
 
-    .hub .sym { color: var(--color-glyph); }
+    .hub .sym {
+      color: var(--color-glyph);
+    }
 
     /* ---- Demo 2: State triptych ---- */
     .triptych {
@@ -147,23 +149,52 @@
     }
 
     @keyframes phase-pulse {
-      0%, 100% { font-variation-settings: "wght" 100, "MORF" 500; }
-      50% { font-variation-settings: "wght" 900, "MORF" 500; }
+
+      0%,
+      100% {
+        font-variation-settings: "wght" 100, "MORF" 500;
+      }
+
+      50% {
+        font-variation-settings: "wght" 900, "MORF" 500;
+      }
     }
 
     @keyframes form-bloom {
-      0%, 100% { font-variation-settings: "wght" 500, "MORF" 100; }
-      50% { font-variation-settings: "wght" 500, "MORF" 900; }
+
+      0%,
+      100% {
+        font-variation-settings: "wght" 500, "MORF" 100;
+      }
+
+      50% {
+        font-variation-settings: "wght" 500, "MORF" 900;
+      }
     }
 
     @keyframes both-breathe {
-      0%, 100% { font-variation-settings: "wght" 200, "MORF" 200; }
-      50% { font-variation-settings: "wght" 800, "MORF" 800; }
+
+      0%,
+      100% {
+        font-variation-settings: "wght" 200, "MORF" 200;
+      }
+
+      50% {
+        font-variation-settings: "wght" 800, "MORF" 800;
+      }
     }
 
-    .anim-phase { animation: phase-pulse 2s ease-in-out infinite; }
-    .anim-form { animation: form-bloom 2.5s ease-in-out infinite; }
-    .anim-both { animation: both-breathe 3s ease-in-out infinite; }
+    .anim-phase {
+      animation: phase-pulse 2s ease-in-out infinite;
+    }
+
+    .anim-form {
+      animation: form-bloom 2.5s ease-in-out infinite;
+    }
+
+    .anim-both {
+      animation: both-breathe 3s ease-in-out infinite;
+    }
   </style>
   <script src="shared.js"></script>
   <script src="palette.js"></script>
@@ -175,13 +206,16 @@
     <div class="nav-left">
       <a href="index.html" class="nav-brand">SymbolLang</a>
       <a href="index.html">Home</a>
-      <a href="sample_a.html" class="active">Characters</a>
-      <a href="sample_b.html">Compositions</a>
-      <a href="sample_c.html">Packaging</a>
+      <a href="about.html">About</a>
+      <a href="sample_catalog.html" class="active">Characters</a>
+      <a href="sample_brand_vocab.html">Compositions</a>
+      <a href="sample_packaging.html">Packaging</a>
     </div>
     <div class="nav-right">
       <a href="downloads.html" class="nav-download">Download</a>
-      <a href="https://github.com/juanantoniofm/SymboLang.git" target="_blank" rel="noopener" class="nav-github" aria-label="GitHub"><img class="icon-dark" src="icons/GitHub_Invertocat_White.svg" alt="GitHub"><img class="icon-light" src="icons/GitHub_Invertocat_Black.svg" alt="GitHub"></a>
+      <a href="https://github.com/juanantoniofm/SymboLang.git" target="_blank" rel="noopener" class="nav-github"
+        aria-label="GitHub"><img class="icon-dark" src="icons/GitHub_Invertocat_White.svg" alt="GitHub"><img
+          class="icon-light" src="icons/GitHub_Invertocat_Black.svg" alt="GitHub"></a>
       <button id="theme-toggle" aria-label="Toggle theme">◐</button>
     </div>
   </nav>
@@ -196,7 +230,8 @@
     <div class="demo-label">Pattern A · Triplet logomark — <code>H C H</code> "service mesh"</div>
     <div class="hub">
       <span class="sym" style="font-size:140px; font-variation-settings:'wght' 500,'MORF' 700; color:#7eb8da;">H</span>
-      <span class="sym" style="font-size:100px; font-variation-settings:'wght' 700,'MORF' 700; color:var(--color-accent);">C</span>
+      <span class="sym"
+        style="font-size:100px; font-variation-settings:'wght' 700,'MORF' 700; color:var(--color-accent);">C</span>
       <span class="sym" style="font-size:140px; font-variation-settings:'wght' 500,'MORF' 100; color:#7eb8da;">H</span>
     </div>
   </div>
@@ -206,15 +241,18 @@
     <div class="demo-label">Pattern B · State triptych — <code>H</code> at Phase 100 / 500 / 900</div>
     <div class="triptych">
       <div class="triptych-item">
-        <span class="sym" style="font-size:160px; font-variation-settings:'wght' 100,'MORF' 700; color:#3a4a60;">H</span>
+        <span class="sym"
+          style="font-size:160px; font-variation-settings:'wght' 100,'MORF' 700; color:#3a4a60;">H</span>
         <small>dormant</small>
       </div>
       <div class="triptych-item">
-        <span class="sym" style="font-size:160px; font-variation-settings:'wght' 500,'MORF' 700; color:#7eb8da;">H</span>
+        <span class="sym"
+          style="font-size:160px; font-variation-settings:'wght' 500,'MORF' 700; color:#7eb8da;">H</span>
         <small>active</small>
       </div>
       <div class="triptych-item">
-        <span class="sym" style="font-size:160px; font-variation-settings:'wght' 900,'MORF' 700; color:#e0ecff;">H</span>
+        <span class="sym"
+          style="font-size:160px; font-variation-settings:'wght' 900,'MORF' 700; color:#e0ecff;">H</span>
         <small>saturated</small>
       </div>
     </div>
@@ -224,7 +262,8 @@
   <div class="demo">
     <div class="demo-label">Pattern A · Pipeline — <code>D A H</code> "ingest pipeline"</div>
     <div class="network">
-      <span class="sym" style="font-size:110px; font-variation-settings:'wght' 400,'MORF' 500; color:var(--color-accent2);">D</span>
+      <span class="sym"
+        style="font-size:110px; font-variation-settings:'wght' 400,'MORF' 500; color:var(--color-accent2);">D</span>
       <span class="sym" style="font-size:130px; font-variation-settings:'wght' 600,'MORF' 600; color:#d4956a;">A</span>
       <span class="sym" style="font-size:150px; font-variation-settings:'wght' 700,'MORF' 800; color:#e8c49a;">H</span>
     </div>
@@ -243,19 +282,23 @@
     <div class="demo-label">Pattern E · Word as logo — glyph sequences that spell real words</div>
     <div class="wordmark">
       <div class="wordmark-item">
-        <span class="sym" style="font-size:80px; font-variation-settings:'wght' 600,'MORF' 600; color:#c0d0e8; letter-spacing:0.05em;">MESH</span>
+        <span class="sym"
+          style="font-size:80px; font-variation-settings:'wght' 600,'MORF' 600; color:#c0d0e8; letter-spacing:0.05em;">MESH</span>
         <small>mesh</small>
       </div>
       <div class="wordmark-item">
-        <span class="sym" style="font-size:80px; font-variation-settings:'wght' 500,'MORF' 400; color:#a0c4b0; letter-spacing:0.05em;">HASH</span>
+        <span class="sym"
+          style="font-size:80px; font-variation-settings:'wght' 500,'MORF' 400; color:#a0c4b0; letter-spacing:0.05em;">HASH</span>
         <small>hash</small>
       </div>
       <div class="wordmark-item">
-        <span class="sym" style="font-size:80px; font-variation-settings:'wght' 700,'MORF' 700; color:#d0b898; letter-spacing:0.05em;">SEND</span>
+        <span class="sym"
+          style="font-size:80px; font-variation-settings:'wght' 700,'MORF' 700; color:#d0b898; letter-spacing:0.05em;">SEND</span>
         <small>send</small>
       </div>
       <div class="wordmark-item">
-        <span class="sym" style="font-size:80px; font-variation-settings:'wght' 400,'MORF' 800; color:#b0a8c8; letter-spacing:0.05em;">CAGE</span>
+        <span class="sym"
+          style="font-size:80px; font-variation-settings:'wght' 400,'MORF' 800; color:#b0a8c8; letter-spacing:0.05em;">CAGE</span>
         <small>cage</small>
       </div>
     </div>
@@ -285,16 +328,22 @@
     <div class="demo-label">Pattern D · Pairs of opposites — duality, before/after, in/out</div>
     <div style="display:flex; align-items:center; justify-content:center; gap:3rem; padding:1rem 0; flex-wrap:wrap;">
       <div style="display:flex; align-items:center; gap:0.3rem;">
-        <span class="sym" style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-accent);">E</span>
-        <span class="sym" style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-accent);">W</span>
+        <span class="sym"
+          style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-accent);">E</span>
+        <span class="sym"
+          style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-accent);">W</span>
       </div>
       <div style="display:flex; align-items:center; gap:0.3rem;">
-        <span class="sym" style="font-size:100px; font-variation-settings:'wght' 700,'MORF' 500; color:var(--color-accent2);">R</span>
-        <span class="sym" style="font-size:100px; font-variation-settings:'wght' 700,'MORF' 500; color:var(--color-accent2);">B</span>
+        <span class="sym"
+          style="font-size:100px; font-variation-settings:'wght' 700,'MORF' 500; color:var(--color-accent2);">R</span>
+        <span class="sym"
+          style="font-size:100px; font-variation-settings:'wght' 700,'MORF' 500; color:var(--color-accent2);">B</span>
       </div>
       <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;">
-        <span class="sym" style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:#7eb8da;">N</span>
-        <span class="sym" style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:#7eb8da;">S</span>
+        <span class="sym"
+          style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:#7eb8da;">N</span>
+        <span class="sym"
+          style="font-size:100px; font-variation-settings:'wght' 600,'MORF' 500; color:#7eb8da;">S</span>
       </div>
     </div>
   </div>

@@ -15,7 +15,9 @@
       min-height: 100vh;
     }
 
-    header { text-align: center; }
+    header {
+      text-align: center;
+    }
 
     header h1 {
       font-weight: 600;
@@ -73,9 +75,17 @@
       box-sizing: border-box;
     }
 
-    .live-cell:nth-child(7n) { border-right: none; }
-    .live-cell:nth-child(n+8) { border-bottom: none; }
-    .live-cell:last-child { border-right: none; }
+    .live-cell:nth-child(7n) {
+      border-right: none;
+    }
+
+    .live-cell:nth-child(n+8) {
+      border-bottom: none;
+    }
+
+    .live-cell:last-child {
+      border-right: none;
+    }
 
     .live-cell .glyph {
       font-family: "SymbolLang";
@@ -131,12 +141,25 @@
       letter-spacing: 0.1em;
     }
 
-    .slider-label.wght { color: var(--color-accent); }
-    .slider-label.morf { color: var(--color-accent2); }
+    .slider-label.wght {
+      color: var(--color-accent);
+    }
 
-    input[type=range] { width: 100%; }
-    input[type=range].wght { accent-color: var(--color-accent); }
-    input[type=range].morf { accent-color: var(--color-accent2); }
+    .slider-label.morf {
+      color: var(--color-accent2);
+    }
+
+    input[type=range] {
+      width: 100%;
+    }
+
+    input[type=range].wght {
+      accent-color: var(--color-accent);
+    }
+
+    input[type=range].morf {
+      accent-color: var(--color-accent2);
+    }
 
     .readout {
       font-family: ui-monospace, monospace;
@@ -145,8 +168,13 @@
       text-align: right;
     }
 
-    .readout.wght { color: var(--color-accent); }
-    .readout.morf { color: var(--color-accent2); }
+    .readout.wght {
+      color: var(--color-accent);
+    }
+
+    .readout.morf {
+      color: var(--color-accent2);
+    }
 
     .phase-buttons {
       display: flex;
@@ -173,8 +201,14 @@
       min-width: 70px;
     }
 
-    .phase-buttons button small { color: var(--color-dim); font-size: 0.65rem; }
-    .phase-buttons button:hover { border-color: var(--color-accent); }
+    .phase-buttons button small {
+      color: var(--color-dim);
+      font-size: 0.65rem;
+    }
+
+    .phase-buttons button:hover {
+      border-color: var(--color-accent);
+    }
 
     .phase-buttons button.active {
       background: color-mix(in srgb, var(--color-accent) 14%, transparent);
@@ -204,26 +238,57 @@
       font-family: ui-monospace, monospace;
     }
 
-    .loader-item .sym { font-size: 120px; }
+    .loader-item .sym {
+      font-size: 120px;
+    }
 
     @keyframes phase-pulse {
-      0%, 100% { font-variation-settings: "wght" 100, "MORF" 500; }
-      50% { font-variation-settings: "wght" 900, "MORF" 500; }
+
+      0%,
+      100% {
+        font-variation-settings: "wght" 100, "MORF" 500;
+      }
+
+      50% {
+        font-variation-settings: "wght" 900, "MORF" 500;
+      }
     }
 
     @keyframes form-bloom {
-      0%, 100% { font-variation-settings: "wght" 500, "MORF" 100; }
-      50% { font-variation-settings: "wght" 500, "MORF" 900; }
+
+      0%,
+      100% {
+        font-variation-settings: "wght" 500, "MORF" 100;
+      }
+
+      50% {
+        font-variation-settings: "wght" 500, "MORF" 900;
+      }
     }
 
     @keyframes both-breathe {
-      0%, 100% { font-variation-settings: "wght" 200, "MORF" 200; }
-      50% { font-variation-settings: "wght" 800, "MORF" 800; }
+
+      0%,
+      100% {
+        font-variation-settings: "wght" 200, "MORF" 200;
+      }
+
+      50% {
+        font-variation-settings: "wght" 800, "MORF" 800;
+      }
     }
 
-    .anim-phase { animation: phase-pulse 2s ease-in-out infinite; }
-    .anim-form { animation: form-bloom 2.5s ease-in-out infinite; }
-    .anim-both { animation: both-breathe 3s ease-in-out infinite; }
+    .anim-phase {
+      animation: phase-pulse 2s ease-in-out infinite;
+    }
+
+    .anim-form {
+      animation: form-bloom 2.5s ease-in-out infinite;
+    }
+
+    .anim-both {
+      animation: both-breathe 3s ease-in-out infinite;
+    }
 
     /* ---- matrices ---- */
     .matrix {
@@ -266,7 +331,9 @@
       margin-top: 0.15rem;
     }
 
-    .matrix.morf .mhead small { color: var(--color-accent2); }
+    .matrix.morf .mhead small {
+      color: var(--color-accent2);
+    }
 
     .mlabel {
       font-size: 0.78rem;
@@ -292,13 +359,16 @@
     <div class="nav-left">
       <a href="index.html" class="nav-brand">SymbolLang</a>
       <a href="index.html" class="active">Home</a>
-      <a href="sample_a.html">Characters</a>
-      <a href="sample_b.html">Compositions</a>
-      <a href="sample_c.html">Packaging</a>
+      <a href="about.html">About</a>
+      <a href="sample_catalog.html">Characters</a>
+      <a href="sample_brand_vocab.html">Compositions</a>
+      <a href="sample_packaging.html">Packaging</a>
     </div>
     <div class="nav-right">
       <a href="downloads.html" class="nav-download">Download</a>
-      <a href="https://github.com/juanantoniofm/SymboLang.git" target="_blank" rel="noopener" class="nav-github" aria-label="GitHub"><img class="icon-dark" src="icons/GitHub_Invertocat_White.svg" alt="GitHub"><img class="icon-light" src="icons/GitHub_Invertocat_Black.svg" alt="GitHub"></a>
+      <a href="https://github.com/juanantoniofm/SymboLang.git" target="_blank" rel="noopener" class="nav-github"
+        aria-label="GitHub"><img class="icon-dark" src="icons/GitHub_Invertocat_White.svg" alt="GitHub"><img
+          class="icon-light" src="icons/GitHub_Invertocat_Black.svg" alt="GitHub"></a>
       <button id="theme-toggle" aria-label="Toggle theme">◐</button>
     </div>
   </nav>
@@ -312,19 +382,32 @@
   <div class="panel">
     <div class="section-title">Live · all primitives on two sliders</div>
     <div class="live">
-      <div class="live-cell"><span class="glyph">N</span><span class="role">directional</span><span class="key">N</span><span class="hint">squat → equilateral → spike</span></div>
-      <div class="live-cell"><span class="glyph">S</span><span class="role">directional</span><span class="key">S</span><span class="hint">pointing down</span></div>
-      <div class="live-cell"><span class="glyph">E</span><span class="role">directional</span><span class="key">E</span><span class="hint">pointing right</span></div>
-      <div class="live-cell"><span class="glyph">W</span><span class="role">directional</span><span class="key">W</span><span class="hint">pointing left</span></div>
-      <div class="live-cell"><span class="glyph">H</span><span class="role">node</span><span class="key">H</span><span class="hint">endpoint → gateway</span></div>
-      <div class="live-cell"><span class="glyph">D</span><span class="role">stream</span><span class="key">D</span><span class="hint">discrete → flowing</span></div>
-      <div class="live-cell"><span class="glyph">C</span><span class="role">throughput</span><span class="key">C</span><span class="hint">wght: thin → thick · MORF: flat → sharp</span></div>
-      <div class="live-cell"><span class="glyph">A</span><span class="role">bridge</span><span class="key">A</span><span class="hint">wght: pipe → rise · MORF: uniform → bulged</span></div>
-      <div class="live-cell"><span class="glyph">Q</span><span class="role">container</span><span class="key">Q</span><span class="hint">tilt-left → frame → tilt-right</span></div>
-      <div class="live-cell"><span class="glyph">G</span><span class="role">lattice</span><span class="key">G</span><span class="hint">MORF: sparse → dense</span></div>
-      <div class="live-cell"><span class="glyph">M</span><span class="role">metrics</span><span class="key">M</span><span class="hint">wght: heights · MORF: wavy bottoms</span></div>
-      <div class="live-cell"><span class="glyph">R</span><span class="role">relay</span><span class="key">R</span><span class="hint">wght: gap · MORF: arrow sharpness</span></div>
-      <div class="live-cell"><span class="glyph">B</span><span class="role">valve</span><span class="key">B</span><span class="hint">wght: openness · MORF: valve gap</span></div>
+      <div class="live-cell"><span class="glyph">N</span><span class="role">directional</span><span
+          class="key">N</span><span class="hint">squat → equilateral → spike</span></div>
+      <div class="live-cell"><span class="glyph">S</span><span class="role">directional</span><span
+          class="key">S</span><span class="hint">pointing down</span></div>
+      <div class="live-cell"><span class="glyph">E</span><span class="role">directional</span><span
+          class="key">E</span><span class="hint">pointing right</span></div>
+      <div class="live-cell"><span class="glyph">W</span><span class="role">directional</span><span
+          class="key">W</span><span class="hint">pointing left</span></div>
+      <div class="live-cell"><span class="glyph">H</span><span class="role">node</span><span class="key">H</span><span
+          class="hint">endpoint → gateway</span></div>
+      <div class="live-cell"><span class="glyph">D</span><span class="role">stream</span><span class="key">D</span><span
+          class="hint">discrete → flowing</span></div>
+      <div class="live-cell"><span class="glyph">C</span><span class="role">throughput</span><span
+          class="key">C</span><span class="hint">wght: thin → thick · MORF: flat → sharp</span></div>
+      <div class="live-cell"><span class="glyph">A</span><span class="role">bridge</span><span class="key">A</span><span
+          class="hint">wght: pipe → rise · MORF: uniform → bulged</span></div>
+      <div class="live-cell"><span class="glyph">Q</span><span class="role">container</span><span
+          class="key">Q</span><span class="hint">tilt-left → frame → tilt-right</span></div>
+      <div class="live-cell"><span class="glyph">G</span><span class="role">lattice</span><span
+          class="key">G</span><span class="hint">MORF: sparse → dense</span></div>
+      <div class="live-cell"><span class="glyph">M</span><span class="role">metrics</span><span
+          class="key">M</span><span class="hint">wght: heights · MORF: wavy bottoms</span></div>
+      <div class="live-cell"><span class="glyph">R</span><span class="role">relay</span><span class="key">R</span><span
+          class="hint">wght: gap · MORF: arrow sharpness</span></div>
+      <div class="live-cell"><span class="glyph">B</span><span class="role">valve</span><span class="key">B</span><span
+          class="hint">wght: openness · MORF: valve gap</span></div>
     </div>
     <div class="sliders">
       <span class="slider-label wght">wght</span>
@@ -341,9 +424,12 @@
   <div class="panel">
     <div class="section-title">Motion · Animated loaders</div>
     <div class="loader-row">
-      <div class="loader-item"><span class="sym anim-phase" style="color:var(--color-accent);">D</span><small>phase pulse</small></div>
-      <div class="loader-item"><span class="sym anim-form" style="color:#7eb8da;">H</span><small>form bloom</small></div>
-      <div class="loader-item"><span class="sym anim-both" style="color:var(--color-accent2);">B</span><small>dual breathe</small></div>
+      <div class="loader-item"><span class="sym anim-phase" style="color:var(--color-accent);">D</span><small>phase
+          pulse</small></div>
+      <div class="loader-item"><span class="sym anim-form" style="color:#7eb8da;">H</span><small>form bloom</small>
+      </div>
+      <div class="loader-item"><span class="sym anim-both" style="color:var(--color-accent2);">B</span><small>dual
+          breathe</small></div>
     </div>
   </div>
 
