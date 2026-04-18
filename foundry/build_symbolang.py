@@ -47,7 +47,7 @@ from fontTools.designspaceLib import (
 )
 from fontTools.varLib import build as varLib_build
 from fontTools.ttLib import TTFont
-from fontTools.ttLib.tables.otTables import STAT, AxisValueRecord
+from fontTools.otlLib.builder import buildStatTable
 
 UPEM, ASCENT, DESCENT = 1000, 800, -200
 CX, CY, ADVANCE = 500, 350, 1000
@@ -486,6 +486,55 @@ def build_variable_font(out_path, masters_dir, keep_masters=False):
     os2 = varfont["OS/2"]
     os2.fsSelection = (os2.fsSelection & ~0x41) | 0x40
     varfont["head"].macStyle = 0
+
+    # --- STAT table (§1.1) ---
+    buildStatTable(varfont, axes=[
+        dict(tag="wght", name="Phase", values=[
+            dict(value=100, name="Min"),
+            dict(value=300, name="Low"),
+            dict(value=500, name="Mid", flags=0x2),  # elidable
+            dict(value=700, name="High"),
+            dict(value=900, name="Max"),
+        ]),
+        dict(tag="MORF", name="Form", values=[
+            dict(value=100, name="Diffuse"),
+            dict(value=200, name="Scattered"),
+            dict(value=300, name="Open"),
+            dict(value=400, name="Relaxed"),
+            dict(value=500, name="Balanced", flags=0x2),
+            dict(value=600, name="Gathered"),
+            dict(value=700, name="Focused"),
+            dict(value=800, name="Tight"),
+            dict(value=900, name="Unified"),
+        ]),
+    ], elidedFallbackName="Mid")
+
+    # --- GPOS class-based kerning (§1.2) ---
+    kern_classes = {"narrow": [], "medium": [], "wide": []}
+    for g in SYMBOL_REGISTRY:
+        kern_classes[g.kern_class].append(g.name)
+
+    # Pair matrix: (left_class, right_class) -> kern value
+    KERN_VALS = {
+        ("narrow", "narrow"): -180, ("narrow", "medium"): -140, ("narrow", "wide"): -100,
+        ("medium", "narrow"): -100, ("medium", "medium"):  -60, ("medium", "wide"):    0,
+        ("wide",   "narrow"):  -60, ("wide",   "medium"):    0, ("wide",   "wide"):    0,
+    }
+
+    from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
+
+    # Generate kern feature code
+    fea_lines = []
+    for cls_name, glyphs in kern_classes.items():
+        if glyphs:
+            fea_lines.append(f"@kern_{cls_name} = [{' '.join(glyphs)}];")
+    fea_lines.append("feature kern {")
+    for (lc, rc), val in KERN_VALS.items():
+        if val != 0:
+            fea_lines.append(f"  pos @kern_{lc} @kern_{rc} {val};")
+    fea_lines.append("} kern;")
+    fea_code = "\n".join(fea_lines)
+    addOpenTypeFeaturesFromString(varfont, fea_code)
 
     VERSION  = "Version 5.000"
     FULLNAME = f"{FAMILY} Mid"
