@@ -10,3 +10,7 @@ up: ## Start the stack
 
 down: ## Stop the stack
 	docker compose down
+
+foundue: ## Construct the font
+	python foundry/build_symbolang.py -o public/SymbolLang.ttf --masters-dir foundry/masters
+
