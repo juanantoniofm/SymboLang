@@ -1,0 +1,21 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "31ba9e4a25fa4b60dfbb98741bf5e4a35be00e42",
+  "prompts": {
+    "7ed323c7af517c4a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "299a17f3-96cf-4d39-8ab9-cf2be7f48b19",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 125,
+      "overriden_lines": 0
+    }
+  }
+}
