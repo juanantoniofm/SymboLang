@@ -528,6 +528,196 @@
     </div>
   </div>
 
+  <!-- ============ G. DATABASE PROXY — THE INTERCEPT ============ -->
+  <div class="showcase">
+    <div class="section-label">G · Database Proxy &mdash; The Intercept</div>
+    <div class="proxy-panel">
+      <div class="proxy-header mono">
+        <span>QUERY STREAM IN</span>
+        <span class="proxy-status-dot">&#9679; INTERCEPTING</span>
+        <span>OPTIMIZED OUT</span>
+      </div>
+      <div class="proxy-body">
+
+        <!-- Incoming: loose discrete dots = raw packets, Phase 100→400 -->
+        <div class="proxy-zone">
+          <div class="proxy-stream">
+            <span class="sym" style="font-variation-settings:'wght' 100,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 200,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 500;">D</span>
+          </div>
+          <div class="proxy-zone-label mono">DISCRETE PACKETS</div>
+        </div>
+
+        <!-- E glyph as flow arrow -->
+        <span class="sym proxy-flow-arrow" style="font-variation-settings:'wght' 300,'MORF' 500;">E</span>
+
+        <!-- Intercept mark: D·B — B at MORF 200 = tight valve (inspecting) -->
+        <div class="proxy-mark-zone">
+          <div class="proxy-mark">
+            <span class="sym proxy-mark-d" style="font-variation-settings:'wght' 500,'MORF' 375;">D</span>
+            <span class="sym proxy-mark-b" style="font-variation-settings:'wght' 500,'MORF' 200;">B</span>
+          </div>
+          <div class="proxy-zone-label mono">VALVE CLOSED</div>
+        </div>
+
+        <span class="sym proxy-flow-arrow proxy-flow-arrow--out" style="font-variation-settings:'wght' 700,'MORF' 500;">E</span>
+
+        <!-- Outgoing: dense tight dots = optimized stream, Phase 600→900 -->
+        <div class="proxy-zone">
+          <div class="proxy-stream proxy-stream--out">
+            <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 500;">D</span>
+          </div>
+          <div class="proxy-zone-label mono">OPTIMIZED STREAM</div>
+        </div>
+
+      </div>
+      <div class="proxy-footer mono">
+        <span>overhead &#8595; 68%</span>
+        <span class="proxy-accent">cache hit 94%</span>
+        <span>p99 lat: 2.1ms</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ H. TRAVEL AGENCY — SPAN & INGRESS ============ -->
+  <div class="showcase">
+    <div class="section-label">H · Travel Agency &mdash; Span &amp; Ingress</div>
+    <div class="objects-row">
+
+      <!-- Travel envelope: Ingress flap seal + Span brand + Journey strip -->
+      <div class="envelope travel-env">
+        <div class="envelope-flap">
+          <!-- Ingress seal: H (arrival node) + E (direction) -->
+          <div class="travel-ingress">
+            <span class="sym travel-ingress-h" style="font-variation-settings:'wght' 200,'MORF' 900;">H</span>
+            <span class="sym travel-ingress-e" style="font-variation-settings:'wght' 500,'MORF' 500;">E</span>
+          </div>
+        </div>
+        <div class="envelope-body">
+          <div class="travel-brand-row">
+            <!-- Span: N · A · N — arc over two northward pillars -->
+            <div class="travel-span">
+              <div class="travel-span-arc-wrap">
+                <span class="sym travel-span-arc" style="font-variation-settings:'wght' 500,'MORF' 600;">A</span>
+              </div>
+              <div class="travel-span-pillars">
+                <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 500; color:var(--color-dimmer);">N</span>
+                <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 500; color:var(--color-dimmer);">N</span>
+              </div>
+            </div>
+            <div class="travel-brand-name mono">ATLAS TRAVEL</div>
+          </div>
+          <div class="envelope-address mono" style="font-size:0.5rem;">
+            Maria Santos<br>
+            456 Harbour View<br>
+            Lisbon 1100-148
+          </div>
+          <!-- Journey strip: E departure → D stream → A bridge → H arrival -->
+          <div class="travel-journey">
+            <span class="sym" style="font-variation-settings:'wght' 200,'MORF' 400;">E</span>
+            <span class="sym" style="font-variation-settings:'wght' 200,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 600;">A</span>
+            <span class="sym" style="font-variation-settings:'wght' 650,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 900;">H</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking confirmation: route items + progressive itinerary footer -->
+      <div class="travel-booking">
+        <div class="travel-booking-head mono">BOOKING CONFIRMATION</div>
+        <div class="travel-booking-body">
+          <div class="travel-route-item mono">
+            <!-- N spike = origin/anchor -->
+            <span class="sym travel-route-glyph" style="font-variation-settings:'wght' 900,'MORF' 500;">N</span>
+            <div>
+              <div class="travel-route-name">Lisbon LIS</div>
+              <div class="travel-route-date">14 JUN &middot; 08:45</div>
+            </div>
+          </div>
+          <!-- D dots as transit: Phase increases = dots tighten = in motion -->
+          <div class="travel-transit">
+            <span class="sym" style="font-variation-settings:'wght' 200,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">D</span>
+            <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 500;">D</span>
+          </div>
+          <div class="travel-route-item mono">
+            <!-- H solid node = destination -->
+            <span class="sym travel-route-glyph" style="font-variation-settings:'wght' 500,'MORF' 900; color:var(--color-accent);">H</span>
+            <div>
+              <div class="travel-route-name">Tokyo NRT</div>
+              <div class="travel-route-date">15 JUN &middot; 06:20</div>
+            </div>
+          </div>
+        </div>
+        <!-- Progressive itinerary footer: H · D stream · E+Q destination -->
+        <div class="travel-itinerary-footer">
+          <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 900;">H</span>
+          <span class="sym" style="font-variation-settings:'wght' 200,'MORF' 500;">D</span>
+          <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 500;">D</span>
+          <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">D</span>
+          <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 500;">D</span>
+          <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 500;">D</span>
+          <!-- E tucked into Q = destination container -->
+          <div class="travel-dest-mark">
+            <span class="sym travel-dest-q" style="font-variation-settings:'wght' 500,'MORF' 800;">Q</span>
+            <span class="sym travel-dest-e" style="font-variation-settings:'wght' 700,'MORF' 500;">E</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ I. WINDOW SWITCHER — ACCELERATE ============ -->
+  <div class="showcase">
+    <div class="section-label">I · macOS Window Switcher &mdash; Accelerate</div>
+    <div class="switcher-states">
+
+      <!-- State: Idle — thin flat C·C inside Q -->
+      <div class="switcher-card">
+        <div class="switcher-tag mono">IDLE</div>
+        <div class="switcher-icon">
+          <span class="sym switcher-q" style="font-variation-settings:'wght' 500,'MORF' 800;">Q</span>
+          <span class="sym switcher-c switcher-c--small" style="font-variation-settings:'wght' 200,'MORF' 200;">C</span>
+          <span class="sym switcher-c switcher-c--large" style="font-variation-settings:'wght' 200,'MORF' 200;">C</span>
+        </div>
+        <div class="switcher-info mono">2 windows</div>
+      </div>
+
+      <!-- State: Active — thick sharp C·C inside Q, accent border -->
+      <div class="switcher-card switcher-card--on">
+        <div class="switcher-tag mono">SWITCHING</div>
+        <div class="switcher-icon">
+          <span class="sym switcher-q" style="font-variation-settings:'wght' 500,'MORF' 800;">Q</span>
+          <span class="sym switcher-c switcher-c--small" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span>
+          <span class="sym switcher-c switcher-c--large" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span>
+        </div>
+        <div class="switcher-info mono">switching</div>
+      </div>
+
+      <!-- Settings/Analytics icon: Observe Q·M·M -->
+      <div class="switcher-card">
+        <div class="switcher-tag mono">ANALYTICS</div>
+        <div class="switcher-icon">
+          <span class="sym" style="font-size:clamp(85px,16vw,120px); font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-glyph); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); line-height:1; opacity:0.85;">Q</span>
+          <span class="sym" style="font-size:clamp(42px,8vw,60px); font-variation-settings:'wght' 800,'MORF' 800; color:var(--color-accent); position:absolute; left:35%; top:50%; transform:translate(-50%,-45%); line-height:1;">M</span>
+          <span class="sym" style="font-size:clamp(42px,8vw,60px); font-variation-settings:'wght' 300,'MORF' 200; color:var(--color-accent2); position:absolute; left:35%; top:50%; transform:translate(-50%,-45%); line-height:1; opacity:0.6;">M</span>
+        </div>
+        <div class="switcher-info mono">observe</div>
+      </div>
+
+    </div>
+  </div>
+
 
 </body>
 
