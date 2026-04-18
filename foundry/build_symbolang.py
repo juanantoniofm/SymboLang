@@ -37,6 +37,8 @@ import os
 import shutil
 import sys
 import tempfile
+from dataclasses import dataclass, field
+from typing import Callable
 
 from fontTools.fontBuilder import FontBuilder
 from fontTools.pens.ttGlyphPen import TTGlyphPen
@@ -52,9 +54,53 @@ FAMILY = "SymbolLang"
 
 
 # =====================================================================
+# Glyph registry
+# =====================================================================
+
+@dataclass
+class GlyphDef:
+    char: str
+    name: str
+    draw: Callable
+    params: dict[tuple[str, str], dict]
+    hint: str = ""
+    advance: int = 1000
+    kern_class: str = "wide"
+
+REGISTRY: list[GlyphDef] = []
+
+def glyph(char: str, name: str, hint: str = "", kern_class: str = "wide"):
+    """Decorator that registers a glyph draw function into REGISTRY."""
+    def decorator(fn):
+        # params must be attached as fn.grid before this runs,
+        # or set after decoration via draw_fn.grid = ...
+        # We defer reading fn.grid until module load completes.
+        REGISTRY.append(GlyphDef(
+            char=char, name=name, draw=fn, params={},
+            hint=hint, kern_class=kern_class,
+        ))
+        return fn
+    return decorator
+
+
+# =====================================================================
 # Primitives
 # =====================================================================
 
+POSITIONS = ("lo", "mid", "hi")
+
+def no_morf(wght_params):
+    return {(w, m): wght_params[w] for w in POSITIONS for m in POSITIONS}
+
+# --- Triangles (N, S, E, W) — wght only, no MORF variation ---
+
+TRI_WGHT = {
+    "lo":  dict(base_half=350, apex_h=180),
+    "mid": dict(base_half=235, apex_h=405),
+    "hi":  dict(base_half=110, apex_h=700),
+}
+
+@glyph("N", "tri_n", hint="squat -> equilateral -> spike", kern_class="narrow")
 def draw_tri_n(pen, base_half, apex_h):
     by, ay = CY - apex_h / 2, CY + apex_h / 2
     pen.moveTo((CX - base_half, by))
@@ -62,6 +108,7 @@ def draw_tri_n(pen, base_half, apex_h):
     pen.lineTo((CX, ay))
     pen.closePath()
 
+@glyph("S", "tri_s", hint="squat -> equilateral -> spike", kern_class="narrow")
 def draw_tri_s(pen, base_half, apex_h):
     ty, ay = CY + apex_h / 2, CY - apex_h / 2
     pen.moveTo((CX + base_half, ty))
@@ -69,6 +116,7 @@ def draw_tri_s(pen, base_half, apex_h):
     pen.lineTo((CX, ay))
     pen.closePath()
 
+@glyph("E", "tri_e", hint="squat -> equilateral -> spike", kern_class="narrow")
 def draw_tri_e(pen, base_half, apex_h):
     lx, rx = CX - apex_h / 2, CX + apex_h / 2
     pen.moveTo((lx, CY + base_half))
@@ -76,6 +124,7 @@ def draw_tri_e(pen, base_half, apex_h):
     pen.lineTo((rx, CY))
     pen.closePath()
 
+@glyph("W", "tri_w", hint="squat -> equilateral -> spike", kern_class="narrow")
 def draw_tri_w(pen, base_half, apex_h):
     lx, rx = CX - apex_h / 2, CX + apex_h / 2
     pen.moveTo((rx, CY - base_half))
@@ -83,12 +132,32 @@ def draw_tri_w(pen, base_half, apex_h):
     pen.lineTo((lx, CY))
     pen.closePath()
 
+# Attach parameter grids for triangles
+draw_tri_n.grid = no_morf(TRI_WGHT)
+draw_tri_s.grid = no_morf(TRI_WGHT)
+draw_tri_e.grid = no_morf(TRI_WGHT)
+draw_tri_w.grid = no_morf(TRI_WGHT)
+
+# --- Hex (H) — wght: stroke, MORF: vortex -> single ---
+
 def _hex_pts(cx, cy, r):
     off = -math.pi / 2
     return [(cx + r*math.cos(off + math.pi/3*i),
              cy + r*math.sin(off + math.pi/3*i)) for i in range(6)]
 
 N_RINGS = 4
+HEX_RADII = {
+    "lo":  [280, 210, 140,  70],
+    "mid": [280, 245, 210, 175],
+    "hi":  [280, 280, 280, 280],
+}
+HEX_STROKE = {
+    ("lo",  "lo"):  15, ("lo",  "mid"): 18, ("lo",  "hi"):  22,
+    ("mid", "lo"):  15, ("mid", "mid"): 38, ("mid", "hi"):  60,
+    ("hi",  "lo"):  15, ("hi",  "mid"): 70, ("hi",  "hi"): 130,
+}
+
+@glyph("H", "hex", hint="wght: stroke | MORF: vortex -> single", kern_class="wide")
 def draw_hex_nested(pen, radii, stroke):
     """N_RINGS concentric hex rings. At max MORF they coincide and render
     as one hex band via non-zero winding; at min MORF they fan to a vortex.
@@ -106,7 +175,19 @@ def draw_hex_nested(pen, radii, stroke):
         for p in pts[1:]: pen.lineTo(p)
         pen.closePath()
 
+draw_hex_nested.grid = {(w, m): dict(radii=HEX_RADII[m], stroke=HEX_STROKE[(w, m)])
+                        for w in POSITIONS for m in POSITIONS}
+
+# --- Dots (D) — wght only ---
+
 N_DOTS, DOT_SIDES = 7, 10
+DOTS_WGHT = {
+    "lo":  dict(spacing=145, r_dot=22),
+    "mid": dict(spacing=95,  r_dot=38),
+    "hi":  dict(spacing=55,  r_dot=55),
+}
+
+@glyph("D", "dots", hint="discrete -> stream", kern_class="narrow")
 def draw_dots(pen, spacing, r_dot):
     start_x = CX - spacing * (N_DOTS - 1) / 2
     for i in range(N_DOTS):
@@ -117,6 +198,14 @@ def draw_dots(pen, spacing, r_dot):
             pen.lineTo((cx + r_dot*math.cos(a), cy + r_dot*math.sin(a)))
         pen.closePath()
 
+draw_dots.grid = no_morf(DOTS_WGHT)
+
+# --- Chevron (C) — wght: thickness, MORF: height ---
+
+CHEVRON_T = {"lo": 20, "mid": 60, "hi": 130}
+CHEVRON_H = {"lo": 130, "mid": 225, "hi": 320}
+
+@glyph("C", "chevron", hint="wght: thin -> thick | MORF: flat -> sharp", kern_class="medium")
 def draw_chevron(pen, L, H, T):
     cx, cy = CX, CY
     ln = math.sqrt(H*H + 4*L*L)
@@ -130,6 +219,15 @@ def draw_chevron(pen, L, H, T):
     pen.lineTo((cx - L,      cy + H - dy))
     pen.closePath()
 
+draw_chevron.grid = {(w, m): dict(L=260, H=CHEVRON_H[m], T=CHEVRON_T[w])
+                     for w in POSITIONS for m in POSITIONS}
+
+# --- Arc (A) — wght: rise, MORF: bulge ---
+
+ARC_RISE  = {"lo": 0,   "mid": 120, "hi": 280}
+ARC_BULGE = {"lo": 0,   "mid": 90,  "hi": 180}
+
+@glyph("A", "arc", hint="wght: pipe -> bridge | MORF: uniform -> bulged", kern_class="medium")
 def draw_arc(pen, rise, bulge, thickness, span_half):
     y_top = CY + thickness / 2
     y_bot = CY - thickness / 2
@@ -144,6 +242,16 @@ def draw_arc(pen, rise, bulge, thickness, span_half):
     pen.qCurveTo(c_top, (lx, y_top))
     pen.closePath()
 
+draw_arc.grid = {(w, m): dict(rise=ARC_RISE[w], bulge=ARC_BULGE[m],
+                               thickness=50, span_half=340)
+                 for w in POSITIONS for m in POSITIONS}
+
+# --- Quad (Q) — wght: skew, MORF: corner radius ---
+
+QUAD_SKEW   = {"lo": -22, "mid": 0,  "hi": 22}
+QUAD_RADIUS = {"lo":   0, "mid": 45, "hi": 130}
+
+@glyph("Q", "quad", hint="wght: skew | MORF: corner radius", kern_class="wide")
 def draw_quad_skew(pen, skew_deg, radius, w, h):
     """Rectangle with horizontal skew and rounded corners.
     Topology: 9 on-curve + 4 off-curve = 13 points. At radius=0 multiple
@@ -166,7 +274,16 @@ def draw_quad_skew(pen, skew_deg, radius, w, h):
     pen.qCurveTo(sk(xl, yt), sk(xl + r, yt))
     pen.closePath()
 
+draw_quad_skew.grid = {(w, m): dict(skew_deg=QUAD_SKEW[w], radius=QUAD_RADIUS[m],
+                                     w=520, h=340)
+                       for w in POSITIONS for m in POSITIONS}
+
+# --- Grid (G) — MORF only: dot size ---
+
 GRID_N, GRID_SIDES, GRID_SPACING = 4, 8, 175
+GRID_R = {"lo": 18, "mid": 50, "hi": 85}
+
+@glyph("G", "grid", hint="MORF: sparse -> dense", kern_class="narrow")
 def draw_grid(pen, r_dot):
     half = (GRID_N - 1) * GRID_SPACING / 2
     for i in range(GRID_N):
@@ -179,7 +296,23 @@ def draw_grid(pen, r_dot):
                 pen.lineTo((cx + r_dot*math.cos(a), cy + r_dot*math.sin(a)))
             pen.closePath()
 
+draw_grid.grid = {(w, m): dict(r_dot=GRID_R[m]) for w in POSITIONS for m in POSITIONS}
+
+# --- Stack/Metrics (M) — wght: heights, MORF: wavy bottoms ---
+
 STACK_N, STACK_W, STACK_GAP = 5, 75, 30
+STACK_HEIGHTS = {
+    "lo":  [ 60,  60,  60,  60,  60],
+    "mid": [180, 160, 220, 170, 200],
+    "hi":  [350, 480, 280, 520, 320],
+}
+STACK_BOTTOMS = {
+    "lo":  [  0,   0,   0,   0,   0],
+    "mid": [ 15, 100,  25,  90,  55],
+    "hi":  [ 30, 200,  60, 180, 110],
+}
+
+@glyph("M", "stack", hint="wght: heights | MORF: wavy bottoms", kern_class="wide")
 def draw_stack(pen, heights, bottoms):
     """heights: wght-driven per-bar length. bottoms: MORF-driven per-bar
     vertical offset above baseline (audio-wave feel at max MORF)."""
@@ -197,6 +330,15 @@ def draw_stack(pen, heights, bottoms):
         pen.lineTo((lx, top_y))
         pen.closePath()
 
+draw_stack.grid = {(w, m): dict(heights=STACK_HEIGHTS[w], bottoms=STACK_BOTTOMS[m])
+                   for w in POSITIONS for m in POSITIONS}
+
+# --- Relay (R) — wght: gap, MORF: arrow sharpness ---
+
+RELAY_GAP  = {"lo": 400, "mid": 200, "hi":  20}
+RELAY_BASE = {"lo": 190, "mid": 140, "hi":  80}
+
+@glyph("R", "relay", hint="wght: gap | MORF: arrow sharpness", kern_class="medium")
 def draw_relay(pen, L, base_half, gap):
     """Two triangles converging toward the middle. 2x3 = 6 points."""
     cx, cy = CX, CY
@@ -209,6 +351,15 @@ def draw_relay(pen, L, base_half, gap):
     pen.lineTo((cx + L, cy - base_half))
     pen.closePath()
 
+draw_relay.grid = {(w, m): dict(L=320, base_half=RELAY_BASE[m], gap=RELAY_GAP[w])
+                   for w in POSITIONS for m in POSITIONS}
+
+# --- Bowtie (B) — wght: height, MORF: valve gap ---
+
+BOWTIE_H   = {"lo":  80, "mid": 180, "hi": 280}
+BOWTIE_GAP = {"lo":   0, "mid":  60, "hi": 150}
+
+@glyph("B", "bowtie", hint="wght: openness | MORF: valve gap", kern_class="medium")
 def draw_bowtie(pen, L, h, gap):
     """Two triangles meeting near the middle. gap=0 -> shared apex
     (classic hourglass). gap>0 -> valve opening in the middle. 6 points."""
@@ -222,107 +373,16 @@ def draw_bowtie(pen, L, h, gap):
     pen.lineTo((cx + L, cy - h))
     pen.closePath()
 
+draw_bowtie.grid = {(w, m): dict(L=280, h=BOWTIE_H[w], gap=BOWTIE_GAP[m])
+                    for w in POSITIONS for m in POSITIONS}
+
 
 # =====================================================================
-# Parameter grids — (wght_pos, morf_pos) -> kwargs for each draw fn
+# Finalize registry — copy .grid into GlyphDef.params
 # =====================================================================
-POSITIONS = ("lo", "mid", "hi")
 
-def no_morf(wght_params):
-    return {(w, m): wght_params[w] for w in POSITIONS for m in POSITIONS}
-
-TRI_WGHT = {
-    "lo":  dict(base_half=350, apex_h=180),
-    "mid": dict(base_half=235, apex_h=405),
-    "hi":  dict(base_half=110, apex_h=700),
-}
-
-HEX_RADII = {
-    "lo":  [280, 210, 140,  70],
-    "mid": [280, 245, 210, 175],
-    "hi":  [280, 280, 280, 280],
-}
-HEX_STROKE = {
-    ("lo",  "lo"):  15, ("lo",  "mid"): 18, ("lo",  "hi"):  22,
-    ("mid", "lo"):  15, ("mid", "mid"): 38, ("mid", "hi"):  60,
-    ("hi",  "lo"):  15, ("hi",  "mid"): 70, ("hi",  "hi"): 130,
-}
-def hex_grid():
-    return {(w, m): dict(radii=HEX_RADII[m], stroke=HEX_STROKE[(w, m)])
-            for w in POSITIONS for m in POSITIONS}
-
-DOTS_WGHT = {
-    "lo":  dict(spacing=145, r_dot=22),
-    "mid": dict(spacing=95,  r_dot=38),
-    "hi":  dict(spacing=55,  r_dot=55),
-}
-
-CHEVRON_T = {"lo": 20, "mid": 60, "hi": 130}
-CHEVRON_H = {"lo": 130, "mid": 225, "hi": 320}
-def chevron_grid():
-    return {(w, m): dict(L=260, H=CHEVRON_H[m], T=CHEVRON_T[w])
-            for w in POSITIONS for m in POSITIONS}
-
-ARC_RISE  = {"lo": 0,   "mid": 120, "hi": 280}
-ARC_BULGE = {"lo": 0,   "mid": 90,  "hi": 180}
-def arc_grid():
-    return {(w, m): dict(rise=ARC_RISE[w], bulge=ARC_BULGE[m],
-                         thickness=50, span_half=340)
-            for w in POSITIONS for m in POSITIONS}
-
-QUAD_SKEW   = {"lo": -22, "mid": 0,  "hi": 22}
-QUAD_RADIUS = {"lo":   0, "mid": 45, "hi": 130}
-def quad_grid():
-    return {(w, m): dict(skew_deg=QUAD_SKEW[w], radius=QUAD_RADIUS[m],
-                         w=520, h=340)
-            for w in POSITIONS for m in POSITIONS}
-
-GRID_R = {"lo": 18, "mid": 50, "hi": 85}
-def grid_grid():
-    return {(w, m): dict(r_dot=GRID_R[m]) for w in POSITIONS for m in POSITIONS}
-
-STACK_HEIGHTS = {
-    "lo":  [ 60,  60,  60,  60,  60],
-    "mid": [180, 160, 220, 170, 200],
-    "hi":  [350, 480, 280, 520, 320],
-}
-STACK_BOTTOMS = {
-    "lo":  [  0,   0,   0,   0,   0],
-    "mid": [ 15, 100,  25,  90,  55],
-    "hi":  [ 30, 200,  60, 180, 110],
-}
-def stack_grid():
-    return {(w, m): dict(heights=STACK_HEIGHTS[w], bottoms=STACK_BOTTOMS[m])
-            for w in POSITIONS for m in POSITIONS}
-
-RELAY_GAP  = {"lo": 400, "mid": 200, "hi":  20}
-RELAY_BASE = {"lo": 190, "mid": 140, "hi":  80}
-def relay_grid():
-    return {(w, m): dict(L=320, base_half=RELAY_BASE[m], gap=RELAY_GAP[w])
-            for w in POSITIONS for m in POSITIONS}
-
-BOWTIE_H   = {"lo":  80, "mid": 180, "hi": 280}
-BOWTIE_GAP = {"lo":   0, "mid":  60, "hi": 150}
-def bowtie_grid():
-    return {(w, m): dict(L=280, h=BOWTIE_H[w], gap=BOWTIE_GAP[m])
-            for w in POSITIONS for m in POSITIONS}
-
-
-SYMBOLS = [
-    ("N", "tri_n",   draw_tri_n,       no_morf(TRI_WGHT),  "squat -> equilateral -> spike"),
-    ("S", "tri_s",   draw_tri_s,       no_morf(TRI_WGHT),  "squat -> equilateral -> spike"),
-    ("E", "tri_e",   draw_tri_e,       no_morf(TRI_WGHT),  "squat -> equilateral -> spike"),
-    ("W", "tri_w",   draw_tri_w,       no_morf(TRI_WGHT),  "squat -> equilateral -> spike"),
-    ("H", "hex",     draw_hex_nested,  hex_grid(),         "wght: stroke | MORF: vortex -> single"),
-    ("D", "dots",    draw_dots,        no_morf(DOTS_WGHT), "discrete -> stream"),
-    ("C", "chevron", draw_chevron,     chevron_grid(),     "wght: thin -> thick | MORF: flat -> sharp"),
-    ("A", "arc",     draw_arc,         arc_grid(),         "wght: pipe -> bridge | MORF: uniform -> bulged"),
-    ("Q", "quad",    draw_quad_skew,   quad_grid(),        "wght: skew | MORF: corner radius"),
-    ("G", "grid",    draw_grid,        grid_grid(),        "MORF: sparse -> dense"),
-    ("M", "stack",   draw_stack,       stack_grid(),       "wght: heights | MORF: wavy bottoms"),
-    ("R", "relay",   draw_relay,       relay_grid(),       "wght: gap | MORF: arrow sharpness"),
-    ("B", "bowtie",  draw_bowtie,      bowtie_grid(),      "wght: openness | MORF: valve gap"),
-]
+for _gdef in REGISTRY:
+    _gdef.params = _gdef.draw.grid
 
 
 def draw_notdef(pen):
@@ -340,20 +400,22 @@ def draw_notdef(pen):
 
 def build_master(wght_pos, morf_pos, style_name, out_path):
     fb = FontBuilder(UPEM, isTTF=True)
-    glyph_order = [".notdef"] + [s[1] for s in SYMBOLS]
+    glyph_order = [".notdef"] + [g.name for g in REGISTRY]
     fb.setupGlyphOrder(glyph_order)
-    fb.setupCharacterMap({ord(s[0]): s[1] for s in SYMBOLS})
+    fb.setupCharacterMap({ord(g.char): g.name for g in REGISTRY})
 
     np_ = TTGlyphPen(None); draw_notdef(np_)
     glyphs = {".notdef": np_.glyph()}
-    for _char, name, fn, grid, _hint in SYMBOLS:
-        params = grid[(wght_pos, morf_pos)]
+    for g in REGISTRY:
+        params = g.params[(wght_pos, morf_pos)]
         p = TTGlyphPen(None)
-        fn(p, **params)
-        glyphs[name] = p.glyph()
+        g.draw(p, **params)
+        glyphs[g.name] = p.glyph()
     fb.setupGlyf(glyphs)
 
-    fb.setupHorizontalMetrics({g: (ADVANCE, 0) for g in glyph_order})
+    advances = {g.name: (g.advance, 0) for g in REGISTRY}
+    advances[".notdef"] = (1000, 0)
+    fb.setupHorizontalMetrics(advances)
     fb.setupHorizontalHeader(ascent=ASCENT, descent=DESCENT)
     fb.setupNameTable({
         "familyName": FAMILY,
