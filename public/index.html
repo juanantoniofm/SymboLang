@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SymbolLang v4 · preview</title>
+<style>
+  @font-face {
+    font-family: "SymbolLang";
+    src: url(data:font/ttf;base64,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) format("truetype-variations");
+    font-weight: 100 900;
+  }
+  :root {
+    --bg: #0b0b0d;
+    --panel: #16161a;
+    --ink: #f3f3f3;
+    --dim: #8a8a90;
+    --dimmer: #555;
+    --accent: #5eead4;
+    --accent2: #f0a978;
+    --border: #26262b;
+    --wght: 500;
+    --morf: 500;
+  }
+  html, body {
+    margin: 0; padding: 2.5rem 1.5rem;
+    font-family: ui-sans-serif, -apple-system, system-ui, sans-serif;
+    background: var(--bg); color: var(--ink);
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; gap: 2rem;
+  }
+  header { text-align: center; }
+  header h1 { font-weight: 600; font-size: 1.3rem; margin: 0 0 0.4rem; letter-spacing: 0.02em; }
+  header p { font-size: 0.85rem; color: var(--dim); margin: 0; max-width: 620px; }
+  header code { color: var(--accent); font-family: ui-monospace, monospace; font-size: 0.78rem; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    width: min(1280px, 96vw);
+  }
+  .section-title {
+    font-size: 0.72rem; color: var(--dim);
+    text-transform: uppercase; letter-spacing: 0.14em;
+    margin: 0 0 1rem;
+  }
+
+  /* ---- live row ---- */
+  .live {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 0;
+  }
+  .live-cell {
+    display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+    padding: 0.5rem 0.25rem;
+    border-right: 1px solid var(--border);
+  }
+  .live-cell:last-child { border-right: none; }
+  .live-cell .glyph {
+    font-family: "SymbolLang";
+    font-size: 82px; line-height: 1; color: var(--ink);
+    font-variation-settings: "wght" var(--wght), "MORF" var(--morf);
+    transition: font-variation-settings 40ms linear;
+    height: 86px; display: flex; align-items: center; justify-content: center;
+  }
+  .live-cell .role {
+    font-size: 0.6rem; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem;
+  }
+  .live-cell .key {
+    font-family: ui-monospace, "SF Mono", monospace;
+    font-size: 0.7rem; color: var(--dim); letter-spacing: 0.1em;
+  }
+  .live-cell .hint { font-size: 0.6rem; color: var(--dimmer); text-align: center; padding: 0 0.1rem; line-height: 1.25; min-height: 2.2em; }
+
+  /* ---- sliders ---- */
+  .sliders {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 0.6rem 0.9rem;
+    align-items: center;
+    margin-top: 1.2rem;
+  }
+  .slider-label {
+    font-family: ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .slider-label.wght { color: var(--accent); }
+  .slider-label.morf { color: var(--accent2); }
+  input[type=range] { width: 100%; }
+  input[type=range].wght { accent-color: var(--accent); }
+  input[type=range].morf { accent-color: var(--accent2); }
+  .readout {
+    font-family: ui-monospace, monospace;
+    font-size: 0.85rem;
+    min-width: 3em;
+    text-align: right;
+  }
+  .readout.wght { color: var(--accent); }
+  .readout.morf { color: var(--accent2); }
+  .phase-buttons {
+    display: flex; gap: 0.3rem; flex-wrap: wrap; justify-content: center;
+    margin-top: 0.8rem;
+  }
+  .phase-buttons button {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem; border-radius: 6px;
+    cursor: pointer; font: inherit; font-size: 0.72rem; line-height: 1.15;
+    display: flex; flex-direction: column; align-items: center; gap: 0.1rem;
+    min-width: 70px;
+  }
+  .phase-buttons button small { color: var(--dim); font-size: 0.65rem; }
+  .phase-buttons button:hover { border-color: var(--accent); }
+  .phase-buttons button.active {
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    border-color: var(--accent);
+  }
+
+  /* ---- compositions ---- */
+  .comp { display: flex; flex-direction: column; gap: 0.3rem; }
+  .comp-row {
+    font-family: "SymbolLang"; font-size: 88px; line-height: 1;
+    font-variation-settings: "wght" var(--wght), "MORF" var(--morf);
+    transition: font-variation-settings 40ms linear;
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+
+  /* ---- matrices ---- */
+  .matrix {
+    display: grid;
+    grid-template-columns: 90px repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .matrix.morf { grid-template-columns: 90px repeat(5, 1fr); }
+  .mcell {
+    background: var(--panel);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 78px;
+  }
+  .mcell span { font-family: "SymbolLang"; font-size: 52px; line-height: 1; }
+  .mhead { font-size: 0.7rem; color: var(--dim); min-height: 44px; text-align: center; padding: 0.4rem 0; }
+  .mhead small { color: var(--accent); font-family: ui-monospace, monospace; font-weight: 600; display: block; margin-top: 0.15rem; }
+  .matrix.morf .mhead small { color: var(--accent2); }
+  .mlabel { font-size: 0.78rem; color: var(--dim); font-family: ui-monospace, monospace; }
+
+  .sub-section-title {
+    font-size: 0.68rem; color: var(--dimmer);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin: 1.5rem 0 0.7rem;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>SymbolLang · v4</h1>
+    <p>11 parametric primitives on two axes — <code>wght</code> and <code>MORF</code>. Most glyphs respond to <code>wght</code>; chevron, arc and grid also respond to <code>MORF</code>. Defaults <code>(500, 500)</code>.</p>
+  </header>
+
+  <div class="panel">
+    <div class="section-title">Live · all primitives on two sliders</div>
+    <div class="live"><div class="live-cell"><span class="glyph">N</span><span class="role">directional</span><span class="key">N</span><span class="hint">squat → equilateral → spike</span></div><div class="live-cell"><span class="glyph">S</span><span class="role">directional</span><span class="key">S</span><span class="hint">pointing down</span></div><div class="live-cell"><span class="glyph">E</span><span class="role">directional</span><span class="key">E</span><span class="hint">pointing right</span></div><div class="live-cell"><span class="glyph">W</span><span class="role">directional</span><span class="key">W</span><span class="hint">pointing left</span></div><div class="live-cell"><span class="glyph">H</span><span class="role">node</span><span class="key">H</span><span class="hint">endpoint → gateway</span></div><div class="live-cell"><span class="glyph">D</span><span class="role">stream</span><span class="key">D</span><span class="hint">discrete → flowing</span></div><div class="live-cell"><span class="glyph">C</span><span class="role">throughput</span><span class="key">C</span><span class="hint">wght: thin → thick · MORF: flat → sharp</span></div><div class="live-cell"><span class="glyph">A</span><span class="role">bridge</span><span class="key">A</span><span class="hint">wght: pipe → rise · MORF: uniform → bulged</span></div><div class="live-cell"><span class="glyph">Q</span><span class="role">container</span><span class="key">Q</span><span class="hint">tilt-left → frame → tilt-right</span></div><div class="live-cell"><span class="glyph">G</span><span class="role">lattice</span><span class="key">G</span><span class="hint">MORF: sparse → dense</span></div><div class="live-cell"><span class="glyph">M</span><span class="role">metrics</span><span class="key">M</span><span class="hint">baseline → active</span></div></div>
+    <div class="sliders">
+      <span class="slider-label wght">wght</span>
+      <input id="wght" type="range" class="wght" min="100" max="900" value="500" step="1">
+      <span class="readout wght" id="wghtVal">500</span>
+
+      <span class="slider-label morf">MORF</span>
+      <input id="morf" type="range" class="morf" min="100" max="900" value="500" step="1">
+      <span class="readout morf" id="morfVal">500</span>
+    </div>
+    <div class="phase-buttons" id="phases"></div>
+  </div>
+
+  <div class="panel">
+    <div class="section-title">Compositions · follow both sliders above</div>
+    <div class="comp"><div class="comp-row">NHDC</div><div class="comp-row">EQAG</div><div class="comp-row">CACA</div><div class="comp-row">NSEW</div><div class="comp-row">HMGD</div></div>
+  </div>
+
+  <div class="panel">
+    <div class="section-title">Matrix · wght phases at default MORF (500)</div>
+    <div class="matrix"><div class='mcell mhead'></div><div class="mcell mhead">Min<br><small>100</small></div><div class="mcell mhead">Low<br><small>300</small></div><div class="mcell mhead">Mid<br><small>500</small></div><div class="mcell mhead">High<br><small>700</small></div><div class="mcell mhead">Max<br><small>900</small></div><div class="mcell mlabel">tri-n</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">N</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">N</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">N</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">N</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">N</span></div><div class="mcell mlabel">tri-s</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">S</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">S</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">S</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">S</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">S</span></div><div class="mcell mlabel">tri-e</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">E</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">E</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">E</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">E</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">E</span></div><div class="mcell mlabel">tri-w</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">W</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">W</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">W</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">W</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">W</span></div><div class="mcell mlabel">hex</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">H</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">H</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">H</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">H</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">H</span></div><div class="mcell mlabel">dots</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">D</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">D</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">D</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">D</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">D</span></div><div class="mcell mlabel">chevron</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">C</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">C</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">C</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">C</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">C</span></div><div class="mcell mlabel">arc</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">A</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">A</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">A</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">A</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">A</span></div><div class="mcell mlabel">quad</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">Q</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">Q</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">Q</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">Q</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">Q</span></div><div class="mcell mlabel">grid</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">G</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">G</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">G</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">G</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">G</span></div><div class="mcell mlabel">stack</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 100,&quot;MORF&quot; 500">M</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 300,&quot;MORF&quot; 500">M</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">M</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 700,&quot;MORF&quot; 500">M</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 900,&quot;MORF&quot; 500">M</span></div></div>
+
+    <div class="sub-section-title">MORF sweep · chevron, arc, grid at default wght (500)</div>
+    <div class="matrix morf"><div class='mcell mhead'></div><div class="mcell mhead">Form<br><small>100</small></div><div class="mcell mhead">Form<br><small>300</small></div><div class="mcell mhead">Form<br><small>500</small></div><div class="mcell mhead">Form<br><small>700</small></div><div class="mcell mhead">Form<br><small>900</small></div><div class="mcell mlabel">chevron</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 100">C</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 300">C</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">C</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 700">C</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 900">C</span></div><div class="mcell mlabel">arc</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 100">A</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 300">A</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">A</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 700">A</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 900">A</span></div><div class="mcell mlabel">grid</div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 100">G</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 300">G</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 500">G</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 700">G</span></div><div class="mcell"><span style="font-variation-settings:&quot;wght&quot; 500,&quot;MORF&quot; 900">G</span></div></div>
+  </div>
+
+<script>
+  const slW    = document.getElementById("wght");
+  const slM    = document.getElementById("morf");
+  const valW   = document.getElementById("wghtVal");
+  const valM   = document.getElementById("morfVal");
+  const root   = document.documentElement;
+  const phasesEl = document.getElementById("phases");
+
+  const PHASES = [["Min", 100], ["Low", 300], ["Mid", 500], ["High", 700], ["Max", 900]];
+  PHASES.forEach(pair => {
+    const name = pair[0], w = pair[1];
+    const b = document.createElement("button");
+    b.innerHTML = name + "<small>wght " + w + "</small>";
+    b.dataset.w = w;
+    b.addEventListener("click", () => setW(w));
+    phasesEl.appendChild(b);
+  });
+  const btns = phasesEl.querySelectorAll("button");
+
+  function setW(w) {
+    w = Number(w);
+    slW.value = w;
+    valW.textContent = w;
+    root.style.setProperty("--wght", w);
+    btns.forEach(b => b.classList.toggle("active", Number(b.dataset.w) === w));
+  }
+  function setM(m) {
+    m = Number(m);
+    slM.value = m;
+    valM.textContent = m;
+    root.style.setProperty("--morf", m);
+  }
+  slW.addEventListener("input", () => setW(slW.value));
+  slM.addEventListener("input", () => setM(slM.value));
+  setW(500);
+  setM(500);
+</script>
+</body>
+</html>

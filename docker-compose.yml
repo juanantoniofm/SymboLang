@@ -1,0 +1,7 @@
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8087:80"
+    volumes:
+      - ./public:/usr/share/nginx/html:ro
