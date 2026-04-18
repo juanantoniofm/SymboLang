@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SymbolLang · Demo Composition</title>
+<style>
+  @font-face {
+    font-family: "SymbolLang";
+    src: url("SymbolLang_v5.2.ttf") format("truetype-variations");
+    font-weight: 100 900;
+  }
+  :root {
+    --bg: #0a0a12;
+  }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .canvas {
+    position: relative;
+    width: 800px;
+    height: 800px;
+  }
+  .sym {
+    font-family: "SymbolLang";
+    position: absolute;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  /* ---- lattice background ---- */
+  .lattice {
+    font-variation-settings: "wght" 500, "MORF" 900;
+    color: #1a3a6e;
+    text-shadow: 0 0 30px #00e5ff88, 0 0 60px #00e5ff44;
+  }
+
+  /* ---- central hex ---- */
+  .hex-center {
+    font-variation-settings: "wght" 700, "MORF" 500;
+    color: #e0e8ff;
+    text-shadow: 0 0 40px #7090ffaa, 0 0 80px #4060dd66;
+    z-index: 10;
+  }
+
+  /* ---- directional triangles ---- */
+  .tri {
+    font-variation-settings: "wght" 600, "MORF" 500;
+    color: #5eead4;
+    text-shadow: 0 0 20px #5eead488, 0 0 50px #5eead444;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+  <div class="canvas">
+
+    <!-- lattice background: 3x3 grid of G glyphs -->
+    <span class="sym lattice" style="font-size:220px; left:10%;  top:10%;  opacity:0.3;">G</span>
+    <span class="sym lattice" style="font-size:220px; left:50%;  top:10%;  opacity:0.25;">G</span>
+    <span class="sym lattice" style="font-size:220px; left:90%;  top:10%;  opacity:0.3;">G</span>
+    <span class="sym lattice" style="font-size:220px; left:10%;  top:50%;  opacity:0.35;">G</span>
+    <span class="sym lattice" style="font-size:220px; left:50%;  top:50%;  opacity:0.2;">G</span>
+    <span class="sym lattice" style="font-size:220px; left:90%;  top:50%;  opacity:0.35;">G</span>
+    <span class="sym lattice" style="font-size:220px; left:10%;  top:90%;  opacity:0.3;">G</span>
+    <span class="sym lattice" style="font-size:220px; left:50%;  top:90%;  opacity:0.25;">G</span>
+    <span class="sym lattice" style="font-size:220px; left:90%;  top:90%;  opacity:0.3;">G</span>
+
+    <!-- scattered smaller lattice for depth -->
+    <span class="sym lattice" style="font-size:140px; left:30%;  top:30%;  opacity:0.15;">G</span>
+    <span class="sym lattice" style="font-size:140px; left:70%;  top:30%;  opacity:0.15;">G</span>
+    <span class="sym lattice" style="font-size:140px; left:30%;  top:70%;  opacity:0.15;">G</span>
+    <span class="sym lattice" style="font-size:140px; left:70%;  top:70%;  opacity:0.15;">G</span>
+
+    <!-- central hexagon -->
+    <span class="sym hex-center" style="font-size:280px; left:50%; top:50%;">H</span>
+
+    <!-- triangles pointing at hex from each side -->
+    <span class="sym tri" style="font-size:120px; left:50%; top:18%;">N</span>
+    <span class="sym tri" style="font-size:120px; left:50%; top:82%;">S</span>
+    <span class="sym tri" style="font-size:120px; left:18%; top:50%;">W</span>
+    <span class="sym tri" style="font-size:120px; left:82%; top:50%;">E</span>
+
+  </div>
+</body>
+</html>
