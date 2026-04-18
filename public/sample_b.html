@@ -155,36 +155,30 @@ Accelerate C · C — throughput at two weights, thin-to-thick.
 
     <!-- Span: A · H · H — arc above two grounded hexes -->
     <div class="card">
-      <div class="card-mark" style="flex-direction:column; align-items:center;">
+      <div class="card-mark" style="height:140px; width:140px; position:relative;">
         <span class="sym"
-          style="font-size:140px; font-variation-settings:'wght' 700,'MORF' 600; color:var(--color-accent); line-height:0.6;">A</span>
-        <div style="display:flex; justify-content:space-between; width:120px; margin-top:-20px;">
-          <span class="sym"
-            style="font-size:40px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph);">H</span>
-          <span class="sym"
-            style="font-size:40px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph);">H</span>
-        </div>
+          style="font-size:130px; font-variation-settings:'wght' 700,'MORF' 600; color:var(--color-accent); position:absolute; top:0; left:50%; transform:translateX(-50%); display:block; line-height:1;">A</span>
+        <span class="sym"
+          style="font-size:40px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:6px; left:6px; display:block; line-height:1;">H</span>
+        <span class="sym"
+          style="font-size:40px; font-variation-settings:'wght' 200,'MORF' 100; color:var(--color-accent); position:absolute; bottom:6px; right:6px; display:block; line-height:1;">H</span>
       </div>
       <div class="card-formula">A · H · H</div>
       <div class="card-name">Span</div>
-      <div class="card-desc">The bridge between your app and your database. Teal arc is the proxy doing the work; hexes
-        are static endpoints.</div>
+      <div class="card-desc">The bridge between your app and your database. Teal arc is the proxy doing the work; solid hex is the endpoint, open hex is the origin.</div>
     </div>
 
-    <!-- Stream: D · H — dots flowing through outlined hex, teal dot inside -->
+    <!-- Stream: D · H — dots flowing through outlined hex -->
     <div class="card">
-      <div class="card-mark">
+      <div class="card-mark" style="height:140px; width:160px; position:relative;">
         <span class="sym"
-          style="font-size:80px; font-variation-settings:'wght' 700,'MORF' 500; color:var(--color-glyph);">D</span>
+          style="font-size:90px; font-variation-settings:'wght' 100,'MORF' 900; color:var(--color-glyph); position:absolute; left:44%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">H</span>
         <span class="sym"
-          style="font-size:90px; font-variation-settings:'wght' 100,'MORF' 900; color:var(--color-glyph); position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">H</span>
-        <span class="sym"
-          style="font-size:14px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--color-accent); position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">D</span>
+          style="font-size:68px; font-variation-settings:'wght' 500,'MORF' 500; color:var(--color-accent); position:absolute; left:61%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">D</span>
       </div>
       <div class="card-formula">D · H</div>
       <div class="card-name">Stream</div>
-      <div class="card-desc">Outlined hex = transparent gateway. Traffic flows through. Single teal dot: the moment of
-        intelligence.</div>
+      <div class="card-desc">Outlined hex = transparent gateway. Data stream threads half-inside, half-outside: traffic in motion.</div>
     </div>
 
     <!-- Ingress: E · H — triangle pointing at hex, close together -->
@@ -201,13 +195,13 @@ Accelerate C · C — throughput at two weights, thin-to-thick.
         happens.</div>
     </div>
 
-    <!-- Intercept: R · D — relay with teal dot at pinch point -->
+    <!-- Intercept: R · D — relay with teal dot cluster at pinch point -->
     <div class="card">
-      <div class="card-mark">
+      <div class="card-mark" style="height:140px; width:140px; position:relative;">
         <span class="sym"
-          style="font-size:100px; font-variation-settings:'wght' 500,'MORF' 700; color:var(--color-glyph);">R</span>
+          style="font-size:110px; font-variation-settings:'wght' 500,'MORF' 900; color:var(--color-glyph); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">R</span>
         <span class="sym"
-          style="font-size:12px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--color-accent); position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">D</span>
+          style="font-size:24px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--color-accent); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">D</span>
       </div>
       <div class="card-formula">R · D</div>
       <div class="card-name">Intercept</div>
@@ -215,17 +209,19 @@ Accelerate C · C — throughput at two weights, thin-to-thick.
         governance framings.</div>
     </div>
 
-    <!-- Observe: Q · G — container framing grid, no teal accent -->
+    <!-- Observe: Q · M — container framing metrics bars -->
     <div class="card">
-      <div class="card-mark">
+      <div class="card-mark" style="height:140px; width:140px; position:relative;">
         <span class="sym"
-          style="font-size:120px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-glyph);">Q</span>
+          style="font-size:120px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-glyph); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1; opacity:0.85;">Q</span>
         <span class="sym"
-          style="font-size:65px; font-variation-settings:'wght' 500,'MORF' 300; color:var(--color-dim); position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">G</span>
+          style="font-size:55px; font-variation-settings:'wght' 300,'MORF' 200; color:var(--color-dim); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1; opacity:0.6;">M</span>
+        <span class="sym"
+          style="font-size:36px; font-variation-settings:'wght' 800,'MORF' 800; color:var(--color-accent); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">M</span>
       </div>
-      <div class="card-formula">Q · G</div>
+      <div class="card-formula">Q · M</div>
       <div class="card-name">Observe</div>
-      <div class="card-desc">Container holds a lattice. Reads as dashboard/monitoring rather than middleman.</div>
+      <div class="card-desc">Container holds layered metrics. Two histograms — dim background, teal foreground — reads as live dashboard.</div>
     </div>
 
     <!-- Accelerate: C · C — small thin then large thick chevron -->
@@ -249,11 +245,11 @@ Accelerate C · C — throughput at two weights, thin-to-thick.
     <div class="lockup-label">Lockup · Span with wordmark</div>
     <div class="lockup-mark">
       <span class="sym"
-        style="font-size:65px; font-variation-settings:'wght' 700,'MORF' 600; color:var(--color-accent); position:absolute; top:0; left:50%; transform:translateX(-50%); line-height:0.6;">A</span>
+        style="font-size:65px; font-variation-settings:'wght' 700,'MORF' 600; color:var(--color-accent); position:absolute; top:0; left:50%; transform:translateX(-50%); display:block; line-height:1;">A</span>
       <span class="sym"
-        style="font-size:26px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:0; left:10px;">H</span>
+        style="font-size:26px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:0; left:10px; display:block; line-height:1;">H</span>
       <span class="sym"
-        style="font-size:26px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:0; right:10px;">H</span>
+        style="font-size:26px; font-variation-settings:'wght' 200,'MORF' 100; color:var(--color-accent); position:absolute; bottom:0; right:10px; display:block; line-height:1;">H</span>
     </div>
     <div class="lockup-word">SymbolLang</div>
   </div>
