@@ -47,6 +47,7 @@ from fontTools.designspaceLib import (
 )
 from fontTools.varLib import build as varLib_build
 from fontTools.ttLib import TTFont
+from fontTools.ttLib.tables.otTables import STAT, AxisValueRecord
 
 UPEM, ASCENT, DESCENT = 1000, 800, -200
 CX, CY, ADVANCE = 500, 350, 1000
@@ -67,15 +68,15 @@ class GlyphDef:
     advance: int = 1000
     kern_class: str = "wide"
 
-REGISTRY: list[GlyphDef] = []
+SYMBOL_REGISTRY: list[GlyphDef] = []
 
 def glyph(char: str, name: str, hint: str = "", kern_class: str = "wide"):
-    """Decorator that registers a glyph draw function into REGISTRY."""
+    """Decorator that registers a glyph draw function into SYMBOL_REGISTRY."""
     def decorator(fn):
         # params must be attached as fn.grid before this runs,
         # or set after decoration via draw_fn.grid = ...
         # We defer reading fn.grid until module load completes.
-        REGISTRY.append(GlyphDef(
+        SYMBOL_REGISTRY.append(GlyphDef(
             char=char, name=name, draw=fn, params={},
             hint=hint, kern_class=kern_class,
         ))
@@ -381,7 +382,7 @@ draw_bowtie.grid = {(w, m): dict(L=280, h=BOWTIE_H[w], gap=BOWTIE_GAP[m])
 # Finalize registry — copy .grid into GlyphDef.params
 # =====================================================================
 
-for _gdef in REGISTRY:
+for _gdef in SYMBOL_REGISTRY:
     _gdef.params = _gdef.draw.grid
 
 
@@ -400,20 +401,20 @@ def draw_notdef(pen):
 
 def build_master(wght_pos, morf_pos, style_name, out_path):
     fb = FontBuilder(UPEM, isTTF=True)
-    glyph_order = [".notdef"] + [g.name for g in REGISTRY]
+    glyph_order = [".notdef"] + [g.name for g in SYMBOL_REGISTRY]
     fb.setupGlyphOrder(glyph_order)
-    fb.setupCharacterMap({ord(g.char): g.name for g in REGISTRY})
+    fb.setupCharacterMap({ord(g.char): g.name for g in SYMBOL_REGISTRY})
 
     np_ = TTGlyphPen(None); draw_notdef(np_)
     glyphs = {".notdef": np_.glyph()}
-    for g in REGISTRY:
+    for g in SYMBOL_REGISTRY:
         params = g.params[(wght_pos, morf_pos)]
         p = TTGlyphPen(None)
         g.draw(p, **params)
         glyphs[g.name] = p.glyph()
     fb.setupGlyf(glyphs)
 
-    advances = {g.name: (g.advance, 0) for g in REGISTRY}
+    advances = {g.name: (g.advance, 0) for g in SYMBOL_REGISTRY}
     advances[".notdef"] = (1000, 0)
     fb.setupHorizontalMetrics(advances)
     fb.setupHorizontalHeader(ascent=ASCENT, descent=DESCENT)
