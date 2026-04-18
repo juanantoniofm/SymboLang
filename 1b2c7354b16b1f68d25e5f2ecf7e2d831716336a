@@ -1,0 +1,38 @@
+foundry/build_symbolang.py
+  1471b2094225afd7 50,71,74,79,385,404,406,410,417
+.gitignore
+  1471b2094225afd7 10-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "1b2c7354b16b1f68d25e5f2ecf7e2d831716336a",
+  "prompts": {
+    "1471b2094225afd7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b93c1c18-ab04-47a8-8cca-284ef6bc7bc2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 2,
+      "accepted_lines": 239,
+      "overriden_lines": 0
+    },
+    "c61e789ce1a54784": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c2e5c78e-b9ca-4514-952c-bae2a08da1c5",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 253,
+      "overriden_lines": 0
+    }
+  }
+}
