@@ -1,0 +1,44 @@
+public/sample_b.html
+  c61e789ce1a54784 142-143
+public/shared.css
+  c61e789ce1a54784 64,70-98,107,111-115,123-137
+public/downloads.html
+  c61e789ce1a54784 1-182
+public/sample_a.html
+  c61e789ce1a54784 181-182
+public/index.html
+  c61e789ce1a54784 298-299
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "9f170416896ea78bb34b07aa73b1ab102d6b992a",
+  "prompts": {
+    "7ed323c7af517c4a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "299a17f3-96cf-4d39-8ab9-cf2be7f48b19",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 125,
+      "overriden_lines": 0
+    },
+    "c61e789ce1a54784": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c2e5c78e-b9ca-4514-952c-bae2a08da1c5",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 239,
+      "total_deletions": 6,
+      "accepted_lines": 239,
+      "overriden_lines": 0
+    }
+  }
+}
