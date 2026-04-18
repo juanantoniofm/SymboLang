@@ -1,0 +1,57 @@
+public/downloads.html
+  c516df01de6affca 127
+public/sample_c.html
+  c516df01de6affca 1-518
+public/index.html
+  c516df01de6affca 296
+public/sample_b.html
+  c516df01de6affca 140
+public/sample_a.html
+  c516df01de6affca 179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "c11acce37c32f1cd7b6bb2ea08d84a968111d9c0",
+  "prompts": {
+    "1471b2094225afd7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b93c1c18-ab04-47a8-8cca-284ef6bc7bc2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 126,
+      "total_deletions": 45,
+      "accepted_lines": 318,
+      "overriden_lines": 25
+    },
+    "c516df01de6affca": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6253168b-8c5b-4b12-a072-47309971507d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 522,
+      "total_deletions": 0,
+      "accepted_lines": 522,
+      "overriden_lines": 0
+    },
+    "c61e789ce1a54784": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c2e5c78e-b9ca-4514-952c-bae2a08da1c5",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 253,
+      "overriden_lines": 0
+    }
+  }
+}
