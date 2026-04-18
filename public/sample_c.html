@@ -14,7 +14,12 @@
       gap: 3rem;
     }
 
-    h1 { font-size: 1.2rem; font-weight: 600; margin: 0; letter-spacing: 0.02em; }
+    h1 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
 
     .subtitle {
       font-size: 0.8rem;
@@ -38,7 +43,9 @@
       gap: 0.6rem;
     }
 
-    .mono { font-family: ui-monospace, "SF Mono", monospace; }
+    .mono {
+      font-family: ui-monospace, "SF Mono", monospace;
+    }
 
     /* ============================================================
        A. PRESENTATION TITLE SLIDE
@@ -57,7 +64,9 @@
       justify-content: center;
     }
 
-    [data-theme="light"] .slide-card { background: #111128; }
+    [data-theme="light"] .slide-card {
+      background: #111128;
+    }
 
     .slide-watermark {
       position: absolute;
@@ -82,7 +91,9 @@
 
     .slide-ribbon {
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       display: flex;
       justify-content: center;
       gap: 0;
@@ -99,7 +110,9 @@
 
     .slide-left-ribbon {
       position: absolute;
-      left: 0; top: 0; bottom: 0;
+      left: 0;
+      top: 0;
+      bottom: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -116,7 +129,9 @@
 
     .slide-right-ribbon {
       position: absolute;
-      right: 0; top: 0; bottom: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -142,7 +157,10 @@
       pointer-events: none;
     }
 
-    .slide-hex-cluster span { line-height: 1; color: var(--color-glyph); }
+    .slide-hex-cluster span {
+      line-height: 1;
+      color: var(--color-glyph);
+    }
 
     .slide-accent-tr {
       position: absolute;
@@ -204,7 +222,9 @@
 
     .slide-bottom-bar {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
       display: flex;
       justify-content: center;
       gap: 0;
@@ -247,7 +267,10 @@
       pointer-events: none;
     }
 
-    .report-top { position: relative; z-index: 1; }
+    .report-top {
+      position: relative;
+      z-index: 1;
+    }
 
     .report-title {
       font-size: clamp(1.1rem, 3vw, 1.6rem);
@@ -301,7 +324,9 @@
     }
 
     @media (max-width: 700px) {
-      .biz-card { width: 90vw; }
+      .biz-card {
+        width: 90vw;
+      }
     }
 
     .biz-front {
@@ -322,14 +347,14 @@
     .biz-bridge {
       font-size: clamp(68px, 14vw, 116px);
       color: var(--color-accent);
-      line-height: 0.58;
+      line-height: 0.18;
       transform: translateX(0.13em);
     }
 
     .biz-hexes {
       display: flex;
       gap: clamp(1.2rem, 3vw, 2.2rem);
-      margin-top: -0.06em;
+      margin-top: clamp(-20px, -3.5vw, -12px);
     }
 
     .biz-hexes span {
@@ -360,18 +385,7 @@
     .biz-back-lattice {
       position: absolute;
       inset: 0;
-      display: grid;
-      grid-template-columns: repeat(9, 1fr);
-      grid-template-rows: repeat(6, 1fr);
-      place-items: center;
-      opacity: 0.04;
       pointer-events: none;
-    }
-
-    .biz-back-lattice span {
-      font-size: clamp(12px, 2vw, 18px);
-      color: var(--color-glyph);
-      line-height: 1;
     }
 
     .biz-back-sash {
@@ -389,7 +403,9 @@
       pointer-events: none;
     }
 
-    .biz-back-sash .sash-row { display: flex; }
+    .biz-back-sash .sash-row {
+      display: flex;
+    }
 
     .biz-back-sash .sash-row span {
       font-size: clamp(14px, 2.4vw, 20px);
@@ -399,7 +415,10 @@
 
     .biz-back-ribbon {
       position: absolute;
-      top: 0; left: 0; right: 0;
+      place-self: anchor-center;
+      top: 0;
+      left: 0;
+      right: 0;
       display: flex;
       gap: 0;
       overflow: hidden;
@@ -458,8 +477,13 @@
     }
 
     @media (max-width: 700px) {
-      .envelope { width: 90vw; }
-      .notebook { width: 90vw !important; }
+      .envelope {
+        width: 90vw;
+      }
+
+      .notebook {
+        width: 90vw !important;
+      }
     }
 
     .envelope-flap {
@@ -757,14 +781,17 @@
     </div>
     <div class="nav-right">
       <a href="downloads.html" class="nav-download">Download</a>
-      <a href="https://github.com/juanantoniofm/SymboLang.git" target="_blank" rel="noopener" class="nav-github" aria-label="GitHub"><img class="icon-dark" src="icons/GitHub_Invertocat_White.svg" alt="GitHub"><img class="icon-light" src="icons/GitHub_Invertocat_Black.svg" alt="GitHub"></a>
+      <a href="https://github.com/juanantoniofm/SymboLang.git" target="_blank" rel="noopener" class="nav-github"
+        aria-label="GitHub"><img class="icon-dark" src="icons/GitHub_Invertocat_White.svg" alt="GitHub"><img
+          class="icon-light" src="icons/GitHub_Invertocat_Black.svg" alt="GitHub"></a>
       <button id="theme-toggle" aria-label="Toggle theme">&#x25D0;</button>
     </div>
   </nav>
 
   <header style="text-align:center;">
     <h1>SymbolLang · Packaging &amp; Identity</h1>
-    <p class="subtitle">Real-world branding contexts. All examples render live &mdash; toggle dark/light to see both modes.</p>
+    <p class="subtitle">Real-world branding contexts. All examples render live &mdash; toggle dark/light to see both
+      modes.</p>
   </header>
 
   <!-- ============ A. PRESENTATION TITLE SLIDE ============ -->
@@ -833,13 +860,17 @@
 
       <!-- bottom-left hex cluster: 3 nodes ascending size = infrastructure at scale -->
       <div class="slide-hex-cluster">
-        <span class="sym" style="font-size:clamp(14px,2.4vw,28px); font-variation-settings:'wght' 300,'MORF' 100;">H</span>
-        <span class="sym" style="font-size:clamp(22px,3.8vw,44px); font-variation-settings:'wght' 500,'MORF' 500;">H</span>
-        <span class="sym" style="font-size:clamp(34px,5.8vw,64px); font-variation-settings:'wght' 700,'MORF' 900;">H</span>
+        <span class="sym"
+          style="font-size:clamp(14px,2.4vw,28px); font-variation-settings:'wght' 300,'MORF' 100;">H</span>
+        <span class="sym"
+          style="font-size:clamp(22px,3.8vw,44px); font-variation-settings:'wght' 500,'MORF' 500;">H</span>
+        <span class="sym"
+          style="font-size:clamp(34px,5.8vw,64px); font-variation-settings:'wght' 700,'MORF' 900;">H</span>
       </div>
 
       <!-- top-right relay accent -->
-      <span class="sym slide-accent-tr" style="font-size:clamp(30px,5vw,56px); font-variation-settings:'wght' 600,'MORF' 700;">R</span>
+      <span class="sym slide-accent-tr"
+        style="font-size:clamp(30px,5vw,56px); font-variation-settings:'wght' 600,'MORF' 700;">R</span>
 
       <div class="slide-logo">
         <span class="sym bridge" style="font-variation-settings:'wght' 700,'MORF' 600;">A</span>
@@ -914,7 +945,7 @@
           <span class="sym biz-bridge" style="font-variation-settings:'wght' 700,'MORF' 600;">A</span>
           <div class="biz-hexes">
             <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 900;">H</span>
-            <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 900;">H</span>
+            <span class="sym" style="font-variation-settings:'wght' 200,'MORF' 100;">H</span>
           </div>
         </div>
         <div class="company-name mono">SYMBOLANG</div>
@@ -925,27 +956,102 @@
       <div class="biz-card biz-back">
 
         <div class="biz-back-lattice">
-          <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span>
-          <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span>
-          <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span>
-          <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span>
-          <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span>
-          <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span><span class="sym" style="font-variation-settings:'wght' 300,'MORF' 100;">C</span><span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span><span class="sym" style="font-variation-settings:'wght' 300,'MORF' 100;">C</span><span class="sym" style="font-variation-settings:'wght' 200,'MORF' 100;">C</span><span class="sym" style="font-variation-settings:'wght' 300,'MORF' 100;">C</span>
+          <!-- secondary: medium denser G, offset top-right -->
+          <span class="sym"
+            style="font-size:clamp(60px,11vw,90px); font-variation-settings:'wght' 500,'MORF' 500; color:var(--color-glyph); opacity:0.04; position:absolute; top:5%; right:0%;">G</span>
+          <!-- tertiary: small dense G, offset bottom-left -->
+          <span class="sym"
+            style="font-size:clamp(40px,7vw,60px); font-variation-settings:'wght' 300,'MORF' 700; color:var(--color-dim); opacity:0.04; position:absolute; bottom:10%; left:5%;">G</span>
+          <!-- accent: tiny tight G, top-left -->
+          <span class="sym"
+            style="font-size:clamp(24px,4vw,36px); font-variation-settings:'wght' 600,'MORF' 900; color:var(--color-accent); opacity:0.06; position:absolute; top:12%; left:8%;">G</span>
         </div>
 
         <div class="biz-back-sash">
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
-          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 500,'MORF' 400;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 500,'MORF' 400;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span
+              class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 500,'MORF' 400;">C</span><span class="sym"
+              style="font-variation-settings:'wght' 600,'MORF' 500;">C</span></div>
         </div>
 
         <div class="biz-back-ribbon">
@@ -1090,28 +1196,35 @@
       <div class="brand-lock-demo">
 
         <div class="brand-lock-item">
-          <span class="sym" style="font-size:clamp(52px,9vw,76px); font-variation-settings:'wght' 500,'MORF' 100; color:var(--color-dim);">H</span>
+          <span class="sym"
+            style="font-size:clamp(52px,9vw,76px); font-variation-settings:'wght' 500,'MORF' 100; color:var(--color-dim);">H</span>
           <div class="brand-lock-title">Frame / Diffuse</div>
-          <div class="brand-lock-desc">Form 100 — outer ring vortex. Use as border decoration, background tile, ambient texture.</div>
+          <div class="brand-lock-desc">Form 100 — outer ring vortex. Use as border decoration, background tile, ambient
+            texture.</div>
         </div>
 
         <div class="brand-lock-divider"></div>
 
         <div class="brand-lock-item">
-          <span class="sym" style="font-size:clamp(52px,9vw,76px); font-variation-settings:'wght' 500,'MORF' 900; color:var(--color-accent);">H</span>
+          <span class="sym"
+            style="font-size:clamp(52px,9vw,76px); font-variation-settings:'wght' 500,'MORF' 900; color:var(--color-accent);">H</span>
           <div class="brand-lock-title">Node / Unified</div>
-          <div class="brand-lock-desc">Form 900 — tight solid hex. Use as primary icon, hub marker, call-to-action badge.</div>
+          <div class="brand-lock-desc">Form 900 — tight solid hex. Use as primary icon, hub marker, call-to-action
+            badge.</div>
         </div>
 
         <div class="brand-lock-divider"></div>
 
         <div class="brand-lock-item">
           <div class="brand-lock-combined">
-            <span class="sym" style="font-size:clamp(52px,9vw,76px); font-variation-settings:'wght' 400,'MORF' 100; color:var(--color-dim); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0.5;">H</span>
-            <span class="sym" style="font-size:clamp(28px,5vw,42px); font-variation-settings:'wght' 700,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
+            <span class="sym"
+              style="font-size:clamp(52px,9vw,76px); font-variation-settings:'wght' 400,'MORF' 100; color:var(--color-dim); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0.5;">H</span>
+            <span class="sym"
+              style="font-size:clamp(28px,5vw,42px); font-variation-settings:'wght' 700,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
           </div>
           <div class="brand-lock-title">Cluster Mark</div>
-          <div class="brand-lock-desc">Both combined: diffuse outer field + solid inner core. Infrastructure node in one mark.</div>
+          <div class="brand-lock-desc">Both combined: diffuse outer field + solid inner core. Infrastructure node in one
+            mark.</div>
         </div>
 
       </div>
@@ -1123,19 +1236,25 @@
         <!-- Infrastructure: 3 H at different Form values (field → relay → core) -->
         <div class="brand-comp">
           <div class="brand-comp-mark">
-            <span class="sym" style="font-size:56px; font-variation-settings:'wght' 400,'MORF' 100; color:var(--color-dim); position:absolute;">H</span>
-            <span class="sym" style="font-size:32px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-glyph); position:absolute; transform:translate(14px,-10px);">H</span>
-            <span class="sym" style="font-size:22px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute; transform:translate(-16px,10px);">H</span>
+            <span class="sym"
+              style="font-size:56px; font-variation-settings:'wght' 400,'MORF' 100; color:var(--color-dim); position:absolute;">H</span>
+            <span class="sym"
+              style="font-size:32px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-glyph); position:absolute; transform:translate(14px,-10px);">H</span>
+            <span class="sym"
+              style="font-size:22px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute; transform:translate(-16px,10px);">H</span>
           </div>
           <div class="brand-comp-name">Infrastructure</div>
-          <div class="brand-comp-desc">Three H nodes: Form 100 field, Form 500 relay, Form 900 core. One glyph, three roles.</div>
+          <div class="brand-comp-desc">Three H nodes: Form 100 field, Form 500 relay, Form 900 core. One glyph, three
+            roles.</div>
         </div>
 
         <!-- Gateway: low-phase outer hex + high-phase inner hex -->
         <div class="brand-comp">
           <div class="brand-comp-mark">
-            <span class="sym" style="font-size:54px; font-variation-settings:'wght' 100,'MORF' 900; color:var(--color-glyph);">H</span>
-            <span class="sym" style="font-size:26px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute;">H</span>
+            <span class="sym"
+              style="font-size:54px; font-variation-settings:'wght' 100,'MORF' 900; color:var(--color-glyph);">H</span>
+            <span class="sym"
+              style="font-size:26px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute;">H</span>
           </div>
           <div class="brand-comp-name">Gateway</div>
           <div class="brand-comp-desc">Phase 100 outer = boundary. Phase 800 inner = active core.</div>
@@ -1144,8 +1263,10 @@
         <!-- Signal: D + C -->
         <div class="brand-comp">
           <div class="brand-comp-mark">
-            <span class="sym" style="font-size:38px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-dim);">D</span>
-            <span class="sym" style="font-size:52px; font-variation-settings:'wght' 800,'MORF' 800; color:var(--color-accent); margin-left:-0.08em;">C</span>
+            <span class="sym"
+              style="font-size:38px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-dim);">D</span>
+            <span class="sym"
+              style="font-size:52px; font-variation-settings:'wght' 800,'MORF' 800; color:var(--color-accent); margin-left:-0.08em;">C</span>
           </div>
           <div class="brand-comp-name">Signal</div>
           <div class="brand-comp-desc">Data propelled forward. Dots feed into chevron.</div>
@@ -1154,8 +1275,10 @@
         <!-- Observe: Q + G -->
         <div class="brand-comp">
           <div class="brand-comp-mark">
-            <span class="sym" style="font-size:54px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-glyph);">Q</span>
-            <span class="sym" style="font-size:30px; font-variation-settings:'wght' 400,'MORF' 300; color:var(--color-dim); position:absolute;">G</span>
+            <span class="sym"
+              style="font-size:54px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-glyph);">Q</span>
+            <span class="sym"
+              style="font-size:30px; font-variation-settings:'wght' 400,'MORF' 300; color:var(--color-dim); position:absolute;">G</span>
           </div>
           <div class="brand-comp-name">Observe</div>
           <div class="brand-comp-desc">Container holds lattice. Dashboard in a glyph.</div>
@@ -1169,8 +1292,10 @@
 
         <div class="brand-use-item">
           <div class="brand-use-icon">
-            <span class="sym" style="font-size:44px; font-variation-settings:'wght' 400,'MORF' 100; color:var(--color-dim); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0.55;">H</span>
-            <span class="sym" style="font-size:26px; font-variation-settings:'wght' 700,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
+            <span class="sym"
+              style="font-size:44px; font-variation-settings:'wght' 400,'MORF' 100; color:var(--color-dim); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0.55;">H</span>
+            <span class="sym"
+              style="font-size:26px; font-variation-settings:'wght' 700,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
           </div>
           <div class="use-text">
             <span class="use-name">Infrastructure</span>
@@ -1180,7 +1305,8 @@
 
         <div class="brand-use-item">
           <div class="brand-use-icon">
-            <span class="sym" style="font-size:36px; font-variation-settings:'wght' 600,'MORF' 700; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">D</span>
+            <span class="sym"
+              style="font-size:36px; font-variation-settings:'wght' 600,'MORF' 700; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">D</span>
           </div>
           <div class="use-text">
             <span class="use-name">Data Pipeline</span>
@@ -1190,9 +1316,12 @@
 
         <div class="brand-use-item">
           <div class="brand-use-icon">
-            <span class="sym" style="font-size:30px; font-variation-settings:'wght' 600,'MORF' 700; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-52%);">A</span>
-            <span class="sym" style="font-size:14px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:4px; left:3px;">H</span>
-            <span class="sym" style="font-size:14px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:4px; right:3px;">H</span>
+            <span class="sym"
+              style="font-size:30px; font-variation-settings:'wght' 600,'MORF' 700; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-52%);">A</span>
+            <span class="sym"
+              style="font-size:14px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:4px; left:3px;">H</span>
+            <span class="sym"
+              style="font-size:14px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:4px; right:3px;">H</span>
           </div>
           <div class="use-text">
             <span class="use-name">Connectivity</span>
@@ -1202,8 +1331,10 @@
 
         <div class="brand-use-item">
           <div class="brand-use-icon">
-            <span class="sym" style="font-size:38px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">Q</span>
-            <span class="sym" style="font-size:20px; font-variation-settings:'wght' 400,'MORF' 300; color:var(--color-glyph); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">G</span>
+            <span class="sym"
+              style="font-size:38px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">Q</span>
+            <span class="sym"
+              style="font-size:20px; font-variation-settings:'wght' 400,'MORF' 300; color:var(--color-glyph); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">G</span>
           </div>
           <div class="use-text">
             <span class="use-name">Monitoring</span>
@@ -1213,8 +1344,10 @@
 
         <div class="brand-use-item">
           <div class="brand-use-icon">
-            <span class="sym" style="font-size:40px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--color-glyph); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
-            <span class="sym" style="font-size:20px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
+            <span class="sym"
+              style="font-size:40px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--color-glyph); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
+            <span class="sym"
+              style="font-size:20px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
           </div>
           <div class="use-text">
             <span class="use-name">Gateway</span>
@@ -1224,7 +1357,8 @@
 
         <div class="brand-use-item">
           <div class="brand-use-icon">
-            <span class="sym" style="font-size:36px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">C</span>
+            <span class="sym"
+              style="font-size:36px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">C</span>
           </div>
           <div class="use-text">
             <span class="use-name">Throughput</span>
