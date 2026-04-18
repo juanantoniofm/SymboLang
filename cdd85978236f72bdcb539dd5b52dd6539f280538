@@ -1,0 +1,36 @@
+foundry/build_symbolang.py
+  2ccd6815a7fe3236 13,185-186,188,199-200
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "cdd85978236f72bdcb539dd5b52dd6539f280538",
+  "prompts": {
+    "1471b2094225afd7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b93c1c18-ab04-47a8-8cca-284ef6bc7bc2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 54,
+      "overriden_lines": 0
+    },
+    "2ccd6815a7fe3236": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d5ae4e39-88df-45e9-ac8e-2745c358d895",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 6,
+      "total_deletions": 8,
+      "accepted_lines": 7,
+      "overriden_lines": 0
+    }
+  }
+}
