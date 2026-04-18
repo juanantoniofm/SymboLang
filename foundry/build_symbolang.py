@@ -554,8 +554,8 @@ def build_variable_font(out_path, masters_dir, keep_masters=False):
 
 def main():
     ap = argparse.ArgumentParser(description="Build the SymbolLang v5 variable font.")
-    ap.add_argument("-o", "--output", default="SymbolLang.ttf",
-                    help="output .ttf path (default: ./SymbolLang.ttf)")
+    ap.add_argument("-o", "--output", default="fonts/SymbolLang.ttf",
+                    help="output .ttf path (default: ./fonts/SymbolLang.ttf)")
     ap.add_argument("--masters-dir", default=None,
                     help="where to write the 9 intermediate master TTFs "
                          "(default: a temp directory, cleaned up after build)")

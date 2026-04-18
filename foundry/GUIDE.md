@@ -128,7 +128,7 @@ Any tool that supports variable fonts. CSS:
 ```css
 @font-face {
   font-family: 'SymbolLang';
-  src: url('SymbolLang.ttf') format('truetype-variations');
+  src: url('fonts/SymbolLang.ttf') format('truetype-variations');
 }
 .mark {
   font-family: 'SymbolLang';

@@ -19,7 +19,7 @@ Variable TTF font. 13 symbolic primitives mapped to ASCII letters. Two axes: `wg
 Script: `foundry/build_symbolang.py`
 
 ```
-python build_symbolang.py                          # -> ./SymbolLang.ttf
+python build_symbolang.py                          # -> ./fonts/SymbolLang.ttf
 python build_symbolang.py -o path/Font.ttf         # custom output
 python build_symbolang.py --keep-masters           # keep 9 master TTFs
 make fondue                                        # standard build target

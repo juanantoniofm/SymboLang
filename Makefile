@@ -12,5 +12,5 @@ down: ## Stop the stack
 	docker compose down
 
 fondue: ## Construct the font
-	python foundry/build_symbolang.py -o public/SymbolLang.ttf --masters-dir foundry/masters
+	python foundry/build_symbolang.py -o public/fonts/SymbolLang.ttf --masters-dir foundry/masters
 

@@ -35,7 +35,7 @@ Any host that supports variable fonts (modern browsers, Figma, Illustrator, InDe
 ```css
 @font-face {
   font-family: 'SymbolLang';
-  src: url('SymbolLang.ttf') format('truetype-variations');
+  src: url('fonts/SymbolLang.ttf') format('truetype-variations');
 }
 .mark {
   font-family: 'SymbolLang';
@@ -54,7 +54,7 @@ You can mix and match glyphs to create new ones.
 
 | File | Purpose |
 |------|---------|
-| `SymbolLang.ttf` | The font. |
+| `fonts/SymbolLang.ttf` | The font. |
 | `build_symbolang.py` | Foundry script. Reproduces the font from scratch. |
 | `SPEC.md` | Technical spec, current state, known edge cases. |
 | `GUIDE.md` | Designer-facing guide: axes, composition patterns, showcase ideas. |
