@@ -41,7 +41,7 @@
     .mono { font-family: ui-monospace, "SF Mono", monospace; }
 
     /* ============================================================
-       A. PRESENTATION TITLE SLIDE — rich layered composition
+       A. PRESENTATION TITLE SLIDE
        ============================================================ */
     .slide-card {
       width: 100%;
@@ -59,39 +59,100 @@
 
     [data-theme="light"] .slide-card { background: #111128; }
 
-    /* giant watermark lattice behind everything */
     .slide-watermark {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: clamp(300px, 50vw, 600px);
+      font-size: clamp(320px, 55vw, 640px);
       color: #ffffff;
-      opacity: 0.03;
+      opacity: 0.022;
       pointer-events: none;
     }
 
-    /* chevron ribbon across top */
+    .slide-watermark-2 {
+      position: absolute;
+      bottom: -18%;
+      right: -6%;
+      font-size: clamp(180px, 30vw, 360px);
+      color: var(--color-accent);
+      opacity: 0.038;
+      pointer-events: none;
+    }
+
     .slide-ribbon {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       display: flex;
       justify-content: center;
       gap: 0;
       overflow: hidden;
-      height: clamp(24px, 4vw, 40px);
-      opacity: 0.25;
+      height: clamp(30px, 5vw, 52px);
+      opacity: 0.32;
     }
 
     .slide-ribbon span {
-      font-size: clamp(20px, 3.5vw, 36px);
+      font-size: clamp(26px, 4.5vw, 48px);
       color: var(--color-accent);
       line-height: 1;
     }
 
-    /* logo lockup in center */
+    .slide-left-ribbon {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      width: clamp(24px, 3.8vw, 44px);
+      opacity: 0.22;
+    }
+
+    .slide-left-ribbon span {
+      font-size: clamp(22px, 3.6vw, 42px);
+      color: var(--color-accent);
+      line-height: 1;
+    }
+
+    .slide-right-ribbon {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      width: clamp(24px, 3.8vw, 44px);
+      opacity: 0.11;
+    }
+
+    .slide-right-ribbon span {
+      font-size: clamp(22px, 3.6vw, 42px);
+      color: var(--color-accent2);
+      line-height: 1;
+    }
+
+    .slide-hex-cluster {
+      position: absolute;
+      bottom: clamp(6px, 1.2vw, 14px);
+      left: clamp(8px, 1.5vw, 18px);
+      display: flex;
+      align-items: flex-end;
+      gap: 0;
+      opacity: 0.16;
+      pointer-events: none;
+    }
+
+    .slide-hex-cluster span { line-height: 1; color: var(--color-glyph); }
+
+    .slide-accent-tr {
+      position: absolute;
+      top: clamp(5px, 1vw, 12px);
+      right: clamp(8px, 1.5vw, 18px);
+      opacity: 0.12;
+      pointer-events: none;
+      color: var(--color-accent2);
+    }
+
     .slide-logo {
       position: relative;
       z-index: 2;
@@ -102,20 +163,21 @@
     }
 
     .slide-logo .bridge {
-      font-size: clamp(80px, 14vw, 180px);
+      font-size: clamp(90px, 16vw, 200px);
       color: var(--color-accent);
       line-height: 0.55;
+      transform: translateX(0.13em);
     }
 
     .slide-logo .hex-pair {
       display: flex;
       justify-content: center;
-      gap: clamp(1.5rem, 4vw, 3.5rem);
-      margin-top: -0.2em;
+      gap: clamp(2.2rem, 5.5vw, 5rem);
+      margin-top: -0.12em;
     }
 
     .slide-logo .hex-pair span {
-      font-size: clamp(24px, 4vw, 52px);
+      font-size: clamp(30px, 5.5vw, 68px);
       color: #c8cdd8;
     }
 
@@ -123,7 +185,7 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      margin-top: clamp(0.8rem, 2vw, 1.5rem);
+      margin-top: clamp(0.8rem, 2vw, 1.6rem);
     }
 
     .slide-text .company {
@@ -140,28 +202,25 @@
       margin-top: 0.4rem;
     }
 
-    /* bottom accent bar */
     .slide-bottom-bar {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       display: flex;
       justify-content: center;
       gap: 0;
       overflow: hidden;
-      height: clamp(18px, 3vw, 30px);
-      opacity: 0.15;
+      height: clamp(22px, 3.8vw, 40px);
+      opacity: 0.2;
     }
 
     .slide-bottom-bar span {
-      font-size: clamp(16px, 2.5vw, 28px);
+      font-size: clamp(20px, 3.2vw, 36px);
       color: var(--color-accent2);
       line-height: 1;
     }
 
     /* ============================================================
-       B. REPORT COVER — keep as-is (user approved)
+       B. REPORT COVER
        ============================================================ */
     .report-card {
       width: min(400px, 70vw);
@@ -220,7 +279,7 @@
     }
 
     /* ============================================================
-       C. BUSINESS CARD — improved logo + patterned back
+       C. BUSINESS CARD
        ============================================================ */
     .cards-row {
       display: flex;
@@ -245,80 +304,102 @@
       .biz-card { width: 90vw; }
     }
 
-    /* Front: centered logo */
     .biz-front {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
+      gap: 0.3rem;
     }
 
     .biz-logo {
-      position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      width: clamp(100px, 18vw, 160px);
-      height: clamp(60px, 10vw, 100px);
+      gap: 0;
     }
 
-    .biz-logo .bridge-glyph {
-      position: absolute;
-      font-size: clamp(60px, 12vw, 100px);
+    .biz-bridge {
+      font-size: clamp(68px, 14vw, 116px);
       color: var(--color-accent);
-      line-height: 0.55;
-      /* offset left to compensate for advance width — visually center the arc */
-      margin-left: -0.15em;
+      line-height: 0.58;
+      transform: translateX(0.13em);
     }
 
-    .biz-logo .hex-left,
-    .biz-logo .hex-right {
-      position: absolute;
-      font-size: clamp(20px, 3.5vw, 32px);
+    .biz-hexes {
+      display: flex;
+      gap: clamp(1.2rem, 3vw, 2.2rem);
+      margin-top: -0.06em;
+    }
+
+    .biz-hexes span {
+      font-size: clamp(36px, 7.5vw, 60px);
       color: var(--color-glyph);
-      bottom: 0;
+      line-height: 1;
     }
-
-    .biz-logo .hex-left { left: 0.3em; }
-    .biz-logo .hex-right { right: 0.6em; }
 
     .biz-front .company-name {
-      font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+      font-size: clamp(0.65rem, 1.4vw, 0.9rem);
       letter-spacing: 0.18em;
       font-weight: 600;
-      margin-top: 0.3rem;
+      margin-top: 0.35rem;
     }
 
     .biz-front .biz-tagline {
-      font-size: 0.55rem;
+      font-size: 0.52rem;
       color: var(--color-dim);
       letter-spacing: 0.08em;
     }
 
-    /* Back: lattice watermark + chevron ribbon + contact */
     .biz-back {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
     }
 
-    .biz-back-watermark {
+    .biz-back-lattice {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: clamp(120px, 22vw, 200px);
-      color: var(--color-glyph);
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      place-items: center;
       opacity: 0.04;
       pointer-events: none;
     }
 
+    .biz-back-lattice span {
+      font-size: clamp(12px, 2vw, 18px);
+      color: var(--color-glyph);
+      line-height: 1;
+    }
+
+    .biz-back-sash {
+      position: absolute;
+      top: -80%;
+      right: -28%;
+      width: 85%;
+      height: 260%;
+      transform: rotate(-28deg);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      overflow: hidden;
+      opacity: 0.075;
+      pointer-events: none;
+    }
+
+    .biz-back-sash .sash-row { display: flex; }
+
+    .biz-back-sash .sash-row span {
+      font-size: clamp(14px, 2.4vw, 20px);
+      color: var(--color-accent);
+      line-height: 1.25;
+    }
+
     .biz-back-ribbon {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       display: flex;
       gap: 0;
       overflow: hidden;
@@ -328,7 +409,7 @@
     .biz-back-ribbon span {
       font-size: clamp(12px, 2vw, 20px);
       color: var(--color-accent);
-      opacity: 0.2;
+      opacity: 0.22;
       line-height: 1;
     }
 
@@ -354,7 +435,7 @@
     }
 
     /* ============================================================
-       D. ENVELOPE & NOTEBOOK — patterns in real objects
+       D. ENVELOPE & NOTEBOOK
        ============================================================ */
     .objects-row {
       display: flex;
@@ -364,7 +445,6 @@
       width: 100%;
     }
 
-    /* Envelope */
     .envelope {
       width: min(460px, 46vw);
       aspect-ratio: 16 / 9;
@@ -432,7 +512,6 @@
       opacity: 0.5;
     }
 
-    /* Notebook */
     .notebook {
       width: min(300px, 40vw);
       aspect-ratio: 3 / 4;
@@ -489,7 +568,7 @@
     }
 
     /* ============================================================
-       E. BRAND SYSTEM — compositions showing reuse & flexibility
+       E. BRAND SYSTEM
        ============================================================ */
     .brand-card {
       width: 100%;
@@ -510,7 +589,6 @@
       text-transform: uppercase;
     }
 
-    /* Vocabulary row: base glyphs */
     .brand-vocab {
       display: flex;
       justify-content: center;
@@ -536,10 +614,55 @@
       letter-spacing: 0.08em;
     }
 
-    /* Compositions: same glyphs, different combos */
+    .brand-lock-demo {
+      display: flex;
+      gap: 0;
+      width: 100%;
+      max-width: 680px;
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: color-mix(in srgb, var(--color-bg) 60%, var(--color-panel));
+    }
+
+    .brand-lock-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1.4rem 1rem;
+      flex: 1;
+    }
+
+    .brand-lock-divider {
+      width: 1px;
+      background: var(--color-border);
+      align-self: stretch;
+    }
+
+    .brand-lock-title {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-lock-desc {
+      font-size: 0.5rem;
+      color: var(--color-dim);
+      text-align: center;
+      max-width: 160px;
+      line-height: 1.5;
+    }
+
+    .brand-lock-combined {
+      position: relative;
+      width: 70px;
+      height: 70px;
+    }
+
     .brand-compositions {
       display: flex;
-      gap: clamp(1rem, 3vw, 2.5rem);
+      gap: clamp(1rem, 3vw, 2rem);
       flex-wrap: wrap;
       justify-content: center;
     }
@@ -560,7 +683,8 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      height: 60px;
+      height: 70px;
+      width: 100%;
     }
 
     .brand-comp-name {
@@ -577,13 +701,12 @@
       line-height: 1.4;
     }
 
-    /* Usage row: icon+label in context */
     .brand-usage {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 1rem;
       width: 100%;
-      max-width: 700px;
+      max-width: 760px;
     }
 
     .brand-use-item {
@@ -595,9 +718,10 @@
       background: color-mix(in srgb, var(--color-bg) 60%, var(--color-panel));
     }
 
-    .brand-use-item .sym {
-      font-size: 32px;
-      color: var(--color-accent);
+    .brand-use-icon {
+      position: relative;
+      width: 44px;
+      height: 44px;
       flex-shrink: 0;
     }
 
@@ -647,10 +771,46 @@
   <div class="showcase">
     <div class="section-label">A · Presentation Title Slide</div>
     <div class="slide-card">
-      <!-- giant lattice watermark -->
-      <span class="sym slide-watermark" style="font-variation-settings:'wght' 200,'MORF' 400;">G</span>
 
-      <!-- top chevron ribbon -->
+      <span class="sym slide-watermark" style="font-variation-settings:'wght' 200,'MORF' 400;">G</span>
+      <span class="sym slide-watermark-2" style="font-variation-settings:'wght' 800,'MORF' 900;">M</span>
+
+      <div class="slide-left-ribbon">
+        <span class="sym" style="font-variation-settings:'wght' 200,'MORF' 100;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 200;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 300;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 800;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 700;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 600;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 500;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 400;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 300;">C</span>
+      </div>
+
+      <div class="slide-right-ribbon">
+        <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 800;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 700;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 600;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 500;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 400;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 300;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 200,'MORF' 200;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 300;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 400;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 500;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 600;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 700;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 800;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span>
+      </div>
+
       <div class="slide-ribbon">
         <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 100;">C</span>
         <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span>
@@ -671,7 +831,16 @@
         <span class="sym" style="font-variation-settings:'wght' 200,'MORF' 100;">C</span>
       </div>
 
-      <!-- Span lockup -->
+      <!-- bottom-left hex cluster: 3 nodes ascending size = infrastructure at scale -->
+      <div class="slide-hex-cluster">
+        <span class="sym" style="font-size:clamp(14px,2.4vw,28px); font-variation-settings:'wght' 300,'MORF' 100;">H</span>
+        <span class="sym" style="font-size:clamp(22px,3.8vw,44px); font-variation-settings:'wght' 500,'MORF' 500;">H</span>
+        <span class="sym" style="font-size:clamp(34px,5.8vw,64px); font-variation-settings:'wght' 700,'MORF' 900;">H</span>
+      </div>
+
+      <!-- top-right relay accent -->
+      <span class="sym slide-accent-tr" style="font-size:clamp(30px,5vw,56px); font-variation-settings:'wght' 600,'MORF' 700;">R</span>
+
       <div class="slide-logo">
         <span class="sym bridge" style="font-variation-settings:'wght' 700,'MORF' 600;">A</span>
         <div class="hex-pair">
@@ -685,7 +854,6 @@
         <div class="slide-sub">Infrastructure Report &middot; Q4 2026</div>
       </div>
 
-      <!-- bottom dot-stream accent -->
       <div class="slide-bottom-bar">
         <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 100;">D</span>
         <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">D</span>
@@ -740,22 +908,46 @@
     <div class="section-label">C · Business Card</div>
     <div class="cards-row">
 
-      <!-- Front -->
+      <!-- Front: bigger hexes, bridge offset fixed -->
       <div class="biz-card biz-front">
         <div class="biz-logo">
-          <span class="sym bridge-glyph" style="font-variation-settings:'wght' 700,'MORF' 600;">A</span>
-          <span class="sym hex-left" style="font-variation-settings:'wght' 800,'MORF' 900;">H</span>
-          <span class="sym hex-right" style="font-variation-settings:'wght' 800,'MORF' 900;">H</span>
+          <span class="sym biz-bridge" style="font-variation-settings:'wght' 700,'MORF' 600;">A</span>
+          <div class="biz-hexes">
+            <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 900;">H</span>
+            <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 900;">H</span>
+          </div>
         </div>
         <div class="company-name mono">SYMBOLANG</div>
         <div class="biz-tagline mono">Variable symbol systems</div>
       </div>
 
-      <!-- Back -->
+      <!-- Back: C-lattice grid + diagonal sash + ribbon -->
       <div class="biz-card biz-back">
-        <!-- lattice watermark -->
-        <span class="sym biz-back-watermark" style="font-variation-settings:'wght' 300,'MORF' 500;">G</span>
-        <!-- chevron ribbon top -->
+
+        <div class="biz-back-lattice">
+          <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span><span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span><span class="sym" style="font-variation-settings:'wght' 300,'MORF' 100;">C</span><span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span><span class="sym" style="font-variation-settings:'wght' 300,'MORF' 100;">C</span><span class="sym" style="font-variation-settings:'wght' 200,'MORF' 100;">C</span><span class="sym" style="font-variation-settings:'wght' 300,'MORF' 100;">C</span>
+        </div>
+
+        <div class="biz-back-sash">
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span></div>
+          <div class="sash-row"><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 800,'MORF' 700;">C</span><span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span><span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span><span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">C</span></div>
+        </div>
+
         <div class="biz-back-ribbon">
           <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span>
           <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span>
@@ -772,6 +964,7 @@
           <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span>
           <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 300;">C</span>
         </div>
+
         <div class="biz-contact mono">
           <div class="name">Jane Doe</div>
           <div class="role">Principal Engineer</div>
@@ -790,10 +983,8 @@
     <div class="section-label">D · Stationery &mdash; Envelope &amp; Notebook</div>
     <div class="objects-row">
 
-      <!-- Envelope -->
       <div class="envelope">
         <div class="envelope-flap">
-          <!-- stamp glyph -->
           <span class="sym envelope-stamp" style="font-variation-settings:'wght' 700,'MORF' 800;">H</span>
         </div>
         <div class="envelope-body">
@@ -802,7 +993,6 @@
             1234 Network Lane<br>
             San Francisco, CA 94105
           </div>
-          <!-- pattern strip at bottom -->
           <div class="envelope-strip">
             <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 100;">H</span>
             <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 200;">H</span>
@@ -825,9 +1015,7 @@
         </div>
       </div>
 
-      <!-- Notebook -->
       <div class="notebook">
-        <!-- repeating glyph pattern background -->
         <div class="notebook-pattern">
           <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 300;">D</span>
           <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 500;">H</span>
@@ -873,7 +1061,6 @@
     <div class="section-label">E · Design System &mdash; One font, many roles</div>
     <div class="brand-card">
 
-      <!-- Vocabulary: base alphabet at locked Form -->
       <div class="brand-vocab-label">Vocabulary &mdash; Form 700, Weight 500</div>
       <div class="brand-vocab">
         <div class="brand-glyph">
@@ -898,49 +1085,80 @@
         </div>
       </div>
 
-      <!-- Compositions: same glyphs recombined -->
+      <!-- Locked-form: same H glyph, two structural roles via Form axis -->
+      <div class="brand-vocab-label">Locked Form &mdash; H at Form 100 vs Form 900 &mdash; same glyph, two roles</div>
+      <div class="brand-lock-demo">
+
+        <div class="brand-lock-item">
+          <span class="sym" style="font-size:clamp(52px,9vw,76px); font-variation-settings:'wght' 500,'MORF' 100; color:var(--color-dim);">H</span>
+          <div class="brand-lock-title">Frame / Diffuse</div>
+          <div class="brand-lock-desc">Form 100 — outer ring vortex. Use as border decoration, background tile, ambient texture.</div>
+        </div>
+
+        <div class="brand-lock-divider"></div>
+
+        <div class="brand-lock-item">
+          <span class="sym" style="font-size:clamp(52px,9vw,76px); font-variation-settings:'wght' 500,'MORF' 900; color:var(--color-accent);">H</span>
+          <div class="brand-lock-title">Node / Unified</div>
+          <div class="brand-lock-desc">Form 900 — tight solid hex. Use as primary icon, hub marker, call-to-action badge.</div>
+        </div>
+
+        <div class="brand-lock-divider"></div>
+
+        <div class="brand-lock-item">
+          <div class="brand-lock-combined">
+            <span class="sym" style="font-size:clamp(52px,9vw,76px); font-variation-settings:'wght' 400,'MORF' 100; color:var(--color-dim); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0.5;">H</span>
+            <span class="sym" style="font-size:clamp(28px,5vw,42px); font-variation-settings:'wght' 700,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
+          </div>
+          <div class="brand-lock-title">Cluster Mark</div>
+          <div class="brand-lock-desc">Both combined: diffuse outer field + solid inner core. Infrastructure node in one mark.</div>
+        </div>
+
+      </div>
+
+      <!-- Compositions -->
       <div class="brand-vocab-label">Compositions &mdash; same glyphs, different stories</div>
       <div class="brand-compositions">
 
-        <!-- Cluster: 3 hexes at different sizes = infrastructure -->
+        <!-- Infrastructure: 3 H at different Form values (field → relay → core) -->
         <div class="brand-comp">
           <div class="brand-comp-mark">
-            <span class="sym" style="font-size:40px; font-variation-settings:'wght' 700,'MORF' 900; color:var(--color-accent);">H</span>
-            <span class="sym" style="font-size:24px; font-variation-settings:'wght' 500,'MORF' 700; color:var(--color-glyph); margin-left:-0.15em; margin-top:0.4em;">H</span>
-            <span class="sym" style="font-size:18px; font-variation-settings:'wght' 300,'MORF' 500; color:var(--color-dim); margin-left:-0.1em; margin-top:-0.3em;">H</span>
+            <span class="sym" style="font-size:56px; font-variation-settings:'wght' 400,'MORF' 100; color:var(--color-dim); position:absolute;">H</span>
+            <span class="sym" style="font-size:32px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-glyph); position:absolute; transform:translate(14px,-10px);">H</span>
+            <span class="sym" style="font-size:22px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute; transform:translate(-16px,10px);">H</span>
           </div>
-          <div class="brand-comp-name">Cluster</div>
-          <div class="brand-comp-desc">Three nodes at different weights. Infrastructure at scale.</div>
+          <div class="brand-comp-name">Infrastructure</div>
+          <div class="brand-comp-desc">Three H nodes: Form 100 field, Form 500 relay, Form 900 core. One glyph, three roles.</div>
         </div>
 
-        <!-- Relay: hex inside hex = gateway -->
+        <!-- Gateway: low-phase outer hex + high-phase inner hex -->
         <div class="brand-comp">
           <div class="brand-comp-mark">
-            <span class="sym" style="font-size:50px; font-variation-settings:'wght' 100,'MORF' 900; color:var(--color-glyph);">H</span>
-            <span class="sym" style="font-size:24px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute;">H</span>
+            <span class="sym" style="font-size:54px; font-variation-settings:'wght' 100,'MORF' 900; color:var(--color-glyph);">H</span>
+            <span class="sym" style="font-size:26px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute;">H</span>
           </div>
-          <div class="brand-comp-name">Relay</div>
-          <div class="brand-comp-desc">Nested hex. Thin outer = boundary, solid inner = core.</div>
+          <div class="brand-comp-name">Gateway</div>
+          <div class="brand-comp-desc">Phase 100 outer = boundary. Phase 800 inner = active core.</div>
         </div>
 
-        <!-- Signal: dots + chevron = data in motion -->
+        <!-- Signal: D + C -->
         <div class="brand-comp">
           <div class="brand-comp-mark">
-            <span class="sym" style="font-size:36px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-dim);">D</span>
-            <span class="sym" style="font-size:48px; font-variation-settings:'wght' 800,'MORF' 800; color:var(--color-accent); margin-left:-0.1em;">C</span>
+            <span class="sym" style="font-size:38px; font-variation-settings:'wght' 600,'MORF' 500; color:var(--color-dim);">D</span>
+            <span class="sym" style="font-size:52px; font-variation-settings:'wght' 800,'MORF' 800; color:var(--color-accent); margin-left:-0.08em;">C</span>
           </div>
           <div class="brand-comp-name">Signal</div>
           <div class="brand-comp-desc">Data propelled forward. Dots feed into chevron.</div>
         </div>
 
-        <!-- Observe: container + audio-wave = dashboard -->
+        <!-- Observe: Q + G -->
         <div class="brand-comp">
           <div class="brand-comp-mark">
-            <span class="sym" style="font-size:50px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-glyph); margin-left:-0.12em;">Q</span>
-            <span class="sym" style="font-size:24px; font-variation-settings:'wght' 500,'MORF' 700; color:var(--color-dim); position:absolute; margin-left:-0.06em;">M</span>
+            <span class="sym" style="font-size:54px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-glyph);">Q</span>
+            <span class="sym" style="font-size:30px; font-variation-settings:'wght' 400,'MORF' 300; color:var(--color-dim); position:absolute;">G</span>
           </div>
           <div class="brand-comp-name">Observe</div>
-          <div class="brand-comp-desc">Container frames a pulse. Live dashboard feel.</div>
+          <div class="brand-comp-desc">Container holds lattice. Dashboard in a glyph.</div>
         </div>
 
       </div>
@@ -948,44 +1166,72 @@
       <!-- Usage in context -->
       <div class="brand-vocab-label">In context &mdash; icon + label</div>
       <div class="brand-usage">
+
         <div class="brand-use-item">
-          <div style="position:relative; width:36px; height:36px; flex-shrink:0;">
-            <span class="sym" style="font-size:36px; font-variation-settings:'wght' 700,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
-            <span class="sym" style="font-size:20px; font-variation-settings:'wght' 400,'MORF' 600; color:var(--color-glyph); position:absolute; top:-2px; right:-8px;">H</span>
+          <div class="brand-use-icon">
+            <span class="sym" style="font-size:44px; font-variation-settings:'wght' 400,'MORF' 100; color:var(--color-dim); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0.55;">H</span>
+            <span class="sym" style="font-size:26px; font-variation-settings:'wght' 700,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
           </div>
           <div class="use-text">
             <span class="use-name">Infrastructure</span>
-            <span class="use-desc">Multi-node cluster</span>
+            <span class="use-desc">Field + core cluster mark</span>
           </div>
         </div>
+
         <div class="brand-use-item">
-          <span class="sym" style="font-size:32px; font-variation-settings:'wght' 600,'MORF' 700; color:var(--color-accent);">D</span>
+          <div class="brand-use-icon">
+            <span class="sym" style="font-size:36px; font-variation-settings:'wght' 600,'MORF' 700; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">D</span>
+          </div>
           <div class="use-text">
             <span class="use-name">Data Pipeline</span>
             <span class="use-desc">Streaming flow</span>
           </div>
         </div>
+
         <div class="brand-use-item">
-          <div style="position:relative; width:36px; height:36px; flex-shrink:0;">
-            <span class="sym" style="font-size:28px; font-variation-settings:'wght' 600,'MORF' 700; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">A</span>
-            <span class="sym" style="font-size:12px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:2px; left:4px;">H</span>
-            <span class="sym" style="font-size:12px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:2px; right:4px;">H</span>
+          <div class="brand-use-icon">
+            <span class="sym" style="font-size:30px; font-variation-settings:'wght' 600,'MORF' 700; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-52%);">A</span>
+            <span class="sym" style="font-size:14px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:4px; left:3px;">H</span>
+            <span class="sym" style="font-size:14px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:4px; right:3px;">H</span>
           </div>
           <div class="use-text">
             <span class="use-name">Connectivity</span>
             <span class="use-desc">Span bridge lockup</span>
           </div>
         </div>
+
         <div class="brand-use-item">
-          <div style="position:relative; width:36px; height:36px; flex-shrink:0;">
-            <span class="sym" style="font-size:34px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) translateX(-0.06em);">Q</span>
-            <span class="sym" style="font-size:16px; font-variation-settings:'wght' 500,'MORF' 700; color:var(--color-glyph); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) translateX(-0.03em);">M</span>
+          <div class="brand-use-icon">
+            <span class="sym" style="font-size:38px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">Q</span>
+            <span class="sym" style="font-size:20px; font-variation-settings:'wght' 400,'MORF' 300; color:var(--color-glyph); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">G</span>
           </div>
           <div class="use-text">
             <span class="use-name">Monitoring</span>
             <span class="use-desc">Observe composition</span>
           </div>
         </div>
+
+        <div class="brand-use-item">
+          <div class="brand-use-icon">
+            <span class="sym" style="font-size:40px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--color-glyph); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
+            <span class="sym" style="font-size:20px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">H</span>
+          </div>
+          <div class="use-text">
+            <span class="use-name">Gateway</span>
+            <span class="use-desc">Boundary + active core</span>
+          </div>
+        </div>
+
+        <div class="brand-use-item">
+          <div class="brand-use-icon">
+            <span class="sym" style="font-size:36px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-accent); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">C</span>
+          </div>
+          <div class="use-text">
+            <span class="use-name">Throughput</span>
+            <span class="use-desc">Forward progress signal</span>
+          </div>
+        </div>
+
       </div>
 
     </div>
