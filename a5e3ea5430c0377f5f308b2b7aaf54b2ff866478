@@ -1,0 +1,38 @@
+public/sample_packaging.html
+  fbbbbb6b5ced6837 531,533,624,626-634,636,639-644,646-647,650-658
+public/css/sample_packaging.css
+  fbbbbb6b5ced6837 901,903-1017
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "a5e3ea5430c0377f5f308b2b7aaf54b2ff866478",
+  "prompts": {
+    "1471b2094225afd7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b93c1c18-ab04-47a8-8cca-284ef6bc7bc2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 54,
+      "overriden_lines": 0
+    },
+    "fbbbbb6b5ced6837": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7eec51cb-e7c4-44cb-9b0f-fa27dbfc0f8b",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 145,
+      "total_deletions": 87,
+      "accepted_lines": 145,
+      "overriden_lines": 0
+    }
+  }
+}
