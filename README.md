@@ -46,6 +46,10 @@ Any host that supports variable fonts (modern browsers, Figma, Illustrator, InDe
 
 Write `HCH` and style it — you get a node-flow-node mark. See `GUIDE.md` for composition patterns and identity-design ideas.
 
+You can mix and match glyphs to create new ones.
+
+![Mix and match](public/imgs/mix_and_match.png)
+
 ## Files
 
 | File | Purpose |

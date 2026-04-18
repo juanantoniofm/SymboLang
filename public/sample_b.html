@@ -1,6 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- /*
+
+Span A · H · H — two nodes (hex at low thickness, small radius) connected by a bridge arc (curvature high, weight
+moderate). This is the most literal reading of the product: a structure that spans from the client to the database. The
+teal lives in the arc — which is the proxy itself, the thing doing the work. The navy hexes are the static endpoints. Of
+the six, this is the one that survives translation to a one-sentence explanation: "we're the bridge between your app and
+your database."
+
+Stream D · H — node (thin outline) with stream (high density, horizontal flow) passing through. The only composition
+where the hex is outlined rather than filled, which reads as "the gateway is transparent — you see the traffic flowing
+through it." The single teal dot in the center is the moment of intelligence: caching, auth, observation. This is your
+observability/intercept story in one mark.
+
+Ingress E · H — directional (pointing right, equilateral) and node (medium thickness). Cleanest of the six, and the one
+that would shrink to 16px with the least loss. Flips the color convention: teal on the input side, navy on the gateway.
+Reads as "something enters here, something intelligent happens."
+
+Intercept R · D — relay (medium gap, sharp arrows) with a single stream-point in the pinch. Different energy from Span —
+this one says "nothing passes through untouched." More assertive, slightly more menacing, depending on how you feel
+about that. Good for security/governance framings, slightly less good for developer-tooling framings.
+
+Observe Q · G — container (frame, no tilt) holding a lattice (sparse). The only composition that leans into the
+observability angle rather than the middleman angle. The teal center point is a selected query. This one reads more as a
+dashboard/monitoring product than a proxy, which may or may not be where you want to aim.
+
+Accelerate C · C — throughput at two weights, thin-to-thick. Pure speed metaphor, no middleman reading. This is the
+composition that feels most like HAProxy/Nginx visually — aggressive, directional, performance-forward. Least unique of
+the six (chevrons are common in the devtool space) but the tonal match is strong.
+
+The lockup at the bottom shows Span with the wordmark in monospace. The arc rides above the x-height of the word nicely,
+and at that size the two hex endpoints align with the cap-height of "D" and "y" — the mark feels anchored to the type
+rather than floating above it.
+*/ -->
+
 <head>
   <meta charset="utf-8">
   <title>SymbolLang · Mix &amp; Match</title>
@@ -18,19 +52,39 @@
       --dim: #8a8a90;
       --border: #222228;
       --teal: #5eead4;
-      --navy: #1e2a3a;
+      --glyph: #c8cdd8;
     }
 
-    html, body {
-      margin: 0; padding: 3rem 1.5rem;
+    html,
+    body {
+      margin: 0;
+      padding: 3rem 1.5rem;
       font-family: ui-sans-serif, -apple-system, system-ui, sans-serif;
-      background: var(--bg); color: var(--ink);
-      display: flex; flex-direction: column; align-items: center; gap: 3rem;
+      background: var(--bg);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
     }
 
-    h1 { font-size: 1.2rem; font-weight: 600; margin: 0; letter-spacing: 0.02em; }
-    .subtitle { font-size: 0.8rem; color: var(--dim); margin: 0.3rem 0 0; }
-    .sym { font-family: "SymbolLang"; line-height: 1; }
+    h1 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--dim);
+      margin: 0.3rem 0 0;
+    }
+
+    .sym {
+      font-family: "SymbolLang";
+      line-height: 1;
+    }
 
     /* ---- cards ---- */
     .grid {
@@ -39,36 +93,50 @@
       gap: 1.5rem;
       width: min(960px, 94vw);
     }
-    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .card {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 2rem 1.5rem 1.2rem;
-      display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
     }
 
     .card-mark {
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       min-height: 140px;
       position: relative;
     }
 
     .card-formula {
-      font-size: 0.7rem; color: var(--dim);
+      font-size: 0.7rem;
+      color: var(--dim);
       font-family: ui-monospace, monospace;
       letter-spacing: 0.1em;
     }
 
     .card-name {
-      font-size: 1rem; font-weight: 600;
+      font-size: 1rem;
+      font-weight: 600;
       letter-spacing: 0.02em;
     }
 
     .card-desc {
-      font-size: 0.7rem; color: var(--dim);
-      text-align: center; line-height: 1.4;
+      font-size: 0.7rem;
+      color: var(--dim);
+      text-align: center;
+      line-height: 1.4;
       max-width: 260px;
     }
 
@@ -79,20 +147,34 @@
       border-radius: 14px;
       padding: 2.5rem 3rem;
       width: min(960px, 94vw);
-      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
+
     .lockup-label {
-      font-size: 0.65rem; color: var(--dim);
-      text-transform: uppercase; letter-spacing: 0.14em;
+      font-size: 0.65rem;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
     }
+
     .lockup-mark {
-      display: flex; align-items: center; justify-content: center;
-      gap: 0;
+      position: relative;
+      width: 120px;
+      height: 70px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
     }
+
     .lockup-word {
       font-family: ui-monospace, "SF Mono", monospace;
-      font-size: 2rem; font-weight: 400;
-      letter-spacing: 0.12em; color: var(--ink);
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--ink);
       margin-top: 0.3rem;
     }
   </style>
@@ -102,86 +184,100 @@
 
   <header style="text-align:center;">
     <h1>SymbolLang · Mix &amp; Match</h1>
-    <p class="subtitle">Six logo compositions. Teal = active element. Navy = static endpoint.</p>
+    <p class="subtitle">Six logo compositions. Teal = active element.</p>
   </header>
 
   <div class="grid">
 
-    <!-- Span: A · H · H -->
+    <!-- Span: A · H · H — arc above two grounded hexes -->
     <div class="card">
-      <div class="card-mark">
-        <span class="sym" style="font-size:50px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--navy);">H</span>
-        <span class="sym" style="font-size:140px; font-variation-settings:'wght' 500,'MORF' 700; color:var(--teal); margin: 0 -0.15em;">A</span>
-        <span class="sym" style="font-size:50px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--navy);">H</span>
+      <div class="card-mark" style="flex-direction:column; align-items:center;">
+        <!-- Arc on top -->
+        <span class="sym"
+          style="font-size:140px; font-variation-settings:'wght' 700,'MORF' 600; color:var(--teal); line-height:0.6;">A</span>
+        <!-- Two hexes below, spaced apart -->
+        <div style="display:flex; justify-content:space-between; width:120px; margin-top:-20px;">
+          <span class="sym"
+            style="font-size:40px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--glyph);">H</span>
+          <span class="sym"
+            style="font-size:40px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--glyph);">H</span>
+        </div>
       </div>
       <div class="card-formula">A · H · H</div>
       <div class="card-name">Span</div>
-      <div class="card-desc">The bridge between your app and your database. Teal arc is the proxy doing the work; navy hexes are static endpoints.</div>
+      <div class="card-desc">The bridge between your app and your database. Teal arc is the proxy doing the work; hexes
+        are static endpoints.</div>
     </div>
 
-    <!-- Stream: D · H -->
+    <!-- Stream: D · H — dots flowing through outlined hex, teal dot inside -->
     <div class="card">
       <div class="card-mark">
-        <span class="sym" style="font-size:80px; font-variation-settings:'wght' 700,'MORF' 500; color:var(--navy);">D</span>
-        <span class="sym" style="font-size:100px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--navy); margin-left:-0.1em;">H</span>
-        <span style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">
-          <span class="sym" style="font-size:16px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--teal);">D</span>
-        </span>
+        <span class="sym"
+          style="font-size:80px; font-variation-settings:'wght' 700,'MORF' 500; color:var(--glyph);">D</span>
+        <span class="sym"
+          style="font-size:90px; font-variation-settings:'wght' 100,'MORF' 900; color:var(--glyph); position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">H</span>
+        <span class="sym"
+          style="font-size:14px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--teal); position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">D</span>
       </div>
       <div class="card-formula">D · H</div>
       <div class="card-name">Stream</div>
-      <div class="card-desc">Outlined hex = transparent gateway. Traffic flows through. Single teal dot: the moment of intelligence — caching, auth, observation.</div>
+      <div class="card-desc">Outlined hex = transparent gateway. Traffic flows through. Single teal dot: the moment of
+        intelligence.</div>
     </div>
 
-    <!-- Ingress: E · H -->
+    <!-- Ingress: E · H — triangle pointing at hex, close together -->
     <div class="card">
-      <div class="card-mark">
-        <span class="sym" style="font-size:90px; font-variation-settings:'wght' 500,'MORF' 500; color:var(--teal);">E</span>
-        <span class="sym" style="font-size:100px; font-variation-settings:'wght' 400,'MORF' 900; color:var(--navy); margin-left:0.1em;">H</span>
+      <div class="card-mark" style="gap:0.1em;">
+        <span class="sym"
+          style="font-size:70px; font-variation-settings:'wght' 500,'MORF' 500; color:var(--teal);">E</span>
+        <span class="sym"
+          style="font-size:85px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--glyph);">H</span>
       </div>
       <div class="card-formula">E · H</div>
       <div class="card-name">Ingress</div>
-      <div class="card-desc">Cleanest of six. Shrinks to 16px with least loss. Teal on input, navy on gateway: something enters, something intelligent happens.</div>
+      <div class="card-desc">Cleanest of six. Teal on input, hex on gateway: something enters, something intelligent
+        happens.</div>
     </div>
 
-    <!-- Intercept: R · D -->
+    <!-- Intercept: R · D — relay with teal dot at pinch point -->
     <div class="card">
       <div class="card-mark">
-        <span class="sym" style="font-size:120px; font-variation-settings:'wght' 600,'MORF' 700; color:var(--navy);">R</span>
-        <span style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">
-          <span class="sym" style="font-size:20px; font-variation-settings:'wght' 900,'MORF' 500; color:var(--teal);">D</span>
-        </span>
+        <span class="sym"
+          style="font-size:100px; font-variation-settings:'wght' 500,'MORF' 700; color:var(--glyph);">R</span>
+        <span class="sym"
+          style="font-size:12px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--teal); position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">D</span>
       </div>
       <div class="card-formula">R · D</div>
       <div class="card-name">Intercept</div>
-      <div class="card-desc">Nothing passes through untouched. More assertive than Span. Good for security and governance framings.</div>
+      <div class="card-desc">Nothing passes through untouched. More assertive than Span. Good for security and
+        governance framings.</div>
     </div>
 
-    <!-- Observe: Q · G -->
+    <!-- Observe: Q · G — container framing grid, no teal accent -->
     <div class="card">
-      <div class="card-mark" style="position:relative;">
-        <span class="sym" style="font-size:130px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--navy);">Q</span>
-        <span style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">
-          <span class="sym" style="font-size:70px; font-variation-settings:'wght' 500,'MORF' 300; color:var(--dim);">G</span>
-        </span>
-        <span style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">
-          <span class="sym" style="font-size:12px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--teal);">D</span>
-        </span>
+      <div class="card-mark">
+        <span class="sym"
+          style="font-size:120px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--glyph);">Q</span>
+        <span class="sym"
+          style="font-size:65px; font-variation-settings:'wght' 500,'MORF' 300; color:var(--dim); position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">G</span>
       </div>
       <div class="card-formula">Q · G</div>
       <div class="card-name">Observe</div>
-      <div class="card-desc">Container holds a lattice. Teal center = selected query. Reads as dashboard/monitoring rather than middleman.</div>
+      <div class="card-desc">Container holds a lattice. Reads as dashboard/monitoring rather than middleman.</div>
     </div>
 
-    <!-- Accelerate: C · C -->
+    <!-- Accelerate: C · C — small thin then large thick chevron -->
     <div class="card">
       <div class="card-mark">
-        <span class="sym" style="font-size:70px; font-variation-settings:'wght' 300,'MORF' 500; color:var(--dim);">C</span>
-        <span class="sym" style="font-size:130px; font-variation-settings:'wght' 800,'MORF' 800; color:var(--teal); margin-left:-0.05em;">C</span>
+        <span class="sym"
+          style="font-size:65px; font-variation-settings:'wght' 300,'MORF' 500; color:var(--dim);">C</span>
+        <span class="sym"
+          style="font-size:125px; font-variation-settings:'wght' 800,'MORF' 800; color:var(--teal); margin-left:-0.05em;">C</span>
       </div>
       <div class="card-formula">C · C</div>
       <div class="card-name">Accelerate</div>
-      <div class="card-desc">Pure speed. Thin-to-thick throughput progression. Performance-forward, most aggressive of the six.</div>
+      <div class="card-desc">Pure speed. Thin-to-thick throughput progression. Performance-forward, most aggressive of
+        the six.</div>
     </div>
 
   </div>
@@ -190,9 +286,15 @@
   <div class="lockup">
     <div class="lockup-label">Lockup · Span with wordmark</div>
     <div class="lockup-mark">
-      <span class="sym" style="font-size:36px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--navy);">H</span>
-      <span class="sym" style="font-size:80px; font-variation-settings:'wght' 500,'MORF' 700; color:var(--teal); margin: 0 -0.1em;">A</span>
-      <span class="sym" style="font-size:36px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--navy);">H</span>
+      <!-- Arc -->
+      <span class="sym"
+        style="font-size:65px; font-variation-settings:'wght' 700,'MORF' 600; color:var(--teal); position:absolute; top:0; left:50%; transform:translateX(-50%); line-height:0.6;">A</span>
+      <!-- Left hex -->
+      <span class="sym"
+        style="font-size:26px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--glyph); position:absolute; bottom:0; left:10px;">H</span>
+      <!-- Right hex -->
+      <span class="sym"
+        style="font-size:26px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--glyph); position:absolute; bottom:0; right:10px;">H</span>
     </div>
     <div class="lockup-word">SymbolLang</div>
   </div>
