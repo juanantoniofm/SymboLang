@@ -442,6 +442,324 @@ h1 {
 }
 
 /* ============================================================
+   E. WAYFINDING SIGNAGE
+   ============================================================ */
+.wayfinding-panel {
+    width: min(600px, 90vw);
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.wayfinding-header {
+    padding: 0.65rem 1.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--color-dim);
+    border-bottom: 1px solid var(--color-border);
+    text-transform: uppercase;
+}
+
+.wayfinding-rows {
+    padding: 0.4rem 0;
+}
+
+.wayfinding-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 1.5rem;
+}
+
+.wayfinding-glyph {
+    font-size: clamp(32px, 5.5vw, 52px);
+    color: var(--color-accent);
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.wayfinding-dest {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    text-align: right;
+}
+
+.wayfinding-dest--left {
+    text-align: left;
+}
+
+.wayfinding-name {
+    font-size: clamp(0.85rem, 2vw, 1.2rem);
+    font-weight: 600;
+    color: var(--color-ink);
+    letter-spacing: 0.04em;
+}
+
+.wayfinding-floor {
+    font-size: 0.58rem;
+    color: var(--color-dim);
+    letter-spacing: 0.1em;
+}
+
+.wayfinding-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin: 0 1.5rem;
+}
+
+.wayfinding-footer {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    overflow: hidden;
+    height: clamp(18px, 3vw, 26px);
+    border-top: 1px solid var(--color-border);
+    opacity: 0.28;
+}
+
+.wayfinding-footer span {
+    font-size: clamp(16px, 2.6vw, 24px);
+    color: var(--color-accent2);
+    line-height: 1;
+}
+
+/* ============================================================
+   F. ANALYTICS DASHBOARD
+   ============================================================ */
+.analytics-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.analytics-card {
+    flex: 1;
+    min-width: min(260px, 90vw);
+    max-width: 320px;
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    overflow: hidden;
+}
+
+.analytics-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.analytics-label {
+    font-size: 0.56rem;
+    color: var(--color-dim);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.analytics-icon {
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: var(--color-accent);
+    opacity: 0.5;
+    line-height: 1;
+}
+
+.analytics-num {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 700;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-top: 0.2rem;
+}
+
+.analytics-trend {
+    font-size: 0.56rem;
+    color: var(--color-dim);
+    letter-spacing: 0.06em;
+}
+
+.trend-up { color: #4ade80; }
+.trend-ok { color: var(--color-accent); }
+
+.analytics-bars {
+    display: flex;
+    gap: 0;
+    align-items: flex-end;
+    overflow: hidden;
+    height: clamp(28px, 4.5vw, 44px);
+    margin-top: 0.6rem;
+    opacity: 0.55;
+}
+
+.analytics-bars span {
+    font-size: clamp(22px, 3.8vw, 38px);
+    color: var(--color-accent);
+    line-height: 1;
+    flex: 1;
+    text-align: center;
+}
+
+.analytics-dots {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    height: clamp(22px, 3.5vw, 34px);
+    margin-top: 0.6rem;
+    opacity: 0.45;
+    align-items: center;
+}
+
+.analytics-dots span {
+    font-size: clamp(18px, 3vw, 28px);
+    color: var(--color-accent);
+    line-height: 1;
+    flex: 1;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .analytics-card {
+        max-width: 90vw;
+    }
+}
+
+/* ============================================================
+   G. EVENT POSTER
+   ============================================================ */
+.poster-card {
+    width: min(360px, 72vw);
+    aspect-ratio: 2 / 3;
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.poster-vortex {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(220px, 50vw, 440px);
+    color: var(--color-accent);
+    opacity: 0.04;
+    pointer-events: none;
+}
+
+.poster-spike {
+    position: absolute;
+    font-size: clamp(24px, 4.5vw, 40px);
+    color: var(--color-accent);
+    opacity: 0.18;
+    pointer-events: none;
+    line-height: 1;
+}
+
+.poster-spike--n { top: 1rem; left: 50%; transform: translateX(-50%); }
+.poster-spike--s { bottom: 2.8rem; left: 50%; transform: translateX(-50%); }
+.poster-spike--e { right: 1rem; top: 42%; transform: translateY(-50%); }
+.poster-spike--w { left: 1rem; top: 42%; transform: translateY(-50%); }
+
+.poster-body {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    text-align: center;
+    padding: 0 2.5rem;
+}
+
+.poster-eyebrow {
+    font-size: 0.48rem;
+    color: var(--color-accent);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.poster-mark {
+    position: relative;
+    width: clamp(110px, 24vw, 150px);
+    height: clamp(110px, 24vw, 150px);
+    flex-shrink: 0;
+}
+
+.poster-title {
+    font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    margin-top: 0.2rem;
+}
+
+.poster-year {
+    font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+    color: var(--color-dim);
+    letter-spacing: 0.3em;
+}
+
+.poster-chevrons {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    height: clamp(14px, 2.5vw, 22px);
+    opacity: 0.35;
+}
+
+.poster-chevrons span {
+    font-size: clamp(12px, 2.2vw, 20px);
+    color: var(--color-accent);
+    line-height: 1;
+}
+
+.poster-date {
+    font-size: 0.55rem;
+    color: var(--color-ink);
+    letter-spacing: 0.14em;
+}
+
+.poster-sub {
+    font-size: 0.48rem;
+    color: var(--color-dim);
+    letter-spacing: 0.1em;
+}
+
+.poster-ribbon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    overflow: hidden;
+    height: clamp(20px, 3.5vw, 32px);
+    opacity: 0.22;
+}
+
+.poster-ribbon span {
+    font-size: clamp(18px, 3.2vw, 30px);
+    color: var(--color-accent2);
+    line-height: 1;
+}
+
+/* ============================================================
        D. ENVELOPE & NOTEBOOK
        ============================================================ */
 .objects-row {
