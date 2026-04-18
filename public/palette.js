@@ -127,31 +127,42 @@
   // ── Palette computation ────────────────────────────────────────────────────
 
   function computePalette(h, s, type, isDark) {
-    const bg = isDark ? '#0b0b0d' : '#f5f5f7';
+    // Surfaces (derived before findL so we can pass the real bg)
+    const bg    = isDark ? hslToHex(h, 14,  3) : hslToHex(h, 16, 96);
+    const panel = isDark ? hslToHex(h, 12,  7) : hslToHex(h,  9, 99);
+    const border= isDark ? hslToHex(h, 14, 15) : hslToHex(h, 12, 86);
+    const ink   = isDark ? hslToHex(h,  6, 95) : hslToHex(h,  8,  7);
 
     // Clamp saturation to a tasteful range
     const aS = Math.max(60, Math.min(s, 84));
 
-    // Accent 1: meet WCAG AA (4.5:1)
+    // Accent 1: WCAG AA (4.5:1) against bg
     const aL = findL(h, aS, bg, 4.5, isDark);
     const accent = hslToHex(h, aS, aL);
 
-    // Accent 2: hue derived from palette type
+    // Accent 2: hue derived from palette type, same 4.5:1 floor
     const typeObj = TYPES.find(t => t.id === type) || TYPES[0];
     const h2 = (h + typeObj.angle) % 360;
     const s2 = type === 'mono' ? Math.max(40, aS - 28) : Math.max(55, aS - 6);
-    // mono: shift L instead of H for clear distinction; others: 3.5:1 floor
-    const aL2 = type === 'mono'
-      ? aL + (isDark ? -16 : 16)
-      : findL(h2, s2, bg, 3.5, isDark);
-    const accent2 = hslToHex(h2, s2, Math.max(10, Math.min(95, aL2)));
+    // mono: distinguish via lightness shift instead of hue shift
+    const aL2raw = type === 'mono'
+      ? aL + (isDark ? -18 : 18)
+      : findL(h2, s2, bg, 4.5, isDark);
+    const accent2 = hslToHex(h2, s2, Math.max(10, Math.min(95, aL2raw)));
 
-    // Neutrals: subtly tinted toward primary hue, surface-relative
-    const glyph = isDark ? hslToHex(h, 10, 78) : hslToHex(h, 16, 20);
-    const dim = isDark ? hslToHex(h, 7, 54) : hslToHex(h, 11, 43);
-    const dimmer = isDark ? hslToHex(h, 4, 33) : hslToHex(h, 5, 60);
+    // Neutrals: hue-tinted, surface-relative
+    const glyph  = isDark ? hslToHex(h, 10, 78) : hslToHex(h, 16, 18);
+    const dim    = isDark ? hslToHex(h,  7, 54) : hslToHex(h, 11, 42);
+    const dimmer = isDark ? hslToHex(h,  4, 33) : hslToHex(h,  5, 60);
 
-    return { accent, accent2, glyph, dim, dimmer };
+    // Slide-card: FLIPPED from page theme — light slide on dark page, dark slide on light page
+    const slide      = isDark ? hslToHex(h, 10, 90) : hslToHex(h, 20,  7);
+    const slideGlyph = isDark ? hslToHex(h, 10, 38) : hslToHex(h,  8, 72);
+    const slideInk   = isDark ? hslToHex(h,  8, 12) : hslToHex(h,  5, 92);
+    const slideDim   = isDark ? hslToHex(h,  6, 48) : hslToHex(h,  5, 56);
+
+    return { accent, accent2, glyph, dim, dimmer, bg, panel, border, ink,
+             slide, slideGlyph, slideInk, slideDim };
   }
 
   // ── Apply ──────────────────────────────────────────────────────────────────
@@ -160,15 +171,28 @@
 
   function applyPalette() {
     const isDark = document.documentElement.dataset.theme !== 'light';
-    const { accent, accent2, glyph, dim, dimmer } =
+    const { accent, accent2, glyph, dim, dimmer, bg, panel, border, ink,
+            slide, slideGlyph, slideInk, slideDim } =
       computePalette(state.h, state.s, state.type, isDark);
 
     const r = document.documentElement;
-    r.style.setProperty('--color-accent', accent);
-    r.style.setProperty('--color-accent2', accent2);
-    r.style.setProperty('--color-glyph', glyph);
-    r.style.setProperty('--color-dim', dim);
-    r.style.setProperty('--color-dimmer', dimmer);
+    // Accent colours
+    r.style.setProperty('--color-accent',       accent);
+    r.style.setProperty('--color-accent2',      accent2);
+    // Neutrals
+    r.style.setProperty('--color-glyph',        glyph);
+    r.style.setProperty('--color-dim',          dim);
+    r.style.setProperty('--color-dimmer',       dimmer);
+    // Surfaces — overrides both :root and [data-theme="light"] rules
+    r.style.setProperty('--color-bg',           bg);
+    r.style.setProperty('--color-panel',        panel);
+    r.style.setProperty('--color-border',       border);
+    r.style.setProperty('--color-ink',          ink);
+    // Slide card: flipped surface + dedicated element colours
+    r.style.setProperty('--color-slide',        slide);
+    r.style.setProperty('--color-slide-glyph',  slideGlyph);
+    r.style.setProperty('--color-slide-ink',    slideInk);
+    r.style.setProperty('--color-slide-dim',    slideDim);
 
     if (triggerGlyphRef) {
       triggerGlyphRef.style.color = accent;

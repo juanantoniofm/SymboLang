@@ -53,7 +53,7 @@
     .slide-card {
       width: 100%;
       aspect-ratio: 16 / 9;
-      background: #08080e;
+      background: var(--color-slide, #08080e);
       border: 1px solid var(--color-border);
       border-radius: 14px;
       position: relative;
@@ -62,10 +62,6 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-
-    [data-theme="light"] .slide-card {
-      background: #111128;
     }
 
     .slide-watermark {
@@ -159,7 +155,7 @@
 
     .slide-hex-cluster span {
       line-height: 1;
-      color: var(--color-glyph);
+      color: var(--color-slide-glyph);
     }
 
     .slide-accent-tr {
@@ -196,7 +192,7 @@
 
     .slide-logo .hex-pair span {
       font-size: clamp(30px, 5.5vw, 68px);
-      color: #c8cdd8;
+      color: var(--color-slide-glyph);
     }
 
     .slide-text {
@@ -208,14 +204,14 @@
 
     .slide-text .company {
       font-size: clamp(1rem, 2.5vw, 1.8rem);
-      color: #f3f3f3;
+      color: var(--color-slide-ink);
       letter-spacing: 0.22em;
       font-weight: 600;
     }
 
     .slide-text .slide-sub {
       font-size: clamp(0.5rem, 1.1vw, 0.75rem);
-      color: #6a6a75;
+      color: var(--color-slide-dim);
       letter-spacing: 0.1em;
       margin-top: 0.4rem;
     }
