@@ -898,8 +898,123 @@ h1 {
 }
 
 /* ============================================================
-   G. DATABASE PROXY — THE INTERCEPT
+   H. WINDOW SWITCHER — ACCELERATE
    ============================================================ */
+.mac-card {
+    width: min(380px, 72vw);
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.mac-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.mac-dots {
+    display: flex;
+    gap: 0.32rem;
+}
+
+.mac-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-border);
+}
+
+.mac-bar-title {
+    font-size: 0.58rem;
+    color: var(--color-dim);
+    letter-spacing: 0.1em;
+    margin: 0 auto;
+}
+
+.mac-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2.5rem 2rem 2rem;
+}
+
+.mac-icon-wrap {
+    position: relative;
+    width: clamp(120px, 22vw, 160px);
+    height: clamp(120px, 22vw, 160px);
+}
+
+.mac-icon-q {
+    font-size: clamp(112px, 20vw, 150px);
+    color: var(--color-glyph);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -45%);
+    line-height: 1;
+    opacity: 0.3;
+    display: block;
+}
+
+.mac-icon-c {
+    position: absolute;
+    top: 50%;
+    line-height: 1;
+    display: block;
+    color: var(--color-accent);
+}
+
+.mac-icon-c--back {
+    font-size: clamp(44px, 8vw, 62px);
+    left: 28%;
+    transform: translate(-50%, -45%);
+    opacity: 0.5;
+}
+
+.mac-icon-c--front {
+    font-size: clamp(62px, 11vw, 88px);
+    left: 62%;
+    transform: translate(-50%, -45%);
+}
+
+.mac-app-name {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-ink);
+}
+
+.mac-app-sub {
+    font-size: 0.58rem;
+    color: var(--color-dim);
+    letter-spacing: 0.1em;
+    margin-top: -0.4rem;
+}
+
+.mac-footer {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    overflow: hidden;
+    height: clamp(18px, 3.2vw, 28px);
+    border-top: 1px solid var(--color-border);
+    opacity: 0.25;
+}
+
+.mac-footer span {
+    font-size: clamp(16px, 2.8vw, 26px);
+    color: var(--color-accent);
+    line-height: 1;
+}
+
+/* placeholder so existing H. travel section below isn't orphaned */
 .proxy-panel {
     width: min(720px, 90vw);
     background: var(--color-panel);

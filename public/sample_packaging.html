@@ -528,65 +528,9 @@
     </div>
   </div>
 
-  <!-- ============ G. DATABASE PROXY — THE INTERCEPT ============ -->
+  <!-- ============ G. TRAVEL AGENCY — SPAN & INGRESS ============ -->
   <div class="showcase">
-    <div class="section-label">G · Database Proxy &mdash; The Intercept</div>
-    <div class="proxy-panel">
-      <div class="proxy-header mono">
-        <span>QUERY STREAM IN</span>
-        <span class="proxy-status-dot">&#9679; INTERCEPTING</span>
-        <span>OPTIMIZED OUT</span>
-      </div>
-      <div class="proxy-body">
-
-        <!-- Incoming: loose discrete dots = raw packets, Phase 100→400 -->
-        <div class="proxy-zone">
-          <div class="proxy-stream">
-            <span class="sym" style="font-variation-settings:'wght' 100,'MORF' 500;">D</span>
-            <span class="sym" style="font-variation-settings:'wght' 200,'MORF' 500;">D</span>
-            <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 500;">D</span>
-            <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 500;">D</span>
-          </div>
-          <div class="proxy-zone-label mono">DISCRETE PACKETS</div>
-        </div>
-
-        <!-- E glyph as flow arrow -->
-        <span class="sym proxy-flow-arrow" style="font-variation-settings:'wght' 300,'MORF' 500;">E</span>
-
-        <!-- Intercept mark: D·B — B at MORF 200 = tight valve (inspecting) -->
-        <div class="proxy-mark-zone">
-          <div class="proxy-mark">
-            <span class="sym proxy-mark-d" style="font-variation-settings:'wght' 500,'MORF' 375;">D</span>
-            <span class="sym proxy-mark-b" style="font-variation-settings:'wght' 500,'MORF' 200;">B</span>
-          </div>
-          <div class="proxy-zone-label mono">VALVE CLOSED</div>
-        </div>
-
-        <span class="sym proxy-flow-arrow proxy-flow-arrow--out" style="font-variation-settings:'wght' 700,'MORF' 500;">E</span>
-
-        <!-- Outgoing: dense tight dots = optimized stream, Phase 600→900 -->
-        <div class="proxy-zone">
-          <div class="proxy-stream proxy-stream--out">
-            <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 500;">D</span>
-            <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">D</span>
-            <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 500;">D</span>
-            <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 500;">D</span>
-          </div>
-          <div class="proxy-zone-label mono">OPTIMIZED STREAM</div>
-        </div>
-
-      </div>
-      <div class="proxy-footer mono">
-        <span>overhead &#8595; 68%</span>
-        <span class="proxy-accent">cache hit 94%</span>
-        <span>p99 lat: 2.1ms</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ H. TRAVEL AGENCY — SPAN & INGRESS ============ -->
-  <div class="showcase">
-    <div class="section-label">H · Travel Agency &mdash; Span &amp; Ingress</div>
+    <div class="section-label">G · Travel Agency &mdash; Span &amp; Ingress</div>
     <div class="objects-row">
 
       <!-- Travel envelope: Ingress flap seal + Span brand + Journey strip -->
@@ -677,42 +621,41 @@
     </div>
   </div>
 
-  <!-- ============ I. WINDOW SWITCHER — ACCELERATE ============ -->
+  <!-- ============ H. WINDOW SWITCHER APP — ACCELERATE ============ -->
   <div class="showcase">
-    <div class="section-label">I · macOS Window Switcher &mdash; Accelerate</div>
-    <div class="switcher-states">
+    <div class="section-label">H · Window Switcher &mdash; Accelerate</div>
+    <div class="mac-card">
 
-      <!-- State: Idle — thin flat C·C inside Q -->
-      <div class="switcher-card">
-        <div class="switcher-tag mono">IDLE</div>
-        <div class="switcher-icon">
-          <span class="sym switcher-q" style="font-variation-settings:'wght' 500,'MORF' 800;">Q</span>
-          <span class="sym switcher-c switcher-c--small" style="font-variation-settings:'wght' 200,'MORF' 200;">C</span>
-          <span class="sym switcher-c switcher-c--large" style="font-variation-settings:'wght' 200,'MORF' 200;">C</span>
+      <!-- macOS window chrome -->
+      <div class="mac-bar">
+        <div class="mac-dots">
+          <span class="mac-dot"></span>
+          <span class="mac-dot"></span>
+          <span class="mac-dot"></span>
         </div>
-        <div class="switcher-info mono">2 windows</div>
+        <span class="mac-bar-title mono">SwiftSwitch</span>
       </div>
 
-      <!-- State: Active — thick sharp C·C inside Q, accent border -->
-      <div class="switcher-card switcher-card--on">
-        <div class="switcher-tag mono">SWITCHING</div>
-        <div class="switcher-icon">
-          <span class="sym switcher-q" style="font-variation-settings:'wght' 500,'MORF' 800;">Q</span>
-          <span class="sym switcher-c switcher-c--small" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span>
-          <span class="sym switcher-c switcher-c--large" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span>
+      <!-- Icon: Q frame (container) with C·C accelerate inside -->
+      <div class="mac-body">
+        <div class="mac-icon-wrap">
+          <span class="sym mac-icon-q" style="font-variation-settings:'wght' 500,'MORF' 800;">Q</span>
+          <span class="sym mac-icon-c mac-icon-c--back" style="font-variation-settings:'wght' 700,'MORF' 700;">C</span>
+          <span class="sym mac-icon-c mac-icon-c--front" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span>
         </div>
-        <div class="switcher-info mono">switching</div>
+        <div class="mac-app-name mono">SwiftSwitch</div>
+        <div class="mac-app-sub mono">cmd+tab, reimagined</div>
       </div>
 
-      <!-- Settings/Analytics icon: Observe Q·M·M -->
-      <div class="switcher-card">
-        <div class="switcher-tag mono">ANALYTICS</div>
-        <div class="switcher-icon">
-          <span class="sym" style="font-size:clamp(85px,16vw,120px); font-variation-settings:'wght' 500,'MORF' 800; color:var(--color-glyph); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); line-height:1; opacity:0.85;">Q</span>
-          <span class="sym" style="font-size:clamp(42px,8vw,60px); font-variation-settings:'wght' 800,'MORF' 800; color:var(--color-accent); position:absolute; left:35%; top:50%; transform:translate(-50%,-45%); line-height:1;">M</span>
-          <span class="sym" style="font-size:clamp(42px,8vw,60px); font-variation-settings:'wght' 300,'MORF' 200; color:var(--color-accent2); position:absolute; left:35%; top:50%; transform:translate(-50%,-45%); line-height:1; opacity:0.6;">M</span>
-        </div>
-        <div class="switcher-info mono">observe</div>
+      <!-- C ribbon footer: thin→thick = accelerating -->
+      <div class="mac-footer">
+        <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 200;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 600;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 200;">C</span>
       </div>
 
     </div>
