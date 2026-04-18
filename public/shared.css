@@ -61,11 +61,40 @@ html, body {
   border-bottom: 1px solid var(--color-border);
 }
 
-.nav-left, .nav-right {
+.nav-left {
   display: flex;
   align-items: center;
   gap: 1.2rem;
 }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-left: 2rem;
+}
+
+.nav-github {
+  display: flex;
+  align-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+
+.nav-github:hover { opacity: 1; }
+
+.nav-github img {
+  width: 100%;
+  height: 100%;
+}
+
+/* swap icon per theme */
+.nav-github .icon-light { display: none; }
+:root .nav-github .icon-dark { display: block; }
+[data-theme="light"] .nav-github .icon-dark { display: none; }
+[data-theme="light"] .nav-github .icon-light { display: block; }
 
 .site-nav a {
   color: var(--color-dim);
@@ -75,9 +104,13 @@ html, body {
   transition: color 0.15s;
 }
 
-.site-nav a:hover,
-.site-nav a.active {
+.site-nav a:hover {
   color: var(--color-ink);
+}
+
+.site-nav a.active {
+  color: var(--color-accent);
+  font-weight: 600;
 }
 
 .site-nav a.nav-brand {
@@ -86,6 +119,21 @@ html, body {
   font-size: 0.82rem;
   margin-right: 0.5rem;
 }
+
+.nav-download {
+  background: var(--color-accent);
+  color: #0b0b0d !important;
+  font-weight: 600 !important;
+  font-size: 0.72rem !important;
+  padding: 0.35rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: opacity 0.15s;
+  opacity: 0.9;
+}
+
+.nav-download:hover { opacity: 1; }
 
 #theme-toggle {
   background: none;
