@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>SymbolLang · Mix &amp; Match</title>
+  <style>
+    @font-face {
+      font-family: "SymbolLang";
+      src: url("SymbolLang_v5.2.ttf") format("truetype-variations");
+      font-weight: 100 900;
+    }
+
+    :root {
+      --bg: #0b0b0d;
+      --panel: #111116;
+      --ink: #f3f3f3;
+      --dim: #8a8a90;
+      --border: #222228;
+      --teal: #5eead4;
+      --navy: #1e2a3a;
+    }
+
+    html, body {
+      margin: 0; padding: 3rem 1.5rem;
+      font-family: ui-sans-serif, -apple-system, system-ui, sans-serif;
+      background: var(--bg); color: var(--ink);
+      display: flex; flex-direction: column; align-items: center; gap: 3rem;
+    }
+
+    h1 { font-size: 1.2rem; font-weight: 600; margin: 0; letter-spacing: 0.02em; }
+    .subtitle { font-size: 0.8rem; color: var(--dim); margin: 0.3rem 0 0; }
+    .sym { font-family: "SymbolLang"; line-height: 1; }
+
+    /* ---- cards ---- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      width: min(960px, 94vw);
+    }
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 1.5rem 1.2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+    }
+
+    .card-mark {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 140px;
+      position: relative;
+    }
+
+    .card-formula {
+      font-size: 0.7rem; color: var(--dim);
+      font-family: ui-monospace, monospace;
+      letter-spacing: 0.1em;
+    }
+
+    .card-name {
+      font-size: 1rem; font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .card-desc {
+      font-size: 0.7rem; color: var(--dim);
+      text-align: center; line-height: 1.4;
+      max-width: 260px;
+    }
+
+    /* ---- lockup ---- */
+    .lockup {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.5rem 3rem;
+      width: min(960px, 94vw);
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    }
+    .lockup-label {
+      font-size: 0.65rem; color: var(--dim);
+      text-transform: uppercase; letter-spacing: 0.14em;
+    }
+    .lockup-mark {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0;
+    }
+    .lockup-word {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 2rem; font-weight: 400;
+      letter-spacing: 0.12em; color: var(--ink);
+      margin-top: 0.3rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header style="text-align:center;">
+    <h1>SymbolLang · Mix &amp; Match</h1>
+    <p class="subtitle">Six logo compositions. Teal = active element. Navy = static endpoint.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- Span: A · H · H -->
+    <div class="card">
+      <div class="card-mark">
+        <span class="sym" style="font-size:50px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--navy);">H</span>
+        <span class="sym" style="font-size:140px; font-variation-settings:'wght' 500,'MORF' 700; color:var(--teal); margin: 0 -0.15em;">A</span>
+        <span class="sym" style="font-size:50px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--navy);">H</span>
+      </div>
+      <div class="card-formula">A · H · H</div>
+      <div class="card-name">Span</div>
+      <div class="card-desc">The bridge between your app and your database. Teal arc is the proxy doing the work; navy hexes are static endpoints.</div>
+    </div>
+
+    <!-- Stream: D · H -->
+    <div class="card">
+      <div class="card-mark">
+        <span class="sym" style="font-size:80px; font-variation-settings:'wght' 700,'MORF' 500; color:var(--navy);">D</span>
+        <span class="sym" style="font-size:100px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--navy); margin-left:-0.1em;">H</span>
+        <span style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">
+          <span class="sym" style="font-size:16px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--teal);">D</span>
+        </span>
+      </div>
+      <div class="card-formula">D · H</div>
+      <div class="card-name">Stream</div>
+      <div class="card-desc">Outlined hex = transparent gateway. Traffic flows through. Single teal dot: the moment of intelligence — caching, auth, observation.</div>
+    </div>
+
+    <!-- Ingress: E · H -->
+    <div class="card">
+      <div class="card-mark">
+        <span class="sym" style="font-size:90px; font-variation-settings:'wght' 500,'MORF' 500; color:var(--teal);">E</span>
+        <span class="sym" style="font-size:100px; font-variation-settings:'wght' 400,'MORF' 900; color:var(--navy); margin-left:0.1em;">H</span>
+      </div>
+      <div class="card-formula">E · H</div>
+      <div class="card-name">Ingress</div>
+      <div class="card-desc">Cleanest of six. Shrinks to 16px with least loss. Teal on input, navy on gateway: something enters, something intelligent happens.</div>
+    </div>
+
+    <!-- Intercept: R · D -->
+    <div class="card">
+      <div class="card-mark">
+        <span class="sym" style="font-size:120px; font-variation-settings:'wght' 600,'MORF' 700; color:var(--navy);">R</span>
+        <span style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">
+          <span class="sym" style="font-size:20px; font-variation-settings:'wght' 900,'MORF' 500; color:var(--teal);">D</span>
+        </span>
+      </div>
+      <div class="card-formula">R · D</div>
+      <div class="card-name">Intercept</div>
+      <div class="card-desc">Nothing passes through untouched. More assertive than Span. Good for security and governance framings.</div>
+    </div>
+
+    <!-- Observe: Q · G -->
+    <div class="card">
+      <div class="card-mark" style="position:relative;">
+        <span class="sym" style="font-size:130px; font-variation-settings:'wght' 500,'MORF' 800; color:var(--navy);">Q</span>
+        <span style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">
+          <span class="sym" style="font-size:70px; font-variation-settings:'wght' 500,'MORF' 300; color:var(--dim);">G</span>
+        </span>
+        <span style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);">
+          <span class="sym" style="font-size:12px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--teal);">D</span>
+        </span>
+      </div>
+      <div class="card-formula">Q · G</div>
+      <div class="card-name">Observe</div>
+      <div class="card-desc">Container holds a lattice. Teal center = selected query. Reads as dashboard/monitoring rather than middleman.</div>
+    </div>
+
+    <!-- Accelerate: C · C -->
+    <div class="card">
+      <div class="card-mark">
+        <span class="sym" style="font-size:70px; font-variation-settings:'wght' 300,'MORF' 500; color:var(--dim);">C</span>
+        <span class="sym" style="font-size:130px; font-variation-settings:'wght' 800,'MORF' 800; color:var(--teal); margin-left:-0.05em;">C</span>
+      </div>
+      <div class="card-formula">C · C</div>
+      <div class="card-name">Accelerate</div>
+      <div class="card-desc">Pure speed. Thin-to-thick throughput progression. Performance-forward, most aggressive of the six.</div>
+    </div>
+
+  </div>
+
+  <!-- Lockup: Span with wordmark -->
+  <div class="lockup">
+    <div class="lockup-label">Lockup · Span with wordmark</div>
+    <div class="lockup-mark">
+      <span class="sym" style="font-size:36px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--navy);">H</span>
+      <span class="sym" style="font-size:80px; font-variation-settings:'wght' 500,'MORF' 700; color:var(--teal); margin: 0 -0.1em;">A</span>
+      <span class="sym" style="font-size:36px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--navy);">H</span>
+    </div>
+    <div class="lockup-word">SymbolLang</div>
+  </div>
+
+</body>
+
+</html>
