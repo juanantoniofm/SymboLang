@@ -10,7 +10,7 @@ Glyphs (13)
   N S E W   triangles (directional)     wght: squat -> equilateral -> spike
   H         hex (node)                  wght: stroke thickness
                                         MORF: nested-ring vortex -> single hex
-  D         dots (stream)               wght: loose -> tight packed
+  D         dots (stream)               wght: fine -> bold dots | MORF: discrete -> stream (spacing)
   C         chevron (throughput)        wght: thin -> thick
                                         MORF: flat -> sharp forwardness
   A         arc (bridge)                wght: flat pipe -> full bridge rise
@@ -182,13 +182,10 @@ draw_hex_nested.grid = {(w, m): dict(radii=HEX_RADII[m], stroke=HEX_STROKE[(w, m
 # --- Dots (D) — wght only ---
 
 N_DOTS, DOT_SIDES = 7, 10
-DOTS_WGHT = {
-    "lo":  dict(spacing=145, r_dot=22),
-    "mid": dict(spacing=95,  r_dot=38),
-    "hi":  dict(spacing=55,  r_dot=55),
-}
+DOTS_SPACING = {"lo": 145, "mid": 95, "hi": 55}   # MORF: discrete -> stream
+DOTS_RDOT    = {"lo": 22,  "mid": 38, "hi": 55}   # wght: fine -> bold
 
-@glyph("D", "dots", hint="discrete -> stream", kern_class="narrow")
+@glyph("D", "dots", hint="wght: dot size | MORF: spacing", kern_class="narrow")
 def draw_dots(pen, spacing, r_dot):
     start_x = CX - spacing * (N_DOTS - 1) / 2
     for i in range(N_DOTS):
@@ -199,7 +196,8 @@ def draw_dots(pen, spacing, r_dot):
             pen.lineTo((cx + r_dot*math.cos(a), cy + r_dot*math.sin(a)))
         pen.closePath()
 
-draw_dots.grid = no_morf(DOTS_WGHT)
+draw_dots.grid = {(w, m): dict(spacing=DOTS_SPACING[m], r_dot=DOTS_RDOT[w])
+                 for w in POSITIONS for m in POSITIONS}
 
 # --- Chevron (C) — wght: thickness, MORF: height ---
 
