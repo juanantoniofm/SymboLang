@@ -17,20 +17,20 @@
   // ── Presets & types ────────────────────────────────────────────────────────
 
   const PRESETS = [
-    { name: 'Teal',   h: 172, s: 75 },
+    { name: 'Teal', h: 172, s: 75 },
     { name: 'Indigo', h: 234, s: 70 },
-    { name: 'Rose',   h: 351, s: 82 },
-    { name: 'Amber',  h:  43, s: 78 },
+    { name: 'Rose', h: 351, s: 82 },
+    { name: 'Amber', h: 43, s: 78 },
     { name: 'Violet', h: 263, s: 68 },
   ];
 
   // Hue offset for accent2 relative to accent
   const TYPES = [
     { id: 'complementary', label: 'Complementary', angle: 180 },
-    { id: 'split',         label: 'Split-comp',    angle: 150 },
-    { id: 'triadic',       label: 'Triadic',       angle: 120 },
-    { id: 'analogous',     label: 'Analogous',     angle:  30 },
-    { id: 'mono',          label: 'Mono',          angle:   0 },
+    { id: 'split', label: 'Split-comp', angle: 150 },
+    { id: 'triadic', label: 'Triadic', angle: 120 },
+    { id: 'analogous', label: 'Analogous', angle: 30 },
+    { id: 'mono', label: 'Mono', angle: 0 },
   ];
 
   // ── State ──────────────────────────────────────────────────────────────────
@@ -41,12 +41,12 @@
     try {
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
       if (saved && typeof saved.h === 'number') return saved;
-    } catch (_) {}
+    } catch (_) { }
     return { h: 172, s: 75, type: 'complementary' };
   }
 
   function saveState(st) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(st)); } catch (_) {}
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(st)); } catch (_) { }
   }
 
   const state = loadState();
@@ -147,9 +147,9 @@
     const accent2 = hslToHex(h2, s2, Math.max(10, Math.min(95, aL2)));
 
     // Neutrals: subtly tinted toward primary hue, surface-relative
-    const glyph  = isDark ? hslToHex(h, 10, 78) : hslToHex(h, 16, 20);
-    const dim    = isDark ? hslToHex(h,  7, 54) : hslToHex(h, 11, 43);
-    const dimmer = isDark ? hslToHex(h,  4, 33) : hslToHex(h,  5, 60);
+    const glyph = isDark ? hslToHex(h, 10, 78) : hslToHex(h, 16, 20);
+    const dim = isDark ? hslToHex(h, 7, 54) : hslToHex(h, 11, 43);
+    const dimmer = isDark ? hslToHex(h, 4, 33) : hslToHex(h, 5, 60);
 
     return { accent, accent2, glyph, dim, dimmer };
   }
@@ -164,11 +164,11 @@
       computePalette(state.h, state.s, state.type, isDark);
 
     const r = document.documentElement;
-    r.style.setProperty('--color-accent',  accent);
+    r.style.setProperty('--color-accent', accent);
     r.style.setProperty('--color-accent2', accent2);
-    r.style.setProperty('--color-glyph',   glyph);
-    r.style.setProperty('--color-dim',     dim);
-    r.style.setProperty('--color-dimmer',  dimmer);
+    r.style.setProperty('--color-glyph', glyph);
+    r.style.setProperty('--color-dim', dim);
+    r.style.setProperty('--color-dimmer', dimmer);
 
     if (triggerGlyphRef) {
       triggerGlyphRef.style.color = accent;
@@ -195,7 +195,7 @@
       justify-content: center;
     }
     .pal-trigger .sym {
-      font-size: 22px;
+      font-size: 42px;
       line-height: 1;
       display: block;
       transition: color 0.25s, filter 0.25s;

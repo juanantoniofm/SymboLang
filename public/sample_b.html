@@ -6,7 +6,7 @@ Span A · H · H — two nodes connected by a bridge arc.
 Stream D · H — node (thin outline) with stream passing through.
 Ingress E · H — directional and node.
 Intercept R · D — relay with a single stream-point in the pinch.
-Observe Q · G — container holding a lattice.
+Observe Q · M · M — container with layered metrics.
 Accelerate C · C — throughput at two weights, thin-to-thick.
 */ -->
 
@@ -154,15 +154,17 @@ Accelerate C · C — throughput at two weights, thin-to-thick.
 
   <div class="grid">
 
-    <!-- Span: A · H · H — arc above two grounded hexes -->
+    <!-- Span: A · H · H — arc bridging two grounded hexes -->
     <div class="card">
-      <div class="card-mark" style="height:140px; width:140px; position:relative;">
+      <div class="card-mark" style="flex-direction:column; align-items:center; gap:0; height:140px; width:140px;">
         <span class="sym"
-          style="font-size:130px; font-variation-settings:'wght' 700,'MORF' 600; color:var(--color-accent); position:absolute; top:0; left:50%; transform:translateX(-50%); display:block; line-height:1;">A</span>
-        <span class="sym"
-          style="font-size:40px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); position:absolute; bottom:6px; left:6px; display:block; line-height:1;">H</span>
-        <span class="sym"
-          style="font-size:40px; font-variation-settings:'wght' 200,'MORF' 100; color:var(--color-accent); position:absolute; bottom:6px; right:6px; display:block; line-height:1;">H</span>
+          style="font-size:130px; font-variation-settings:'wght' 700,'MORF' 600; color:var(--color-accent); line-height:0.18; transform:translateX(0.06em); display:block;">A</span>
+        <div style="display:flex; gap:1.4rem; margin-top:-0.04em;">
+          <span class="sym"
+            style="font-size:38px; font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph); line-height:1; display:block;">H</span>
+          <span class="sym"
+            style="font-size:38px; font-variation-settings:'wght' 200,'MORF' 100; color:var(--color-accent); line-height:1; display:block;">H</span>
+        </div>
       </div>
       <div class="card-formula">A · H · H</div>
       <div class="card-name">Span</div>
@@ -175,7 +177,7 @@ Accelerate C · C — throughput at two weights, thin-to-thick.
         <span class="sym"
           style="font-size:90px; font-variation-settings:'wght' 100,'MORF' 900; color:var(--color-glyph); position:absolute; left:44%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">H</span>
         <span class="sym"
-          style="font-size:68px; font-variation-settings:'wght' 500,'MORF' 500; color:var(--color-accent); position:absolute; left:61%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">D</span>
+          style="font-size:68px; font-variation-settings:'wght' 700,'MORF' 500; color:var(--color-accent); position:absolute; left:72%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">D</span>
       </div>
       <div class="card-formula">D · H</div>
       <div class="card-name">Stream</div>
@@ -188,7 +190,7 @@ Accelerate C · C — throughput at two weights, thin-to-thick.
         <span class="sym"
           style="font-size:70px; font-variation-settings:'wght' 500,'MORF' 500; color:var(--color-accent);">E</span>
         <span class="sym"
-          style="font-size:85px; font-variation-settings:'wght' 200,'MORF' 900; color:var(--color-glyph);">H</span>
+          style="font-size:85px; font-variation-settings:'wght' 500,'MORF' 900; color:var(--color-glyph);">H</span>
       </div>
       <div class="card-formula">E · H</div>
       <div class="card-name">Ingress</div>
@@ -200,9 +202,9 @@ Accelerate C · C — throughput at two weights, thin-to-thick.
     <div class="card">
       <div class="card-mark" style="height:140px; width:140px; position:relative;">
         <span class="sym"
-          style="font-size:110px; font-variation-settings:'wght' 500,'MORF' 900; color:var(--color-glyph); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">R</span>
+          style="font-size:110px; font-variation-settings:'wght' 500,'MORF' 700; color:var(--color-glyph); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">R</span>
         <span class="sym"
-          style="font-size:24px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--color-accent); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">D</span>
+          style="font-size:32px; font-variation-settings:'wght' 900,'MORF' 900; color:var(--color-accent); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">D</span>
       </div>
       <div class="card-formula">R · D</div>
       <div class="card-name">Intercept</div>
@@ -210,7 +212,7 @@ Accelerate C · C — throughput at two weights, thin-to-thick.
         governance framings.</div>
     </div>
 
-    <!-- Observe: Q · M — container framing metrics bars -->
+    <!-- Observe: Q · M · M — container with layered metrics -->
     <div class="card">
       <div class="card-mark" style="height:140px; width:140px; position:relative;">
         <span class="sym"
@@ -220,7 +222,7 @@ Accelerate C · C — throughput at two weights, thin-to-thick.
         <span class="sym"
           style="font-size:36px; font-variation-settings:'wght' 800,'MORF' 800; color:var(--color-accent); position:absolute; left:50%; top:50%; transform:translate(-50%,-45%); display:block; line-height:1;">M</span>
       </div>
-      <div class="card-formula">Q · M</div>
+      <div class="card-formula">Q · M · M</div>
       <div class="card-name">Observe</div>
       <div class="card-desc">Container holds layered metrics. Two histograms — dim background, teal foreground — reads as live dashboard.</div>
     </div>
