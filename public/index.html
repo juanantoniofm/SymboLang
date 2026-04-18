@@ -128,15 +128,47 @@
     border-color: var(--accent);
   }
 
-  /* ---- compositions ---- */
-  .comp { display: flex; flex-direction: column; gap: 0.3rem; }
-  .comp-row {
-    font-family: "SymbolLang"; font-size: 88px; line-height: 1;
-    font-variation-settings: "wght" var(--wght), "MORF" var(--morf);
-    transition: font-variation-settings 40ms linear;
-    letter-spacing: 0.04em;
-    text-align: center;
+  /* ---- loaders ---- */
+  .loader-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem; padding: 1rem 0; flex-wrap: wrap;
   }
+  .loader-item {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  }
+  .loader-item small {
+    font-size: 0.65rem; color: var(--dim);
+    font-family: ui-monospace, monospace;
+  }
+  .loader-item .sym {
+    font-family: "SymbolLang"; font-size: 120px; line-height: 1;
+  }
+  @keyframes phase-pulse {
+    0%, 100% { font-variation-settings: "wght" 100, "MORF" 500; }
+    50%      { font-variation-settings: "wght" 900, "MORF" 500; }
+  }
+  @keyframes form-bloom {
+    0%, 100% { font-variation-settings: "wght" 500, "MORF" 100; }
+    50%      { font-variation-settings: "wght" 500, "MORF" 900; }
+  }
+  @keyframes both-breathe {
+    0%, 100% { font-variation-settings: "wght" 200, "MORF" 200; }
+    50%      { font-variation-settings: "wght" 800, "MORF" 800; }
+  }
+  .anim-phase { animation: phase-pulse 2s ease-in-out infinite; }
+  .anim-form  { animation: form-bloom 2.5s ease-in-out infinite; }
+  .anim-both  { animation: both-breathe 3s ease-in-out infinite; }
+
+  /* ---- samples link ---- */
+  .samples-link {
+    display: inline-block;
+    font-size: 0.72rem; color: var(--dim);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.8rem; border-radius: 6px;
+    text-decoration: none; margin-top: 0.6rem;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .samples-link:hover { border-color: var(--accent); color: var(--ink); }
 
   /* ---- matrices ---- */
   .matrix {
@@ -171,6 +203,7 @@
   <header>
     <h1>SymbolLang · v5</h1>
     <p>13 parametric primitives on two axes — <code>wght</code> and <code>MORF</code>. Most glyphs respond to both axes. Defaults <code>(500, 500)</code>.</p>
+    <a href="demo.html" class="samples-link">Samples</a>
   </header>
 
   <div class="panel">
@@ -189,8 +222,12 @@
   </div>
 
   <div class="panel">
-    <div class="section-title">Compositions · follow both sliders above</div>
-    <div class="comp"><div class="comp-row">NHDC</div><div class="comp-row">EQAG</div><div class="comp-row">CACA</div><div class="comp-row">NSEW</div><div class="comp-row">HMGD</div></div>
+    <div class="section-title">Motion · Animated loaders</div>
+    <div class="loader-row">
+      <div class="loader-item"><span class="sym anim-phase" style="color:#5eead4;">D</span><small>phase pulse</small></div>
+      <div class="loader-item"><span class="sym anim-form" style="color:#7eb8da;">H</span><small>form bloom</small></div>
+      <div class="loader-item"><span class="sym anim-both" style="color:#f0a978;">B</span><small>dual breathe</small></div>
+    </div>
   </div>
 
   <div class="panel">
