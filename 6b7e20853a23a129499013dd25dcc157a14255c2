@@ -1,0 +1,50 @@
+public/sample_c.html
+  1471b2094225afd7 17-22,46-48,67-69,94-96,113-115,132-134,160-163,225-227,270-273,327-329,406-408,418-419,480-486,784-786,793-794,863-868,872-873,971-1054,1199-1200,1202-1203,1209-1210,1212-1213,1220-1223,1226-1227,1239-1244,1247-1248,1254-1257,1266-1269,1278-1281,1295-1298,1308-1309,1319-1324,1334-1337,1347-1350,1360-1361,1376
+  bec99f2fc54c0cd2 357,420-421,948,959-967
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "6b7e20853a23a129499013dd25dcc157a14255c2",
+  "prompts": {
+    "1471b2094225afd7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b93c1c18-ab04-47a8-8cca-284ef6bc7bc2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 257,
+      "total_deletions": 67,
+      "accepted_lines": 254,
+      "overriden_lines": 0
+    },
+    "bec99f2fc54c0cd2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "17c95bd0-f701-4946-9969-7773a52df6c6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 12,
+      "total_deletions": 70,
+      "accepted_lines": 13,
+      "overriden_lines": 0
+    },
+    "c61e789ce1a54784": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c2e5c78e-b9ca-4514-952c-bae2a08da1c5",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 253,
+      "overriden_lines": 0
+    }
+  }
+}
