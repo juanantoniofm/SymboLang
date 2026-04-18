@@ -1,0 +1,38 @@
+public/css/sample_packaging.css
+  fbbbbb6b5ced6837 898-1321
+public/sample_packaging.html
+  fbbbbb6b5ced6837 531-720
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "b59a7755a32f57cf5e34762bd8ca74db89a94668",
+  "prompts": {
+    "1471b2094225afd7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b93c1c18-ab04-47a8-8cca-284ef6bc7bc2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 54,
+      "overriden_lines": 0
+    },
+    "fbbbbb6b5ced6837": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7eec51cb-e7c4-44cb-9b0f-fa27dbfc0f8b",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 614,
+      "total_deletions": 0,
+      "accepted_lines": 614,
+      "overriden_lines": 0
+    }
+  }
+}
