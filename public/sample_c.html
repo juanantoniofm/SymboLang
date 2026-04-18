@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <title>SymbolLang · Packaging</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    body {
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--color-dim);
+      margin: 0.3rem 0 0;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      color: var(--color-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ---- Shared card base ---- */
+    .showcase {
+      width: min(960px, 94vw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* ---- A. Presentation Slide ---- */
+    .slide-card {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0a0a0f;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    [data-theme="light"] .slide-card {
+      background: #1a1a2e;
+    }
+
+    .slide-card .hero-glyph {
+      font-size: clamp(120px, 20vw, 300px);
+      color: var(--color-accent);
+      opacity: 0.9;
+    }
+
+    .slide-card .company {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: clamp(1rem, 2.5vw, 1.8rem);
+      color: #f3f3f3;
+      letter-spacing: 0.2em;
+      font-weight: 600;
+    }
+
+    .slide-card .slide-sub {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: clamp(0.55rem, 1.2vw, 0.8rem);
+      color: #8a8a90;
+      letter-spacing: 0.08em;
+    }
+
+    /* ---- B. Report Cover ---- */
+    .report-card {
+      width: min(400px, 70vw);
+      aspect-ratio: 210 / 297;
+      background: var(--color-panel);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .report-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(200px, 40vw, 380px);
+      color: var(--color-accent);
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .report-top {
+      position: relative;
+      z-index: 1;
+    }
+
+    .report-title {
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0 0 0.8rem;
+    }
+
+    .report-accent-bar {
+      display: flex;
+      gap: 0;
+      overflow: hidden;
+      height: 1.4rem;
+      opacity: 0.4;
+    }
+
+    .report-accent-bar span {
+      font-size: 1.2rem;
+      color: var(--color-accent);
+      line-height: 1;
+    }
+
+    .report-meta {
+      position: relative;
+      z-index: 1;
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 0.65rem;
+      color: var(--color-dim);
+      line-height: 1.8;
+    }
+
+    /* ---- C. Business Cards ---- */
+    .cards-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .biz-card {
+      width: min(380px, 44vw);
+      aspect-ratio: 3.5 / 2;
+      background: var(--color-panel);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      position: relative;
+      overflow: hidden;
+      padding: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .biz-card { width: 90vw; }
+    }
+
+    .biz-front .lockup-mark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .biz-front .company-name {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: clamp(0.8rem, 2vw, 1.1rem);
+      letter-spacing: 0.15em;
+      font-weight: 600;
+    }
+
+    .biz-back {
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+
+    .biz-back .contact-info {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 0.6rem;
+      color: var(--color-dim);
+      line-height: 1.8;
+    }
+
+    .biz-back .corner-glyph {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      font-size: 36px;
+      color: var(--color-accent);
+      opacity: 0.3;
+    }
+
+    /* ---- D. Pattern Strip ---- */
+    .pattern-strip {
+      width: 100%;
+      background: var(--color-panel);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .strip-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .strip-row span {
+      font-size: clamp(32px, 5vw, 52px);
+      color: var(--color-glyph);
+      opacity: 0.8;
+    }
+
+    .strip-label {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 0.6rem;
+      color: var(--color-dim);
+      text-align: center;
+      letter-spacing: 0.08em;
+    }
+
+    /* ---- E. Brand System ---- */
+    .brand-card {
+      width: 100%;
+      background: var(--color-panel);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .brand-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .brand-glyph {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .brand-glyph .sym {
+      font-size: clamp(48px, 8vw, 80px);
+      color: var(--color-glyph);
+    }
+
+    .brand-glyph .label {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 0.6rem;
+      color: var(--color-dim);
+      letter-spacing: 0.08em;
+    }
+
+    .brand-context {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .brand-pair {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-pair .sym {
+      font-size: 28px;
+      color: var(--color-accent);
+    }
+
+    .brand-pair .pair-label {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 0.7rem;
+      color: var(--color-ink);
+      letter-spacing: 0.05em;
+    }
+  </style>
+  <script src="shared.js"></script>
+</head>
+
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-left">
+      <a href="index.html" class="nav-brand">SymbolLang</a>
+      <a href="index.html">Home</a>
+      <a href="sample_a.html">Characters</a>
+      <a href="sample_b.html">Compositions</a>
+      <a href="sample_c.html" class="active">Packaging</a>
+    </div>
+    <div class="nav-right">
+      <a href="downloads.html" class="nav-download">Download</a>
+      <a href="https://github.com/juanantoniofm/SymboLang.git" target="_blank" rel="noopener" class="nav-github" aria-label="GitHub"><img class="icon-dark" src="icons/GitHub_Invertocat_White.svg" alt="GitHub"><img class="icon-light" src="icons/GitHub_Invertocat_Black.svg" alt="GitHub"></a>
+      <button id="theme-toggle" aria-label="Toggle theme">◐</button>
+    </div>
+  </nav>
+
+  <header style="text-align:center;">
+    <h1>SymbolLang · Packaging &amp; Identity</h1>
+    <p class="subtitle">Real-world branding contexts. All examples render live — toggle dark/light to see both modes.</p>
+  </header>
+
+  <!-- ============ A. Presentation Title Slide ============ -->
+  <div class="showcase">
+    <div class="section-label">A · Presentation Title Slide</div>
+    <div class="slide-card">
+      <span class="sym hero-glyph" style="font-variation-settings:'wght' 700,'MORF' 800; line-height:0.7;">A</span>
+      <div class="company">ACME SYSTEMS</div>
+      <div class="slide-sub">Infrastructure Report · Q4 2026</div>
+    </div>
+  </div>
+
+  <!-- ============ B. Report Cover ============ -->
+  <div class="showcase">
+    <div class="section-label">B · Report Cover</div>
+    <div class="report-card">
+      <span class="sym report-watermark" style="font-variation-settings:'wght' 900,'MORF' 900;">M</span>
+      <div class="report-top">
+        <h2 class="report-title">Annual<br>Security<br>Review</h2>
+        <div class="report-accent-bar">
+          <span class="sym" style="font-variation-settings:'wght' 300,'MORF' 100;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 400,'MORF' 200;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 400;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 700,'MORF' 500;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 800,'MORF' 600;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 700;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 800;">C</span>
+          <span class="sym" style="font-variation-settings:'wght' 900,'MORF' 900;">C</span>
+        </div>
+      </div>
+      <div class="report-meta">
+        Prepared by Security Division<br>
+        March 2026<br>
+        CONFIDENTIAL
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ C. Business Card ============ -->
+  <div class="showcase">
+    <div class="section-label">C · Business Card</div>
+    <div class="cards-row">
+      <div class="biz-card biz-front">
+        <div class="lockup-mark">
+          <span class="sym" style="font-size:clamp(50px,10vw,80px); font-variation-settings:'wght' 700,'MORF' 600; color:var(--color-accent); line-height:0.6;">A</span>
+          <div style="display:flex; gap:2rem; margin-top:-0.4rem;">
+            <span class="sym" style="font-size:clamp(16px,3vw,24px); font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph);">H</span>
+            <span class="sym" style="font-size:clamp(16px,3vw,24px); font-variation-settings:'wght' 800,'MORF' 900; color:var(--color-glyph);">H</span>
+          </div>
+        </div>
+        <div class="company-name">SYMBOLANG</div>
+      </div>
+      <div class="biz-card biz-back">
+        <span class="sym corner-glyph" style="font-variation-settings:'wght' 500,'MORF' 700;">D</span>
+        <div class="contact-info">
+          Jane Doe<br>
+          Principal Engineer<br><br>
+          jane@symbolang.dev<br>
+          +1 555 0142
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ D. Pattern Border / Envelope Strip ============ -->
+  <div class="showcase">
+    <div class="section-label">D · Pattern Border / Envelope Strip</div>
+    <div class="pattern-strip">
+
+      <div class="strip-label">H · Phase 100→900</div>
+      <div class="strip-row">
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 100;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 200;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 500;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 600;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 700;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 800;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 900;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 800;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 700;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 600;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 500;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 200;">H</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 100;">H</span>
+      </div>
+
+      <div class="strip-label">D · Phase 100→900</div>
+      <div class="strip-row">
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 100;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 200;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 500;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 600;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 700;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 800;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 900;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 800;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 700;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 600;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 500;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 200;">D</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 100;">D</span>
+      </div>
+
+      <div class="strip-label">C · Phase 100→900</div>
+      <div class="strip-row">
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 100;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 200;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 500;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 600;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 700;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 800;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 900;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 800;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 700;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 600;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 500;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 400;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 300;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 200;">C</span>
+        <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 100;">C</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ E. Brand System Card ============ -->
+  <div class="showcase">
+    <div class="section-label">E · Brand System — "Lock a Form value"</div>
+    <div class="brand-card">
+      <div class="brand-row">
+        <div class="brand-glyph">
+          <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 700;">H</span>
+          <span class="label">Node</span>
+        </div>
+        <div class="brand-glyph">
+          <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 700;">D</span>
+          <span class="label">Stream</span>
+        </div>
+        <div class="brand-glyph">
+          <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 700;">A</span>
+          <span class="label">Bridge</span>
+        </div>
+        <div class="brand-glyph">
+          <span class="sym" style="font-variation-settings:'wght' 500,'MORF' 700;">M</span>
+          <span class="label">Pulse</span>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin:0;">In context — icon + label pairs</div>
+
+      <div class="brand-context">
+        <div class="brand-pair">
+          <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 700;">H</span>
+          <span class="pair-label">Infrastructure</span>
+        </div>
+        <div class="brand-pair">
+          <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 700;">D</span>
+          <span class="pair-label">Data Pipeline</span>
+        </div>
+        <div class="brand-pair">
+          <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 700;">A</span>
+          <span class="pair-label">Connectivity</span>
+        </div>
+        <div class="brand-pair">
+          <span class="sym" style="font-variation-settings:'wght' 600,'MORF' 700;">M</span>
+          <span class="pair-label">Monitoring</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
