@@ -9,3 +9,7 @@ env/
 # Temproray stuff
 archive/
 foundry/masters/
+
+# AI
+.claude/settings.local.json
+.claude/skills.local.json

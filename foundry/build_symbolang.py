@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-SymbolLang v5 — 2-axis parametric symbol language, 13 primitives.
+SymbolLang v5 — 2-axis parametric symbol language, 14 primitives.
 
 Builds a variable TTF with 9 masters on a 3x3 grid over:
   wght (tag `wght`, axis label "Phase")  100..900 default 500
@@ -374,6 +374,55 @@ def draw_bowtie(pen, L, h, gap):
 
 draw_bowtie.grid = {(w, m): dict(L=280, h=BOWTIE_H[w], gap=BOWTIE_GAP[m])
                     for w in POSITIONS for m in POSITIONS}
+
+# --- Pulse (P) — wght: fill, MORF: size distribution ---
+
+PULSE_N, PULSE_SIDES = 7, 12
+PULSE_BASE_R = 40          # base radius when all circles equal
+PULSE_SPACING = 120        # center-to-center spacing
+
+# Size multipliers per circle index [0..6], center = index 3
+# MORF lo:  center big (2.0x), edges tiny (0.25x) — "convex lens"
+# MORF mid: all equal (1.0x)
+# MORF hi:  edges big (1.75x), center small (0.5x) — "concave lens"
+PULSE_SCALE = {
+    "lo":  [0.40, 0.55, 0.75, 1.40, 0.75, 0.55, 0.40],
+    "mid": [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00],
+    "hi":  [1.40, 1.25, 1.10, 0.60, 1.10, 1.25, 1.40],
+}
+
+# Inner hole ratio: 1.0 = no fill (all hole), 0.0 = fully filled
+# wght lo = thin rings (big hole), wght hi = nearly solid (tiny hole)
+PULSE_HOLE = {"lo": 0.80, "mid": 0.50, "hi": 0.10}
+
+@glyph("P", "pulse", hint="wght: fill | MORF: size distribution", kern_class="wide")
+def draw_pulse(pen, scales, hole_ratio):
+    """7 circles as rings (outer + inner contour each).
+    scales: per-circle radius multiplier. hole_ratio: inner/outer radius.
+    Topology: 7 circles x 2 contours x PULSE_SIDES points = 168 points."""
+    start_x = CX - PULSE_SPACING * (PULSE_N - 1) / 2
+    for i in range(PULSE_N):
+        cx = start_x + i * PULSE_SPACING
+        cy = CY
+        r_out = PULSE_BASE_R * scales[i]
+        r_in = max(r_out * hole_ratio, 2)  # floor at 2 to avoid zero
+
+        # Outer contour (CW)
+        pen.moveTo((cx + r_out, cy))
+        for j in range(1, PULSE_SIDES):
+            a = 2 * math.pi * j / PULSE_SIDES
+            pen.lineTo((cx + r_out * math.cos(a), cy + r_out * math.sin(a)))
+        pen.closePath()
+
+        # Inner contour (CCW — winding hole)
+        pen.moveTo((cx + r_in, cy))
+        for j in range(PULSE_SIDES - 1, 0, -1):
+            a = 2 * math.pi * j / PULSE_SIDES
+            pen.lineTo((cx + r_in * math.cos(a), cy + r_in * math.sin(a)))
+        pen.closePath()
+
+draw_pulse.grid = {(w, m): dict(scales=PULSE_SCALE[m], hole_ratio=PULSE_HOLE[w])
+                   for w in POSITIONS for m in POSITIONS}
 
 
 # =====================================================================
