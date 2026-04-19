@@ -3,16 +3,16 @@
 const CANVAS_W = 360;
 const CANVAS_H = 210;
 const THUMB_SCALE = 72 / 360; // thumb outer width / canvas width
-const STORAGE_KEY = 'symbolang-playground-v3';
+const STORAGE_KEY = 'symbolang-playground-v4';
 
 // Color keys → CSS variable names. Rendering uses var() so palette changes live-update.
 const COLOR_VARS = {
-  ink:     '--color-ink',
-  glyph:   '--color-glyph',
-  accent:  '--color-accent',
+  ink: '--color-ink',
+  glyph: '--color-glyph',
+  accent: '--color-accent',
   accent2: '--color-accent2',
-  dim:     '--color-dim',
-  dimmer:  '--color-dimmer',
+  dim: '--color-dim',
+  dimmer: '--color-dimmer',
 };
 
 function getColor(key) {
@@ -26,15 +26,15 @@ function resolveColor(key) {
 }
 
 function getCanvasBgHex() {
-  return getComputedStyle(document.documentElement).getPropertyValue('--color-slide').trim() || '#ecedf2';
+  return getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim() || '#0b0b0d';
 }
 
 const GLYPH_NAMES = {
-  H:'hex', D:'dots', C:'chevron', A:'arc', G:'grid',
-  R:'relay', B:'bowtie', M:'stack', Q:'quad',
-  N:'tri·n', S:'tri·s', E:'tri·e', W:'tri·w',
+  H: 'hex', D: 'dots', C: 'chevron', A: 'arc', G: 'grid',
+  R: 'relay', B: 'bowtie', M: 'stack', Q: 'quad',
+  N: 'tri·n', S: 'tri·s', E: 'tri·e', W: 'tri·w',
 };
-const ALL_CHARS = ['H','D','C','A','G','R','B','M','Q','N','S','E','W'];
+const ALL_CHARS = ['H', 'D', 'C', 'A', 'G', 'R', 'B', 'M', 'Q', 'N', 'S', 'E', 'W'];
 
 // ── Presets ─────────────────────────────────────────────────────────────────
 
@@ -43,37 +43,37 @@ const PRESETS = [
     id: 'resilient-link',
     name: 'Resilient Link',
     layers: [
-      { char:'H', wght:800, morf:900, size:100, color:'ink',    x: 65,  y:105 },
-      { char:'A', wght:700, morf:700, size:100, color:'accent', x:180,  y:105 },
-      { char:'H', wght:800, morf:900, size:100, color:'ink',    x:295,  y:105 },
+      { char: 'H', wght: 800, morf: 900, size: 100, color: 'ink', x: 65, y: 105, rotation: 0 },
+      { char: 'A', wght: 700, morf: 700, size: 100, color: 'accent', x: 180, y: 105, rotation: 0 },
+      { char: 'H', wght: 800, morf: 900, size: 100, color: 'ink', x: 295, y: 105, rotation: 0 },
     ],
   },
   {
     id: 'observable-gateway',
     name: 'Observable Gateway',
     layers: [
-      { char:'H', wght:700, morf:900, size:140, color:'ink',    x:180, y:105 },
-      { char:'G', wght:500, morf:700, size: 52, color:'accent', x:180, y:105 },
-      { char:'D', wght:600, morf:800, size:130, color:'ink',    x:180, y:105 },
+      { char: 'H', wght: 700, morf: 900, size: 140, color: 'ink', x: 180, y: 105, rotation: 0 },
+      { char: 'G', wght: 500, morf: 700, size: 52, color: 'accent', x: 180, y: 105, rotation: 0 },
+      { char: 'D', wght: 600, morf: 800, size: 130, color: 'ink', x: 180, y: 105, rotation: 0 },
     ],
   },
   {
     id: 'optimized-node',
     name: 'Optimized Node',
     layers: [
-      { char:'D', wght:500, morf:300, size: 80, color:'ink',    x: 50, y:105 },
-      { char:'H', wght:600, morf:500, size: 90, color:'ink',    x:160, y:105 },
-      { char:'C', wght:800, morf:800, size: 76, color:'accent', x:255, y:100 },
-      { char:'C', wght:900, morf:900, size: 96, color:'accent', x:310, y:105 },
+      { char: 'D', wght: 500, morf: 300, size: 80, color: 'ink', x: 50, y: 105, rotation: 0 },
+      { char: 'H', wght: 600, morf: 500, size: 90, color: 'ink', x: 160, y: 105, rotation: 0 },
+      { char: 'C', wght: 800, morf: 800, size: 76, color: 'accent', x: 255, y: 100, rotation: 0 },
+      { char: 'C', wght: 900, morf: 900, size: 96, color: 'accent', x: 310, y: 105, rotation: 0 },
     ],
   },
   {
     id: 'precise-intercept',
     name: 'Precise Intercept',
     layers: [
-      { char:'H', wght:900, morf:900, size:160, color:'ink',    x:180, y:105 },
-      { char:'R', wght:900, morf:900, size: 80, color:'ink',    x:180, y:105 },
-      { char:'D', wght:900, morf:900, size: 36, color:'accent', x:180, y:105 },
+      { char: 'H', wght: 900, morf: 900, size: 160, color: 'ink', x: 180, y: 105, rotation: 0 },
+      { char: 'R', wght: 900, morf: 900, size: 80, color: 'ink', x: 180, y: 105, rotation: 0 },
+      { char: 'D', wght: 900, morf: 900, size: 36, color: 'accent', x: 180, y: 105, rotation: 0 },
     ],
   },
 ];
@@ -84,7 +84,7 @@ let state = loadState();
 // selectedLogoId, selectedLayerIdx live on state
 
 let dndLayerSrc = null;   // layer-list drag index
-let canvasDrag  = null;   // canvas pointer drag info
+let canvasDrag = null;   // canvas pointer drag info
 
 // ── Persistence ──────────────────────────────────────────────────────────────
 
@@ -95,7 +95,7 @@ function loadState() {
       const parsed = JSON.parse(raw);
       if (parsed && Array.isArray(parsed.logos)) return parsed;
     }
-  } catch (_) {}
+  } catch (_) { }
   return {
     logos: PRESETS.map(p => ({ ...p, layers: p.layers.map(l => ({ ...l })) })),
     selectedLogoId: PRESETS[0].id,
@@ -186,7 +186,7 @@ function renderThumbLayers(container, logo) {
     el.style.cssText = `
       position:absolute;
       left:${layer.x}px; top:${layer.y}px;
-      transform:translate(-50%,-50%);
+      transform:translate(-50%,-50%) rotate(${layer.rotation || 0}deg);
       font-family:"SymbolLang";
       font-variation-settings:'wght' ${layer.wght},'MORF' ${layer.morf};
       font-size:${layer.size}px;
@@ -263,7 +263,8 @@ function applyLayerStyle(el, layer) {
   el.style.fontSize = layer.size + 'px';
   el.style.color = getColor(layer.color);
   el.style.left = layer.x + 'px';
-  el.style.top  = layer.y + 'px';
+  el.style.top = layer.y + 'px';
+  el.style.transform = `translate(-50%, -50%) rotate(${layer.rotation || 0}deg)`;
 }
 
 // ── Layer list (drag-to-reorder) ──────────────────────────────────────────────
@@ -395,7 +396,7 @@ function onCanvasPointerDown(e) {
   canvasDrag = { el, layerIdx, startPX: e.clientX, startPY: e.clientY, startLX: layer.x, startLY: layer.y };
 
   el.addEventListener('pointermove', onCanvasPointerMove);
-  el.addEventListener('pointerup',   onCanvasPointerUp);
+  el.addEventListener('pointerup', onCanvasPointerUp);
   el.addEventListener('pointercancel', onCanvasPointerUp);
 }
 
@@ -411,7 +412,7 @@ function onCanvasPointerMove(e) {
   layer.y = clamp(canvasDrag.startLY + dy, 0, CANVAS_H);
 
   canvasDrag.el.style.left = layer.x + 'px';
-  canvasDrag.el.style.top  = layer.y + 'px';
+  canvasDrag.el.style.top = layer.y + 'px';
 
   const vx = document.getElementById('val-x');
   const vy = document.getElementById('val-y');
@@ -423,7 +424,7 @@ function onCanvasPointerUp() {
   if (!canvasDrag) return;
   canvasDrag.el.classList.remove('dragging');
   canvasDrag.el.removeEventListener('pointermove', onCanvasPointerMove);
-  canvasDrag.el.removeEventListener('pointerup',   onCanvasPointerUp);
+  canvasDrag.el.removeEventListener('pointerup', onCanvasPointerUp);
   canvasDrag.el.removeEventListener('pointercancel', onCanvasPointerUp);
   saveState();
   renderSidebarItem(state.selectedLogoId);
@@ -435,7 +436,7 @@ function onCanvasPointerUp() {
 function addLayer(char) {
   const logo = getCurrentLogo();
   if (!logo) return;
-  logo.layers.push({ char, wght:500, morf:500, size:90, color:'ink', x:180, y:105 });
+  logo.layers.push({ char, wght: 500, morf: 500, size: 90, color: 'ink', x: 180, y: 105, rotation: 0 });
   state.selectedLayerIdx = logo.layers.length - 1;
   saveState();
   renderEditor();
@@ -462,7 +463,7 @@ function addLogo() {
   const logo = {
     id: uid(),
     name: 'New Logo',
-    layers: [{ char:'H', wght:500, morf:500, size:100, color:'ink', x:180, y:105 }],
+    layers: [{ char: 'H', wght: 500, morf: 500, size: 100, color: 'ink', x: 180, y: 105, rotation: 0 }],
   };
   state.logos.push(logo);
   state.selectedLogoId = logo.id;
@@ -507,7 +508,7 @@ function renderSidebarItem(id) {
 // ── Controls panel ────────────────────────────────────────────────────────────
 
 function updatePanel() {
-  const hint     = document.getElementById('panel-hint');
+  const hint = document.getElementById('panel-hint');
   const controls = document.getElementById('panel-controls');
   const logo = getCurrentLogo();
 
@@ -534,13 +535,15 @@ function updatePanel() {
   document.getElementById('panel-logo-name').textContent = logo.name;
 
   document.getElementById('ctrl-wght').value = layer.wght;
-  document.getElementById('val-wght').value  = layer.wght;
+  document.getElementById('val-wght').value = layer.wght;
   document.getElementById('ctrl-morf').value = layer.morf;
-  document.getElementById('val-morf').value  = layer.morf;
+  document.getElementById('val-morf').value = layer.morf;
   document.getElementById('ctrl-size').value = layer.size;
-  document.getElementById('val-size').value  = layer.size + 'px';
-  document.getElementById('val-x').value     = Math.round(layer.x);
-  document.getElementById('val-y').value     = Math.round(layer.y);
+  document.getElementById('val-size').value = layer.size + 'px';
+  document.getElementById('ctrl-rotation').value = layer.rotation || 0;
+  document.getElementById('val-rotation').value = (layer.rotation || 0) + '°';
+  document.getElementById('val-x').value = Math.round(layer.x);
+  document.getElementById('val-y').value = Math.round(layer.y);
 
   document.querySelectorAll('.color-btn').forEach(btn =>
     btn.classList.toggle('active', btn.dataset.color === layer.color)
@@ -558,10 +561,10 @@ function syncSelectedEl() {
   // Sync layer row values display
   const row = document.querySelector(`.layer-row[data-idx="${state.selectedLayerIdx}"]`);
   if (row) {
-    const charEl  = row.querySelector('.layer-row-char');
-    const valsEl  = row.querySelector('.layer-row-vals');
+    const charEl = row.querySelector('.layer-row-char');
+    const valsEl = row.querySelector('.layer-row-vals');
     if (charEl) { charEl.style.fontVariationSettings = layerVarStyle(layer); charEl.style.color = getColor(layer.color); }
-    if (valsEl)  valsEl.textContent = `${layer.wght} · ${layer.morf}`;
+    if (valsEl) valsEl.textContent = `${layer.wght} · ${layer.morf}`;
   }
 }
 
@@ -593,6 +596,7 @@ function initControls() {
   onAxisChange('wght', 'val-wght', v => v);
   onAxisChange('morf', 'val-morf', v => v);
   onAxisChange('size', 'val-size', v => v + 'px');
+  onAxisChange('rotation', 'val-rotation', v => v + '°');
 
   document.getElementById('color-picker').addEventListener('click', e => {
     const btn = e.target.closest('.color-btn');
@@ -690,7 +694,7 @@ function showFeedback(msg) {
 function buildHTMLString(logo) {
   const layerHTML = logo.layers.map(l => `  <span style="
     position:absolute; left:${l.x}px; top:${l.y}px;
-    transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%) rotate(${l.rotation || 0}deg);
     font-family:'SymbolLang'; font-size:${l.size}px;
     font-variation-settings:'wght' ${l.wght},'MORF' ${l.morf};
     color:${resolveColor(l.color)}; line-height:1;">${l.char}</span>`).join('\n');
@@ -731,24 +735,26 @@ async function buildSVGString(logo) {
   let fontData = '';
   try {
     const resp = await fetch('fonts/SymbolLang.ttf');
-    const buf  = await resp.arrayBuffer();
+    const buf = await resp.arrayBuffer();
     const bytes = new Uint8Array(buf);
     let bin = '';
     bytes.forEach(b => bin += String.fromCharCode(b));
     fontData = btoa(bin);
-  } catch (_) {}
+  } catch (_) { }
 
   const fontFace = fontData
     ? `@font-face{font-family:'SymbolLang';src:url('data:font/truetype;base64,${fontData}') format('truetype');font-weight:100 900;}`
     : `@font-face{font-family:'SymbolLang';src:url('SymbolLang.ttf') format('truetype');font-weight:100 900;}`;
 
-  const textEls = logo.layers.map(l =>
-    `<text x="${l.x}" y="${l.y}"
+  const textEls = logo.layers.map(l => {
+    const rot = l.rotation || 0;
+    const transform = rot !== 0 ? ` transform="rotate(${rot} ${l.x} ${l.y})"` : '';
+    return `<text x="${l.x}" y="${l.y}"
       font-family="SymbolLang" font-size="${l.size}"
       style="font-variation-settings:'wght' ${l.wght},'MORF' ${l.morf}"
       fill="${resolveColor(l.color)}"
-      dominant-baseline="middle" text-anchor="middle">${l.char}</text>`
-  ).join('\n  ');
+      dominant-baseline="middle" text-anchor="middle"${transform}>${l.char}</text>`;
+  }).join('\n  ');
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${CANVAS_W}" height="${CANVAS_H}" viewBox="0 0 ${CANVAS_W} ${CANVAS_H}">
   <defs><style>${fontFace}</style></defs>
@@ -774,13 +780,13 @@ async function exportPNG(logo) {
   try {
     const svg = await buildSVGString(logo);
     const blob = new Blob([svg], { type: 'image/svg+xml' });
-    const url  = URL.createObjectURL(blob);
-    const img  = new Image();
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
     const scale = 2;
 
     img.onload = () => {
       const c = document.createElement('canvas');
-      c.width  = CANVAS_W * scale;
+      c.width = CANVAS_W * scale;
       c.height = CANVAS_H * scale;
       const ctx = c.getContext('2d');
       ctx.scale(scale, scale);
