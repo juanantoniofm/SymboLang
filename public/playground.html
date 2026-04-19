@@ -98,6 +98,16 @@
     <aside class="ctrl-panel" id="ctrl-panel">
       <div class="panel-head">Layer Controls</div>
 
+      <div class="panel-palette">
+        <span class="pal-token" style="background:var(--color-accent)"    title="Accent"></span>
+        <span class="pal-token" style="background:var(--color-accent2)"   title="Accent 2"></span>
+        <span class="pal-token" style="background:var(--color-ink)"       title="Ink"></span>
+        <span class="pal-token" style="background:var(--color-dim)"       title="Dim"></span>
+        <span class="pal-token" style="background:var(--color-bg);border:1px solid var(--color-border)" title="BG"></span>
+        <span class="pal-token" style="background:var(--color-panel);border:1px solid var(--color-border)" title="Panel"></span>
+        <span class="pal-token" style="background:var(--color-slide,#ecedf2)" title="Slide"></span>
+      </div>
+
       <div class="panel-hint" id="panel-hint">
         <div class="hint-glyph sym" style="font-variation-settings:'wght' 500,'MORF' 900;color:var(--color-dimmer)">H</div>
         <p>Select a layer to edit</p>
@@ -141,8 +151,9 @@
         <div class="ctrl-group">
           <div class="ctrl-label">Color</div>
           <div class="color-picker" id="color-picker">
-            <button class="color-btn" data-color="ink"><span class="color-swatch ink-swatch"></span>Navy</button>
-            <button class="color-btn" data-color="accent"><span class="color-swatch accent-swatch"></span>Teal</button>
+            <button class="color-btn" data-color="ink"><span class="color-swatch ink-swatch"></span>Ink</button>
+            <button class="color-btn" data-color="accent"><span class="color-swatch accent-swatch"></span>Accent</button>
+            <button class="color-btn" data-color="accent2"><span class="color-swatch accent2-swatch"></span>Accent 2</button>
             <button class="color-btn" data-color="dim"><span class="color-swatch dim-swatch"></span>Dim</button>
           </div>
         </div>

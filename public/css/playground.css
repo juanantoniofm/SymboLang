@@ -107,6 +107,7 @@ body { margin: 0; }
 .logo-thumb-outer {
   width: 72px;
   height: 42px;
+  background: var(--color-slide, #ecedf2) !important;
   background: #ecedf2;
   border-radius: 5px;
   overflow: hidden;
@@ -114,7 +115,6 @@ body { margin: 0; }
   position: relative;
 }
 
-[data-theme="light"] .logo-thumb-outer { background: #e5e6ed; }
 
 .logo-thumb-inner {
   width: 360px;
@@ -234,13 +234,11 @@ body { margin: 0; }
   position: relative;
   width: 360px;
   height: 210px;
-  background: #ecedf2;
+  background: var(--color-slide, #ecedf2);
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
 }
-
-[data-theme="light"] .card-canvas { background: #e5e6ed; }
 
 /* Glyph layers */
 .glyph-layer {
@@ -470,6 +468,25 @@ body { margin: 0; }
   overflow-y: auto;
 }
 
+/* Palette swatch strip */
+.panel-palette {
+  display: flex;
+  gap: 5px;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pal-token {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  display: block;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
 .panel-head {
   padding: 0.65rem 1rem;
   border-bottom: 1px solid var(--color-border);
@@ -510,7 +527,7 @@ body { margin: 0; }
 .panel-preview-box {
   width: 64px;
   height: 64px;
-  background: #ecedf2;
+  background: var(--color-slide, #ecedf2);
   border-radius: 7px;
   display: flex;
   align-items: center;
@@ -518,7 +535,6 @@ body { margin: 0; }
   flex-shrink: 0;
 }
 
-[data-theme="light"] .panel-preview-box { background: #e5e6ed; }
 
 .panel-preview-box .sym {
   font-size: 46px;
@@ -595,7 +611,8 @@ body { margin: 0; }
 }
 
 .color-picker {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 0.4rem;
 }
 
@@ -630,9 +647,10 @@ body { margin: 0; }
   flex-shrink: 0;
 }
 
-.ink-swatch    { background: #1a1a2e; }
-.accent-swatch { background: #00e5c0; }
-.dim-swatch    { background: #8a8a90; }
+.ink-swatch     { background: var(--color-ink); }
+.accent-swatch  { background: var(--color-accent); }
+.accent2-swatch { background: var(--color-accent2); }
+.dim-swatch     { background: var(--color-dim); }
 
 .pos-row {
   display: flex;

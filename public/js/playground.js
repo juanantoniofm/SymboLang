@@ -5,8 +5,27 @@ const CANVAS_H = 210;
 const THUMB_SCALE = 72 / 360; // thumb outer width / canvas width
 const STORAGE_KEY = 'symbolang-playground-v3';
 
-const COLORS = { ink: '#1a1a2e', accent: '#00e5c0', dim: '#8a8a90' };
-const CANVAS_BG = '#ecedf2';
+// Color keys → CSS variable names. Rendering uses var() so palette changes live-update.
+const COLOR_VARS = {
+  ink:     '--color-ink',
+  accent:  '--color-accent',
+  accent2: '--color-accent2',
+  dim:     '--color-dim',
+};
+
+function getColor(key) {
+  return `var(${COLOR_VARS[key] || '--color-ink'})`;
+}
+
+function resolveColor(key) {
+  const v = COLOR_VARS[key];
+  if (!v) return '#888';
+  return getComputedStyle(document.documentElement).getPropertyValue(v).trim() || '#888';
+}
+
+function getCanvasBgHex() {
+  return getComputedStyle(document.documentElement).getPropertyValue('--color-slide').trim() || '#ecedf2';
+}
 
 const GLYPH_NAMES = {
   H:'hex', D:'dots', C:'chevron', A:'arc', G:'grid',
@@ -169,7 +188,7 @@ function renderThumbLayers(container, logo) {
       font-family:"SymbolLang";
       font-variation-settings:'wght' ${layer.wght},'MORF' ${layer.morf};
       font-size:${layer.size}px;
-      color:${COLORS[layer.color]};
+      color:${getColor(layer.color)};
       line-height:1;
       pointer-events:none;
       z-index:${idx + 1};
@@ -240,7 +259,7 @@ function makeLayerEl(layer, layerIdx) {
 function applyLayerStyle(el, layer) {
   el.style.fontVariationSettings = `'wght' ${layer.wght},'MORF' ${layer.morf}`;
   el.style.fontSize = layer.size + 'px';
-  el.style.color = COLORS[layer.color];
+  el.style.color = getColor(layer.color);
   el.style.left = layer.x + 'px';
   el.style.top  = layer.y + 'px';
 }
@@ -260,7 +279,7 @@ function renderLayerList(logo) {
 
     row.innerHTML = `
       <span class="layer-drag-handle" title="Drag to reorder">⠿</span>
-      <span class="layer-row-char sym" style="${layerVarStyle(layer)};color:${COLORS[layer.color]}">${layer.char}</span>
+      <span class="layer-row-char sym" style="${layerVarStyle(layer)};color:${getColor(layer.color)}">${layer.char}</span>
       <span class="layer-row-name">${layer.char} · ${GLYPH_NAMES[layer.char] || ''}</span>
       <span class="layer-row-vals">${layer.wght} · ${layer.morf}</span>
       <button class="layer-row-del" title="Remove">×</button>
@@ -505,7 +524,7 @@ function updatePanel() {
   const pg = document.getElementById('panel-glyph');
   pg.textContent = layer.char;
   pg.style.fontVariationSettings = `'wght' ${layer.wght},'MORF' ${layer.morf}`;
-  pg.style.color = COLORS[layer.color];
+  pg.style.color = getColor(layer.color);
   pg.style.fontSize = clamp(layer.size, 24, 48) + 'px';
 
   document.getElementById('panel-layer-label').textContent =
@@ -539,7 +558,7 @@ function syncSelectedEl() {
   if (row) {
     const charEl  = row.querySelector('.layer-row-char');
     const valsEl  = row.querySelector('.layer-row-vals');
-    if (charEl) { charEl.style.fontVariationSettings = layerVarStyle(layer); charEl.style.color = COLORS[layer.color]; }
+    if (charEl) { charEl.style.fontVariationSettings = layerVarStyle(layer); charEl.style.color = getColor(layer.color); }
     if (valsEl)  valsEl.textContent = `${layer.wght} · ${layer.morf}`;
   }
 }
@@ -551,7 +570,7 @@ function syncPanelPreview() {
   const layer = logo.layers[state.selectedLayerIdx];
   const pg = document.getElementById('panel-glyph');
   pg.style.fontVariationSettings = `'wght' ${layer.wght},'MORF' ${layer.morf}`;
-  pg.style.color = COLORS[layer.color];
+  pg.style.color = getColor(layer.color);
   pg.style.fontSize = clamp(layer.size, 24, 48) + 'px';
 }
 
@@ -672,7 +691,7 @@ function buildHTMLString(logo) {
     transform:translate(-50%,-50%);
     font-family:'SymbolLang'; font-size:${l.size}px;
     font-variation-settings:'wght' ${l.wght},'MORF' ${l.morf};
-    color:${COLORS[l.color]}; line-height:1;">${l.char}</span>`).join('\n');
+    color:${resolveColor(l.color)}; line-height:1;">${l.char}</span>`).join('\n');
 
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8">
@@ -687,7 +706,7 @@ function buildHTMLString(logo) {
   position: relative;
   width: ${CANVAS_W}px;
   height: ${CANVAS_H}px;
-  background: ${CANVAS_BG};
+  background: ${getCanvasBgHex()};
   overflow: hidden;
 }
 </style>
@@ -725,13 +744,13 @@ async function buildSVGString(logo) {
     `<text x="${l.x}" y="${l.y}"
       font-family="SymbolLang" font-size="${l.size}"
       style="font-variation-settings:'wght' ${l.wght},'MORF' ${l.morf}"
-      fill="${COLORS[l.color]}"
+      fill="${resolveColor(l.color)}"
       dominant-baseline="middle" text-anchor="middle">${l.char}</text>`
   ).join('\n  ');
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${CANVAS_W}" height="${CANVAS_H}" viewBox="0 0 ${CANVAS_W} ${CANVAS_H}">
   <defs><style>${fontFace}</style></defs>
-  <rect width="${CANVAS_W}" height="${CANVAS_H}" fill="${CANVAS_BG}"/>
+  <rect width="${CANVAS_W}" height="${CANVAS_H}" fill="${getCanvasBgHex()}"/>
   ${textEls}
 </svg>`;
 }
