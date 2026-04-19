@@ -8,9 +8,11 @@ const STORAGE_KEY = 'symbolang-playground-v3';
 // Color keys → CSS variable names. Rendering uses var() so palette changes live-update.
 const COLOR_VARS = {
   ink:     '--color-ink',
+  glyph:   '--color-glyph',
   accent:  '--color-accent',
   accent2: '--color-accent2',
   dim:     '--color-dim',
+  dimmer:  '--color-dimmer',
 };
 
 function getColor(key) {

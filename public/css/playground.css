@@ -648,9 +648,11 @@ body { margin: 0; }
 }
 
 .ink-swatch     { background: var(--color-ink); }
+.glyph-swatch   { background: var(--color-glyph); }
 .accent-swatch  { background: var(--color-accent); }
 .accent2-swatch { background: var(--color-accent2); }
 .dim-swatch     { background: var(--color-dim); }
+.dimmer-swatch  { background: var(--color-dimmer); }
 
 .pos-row {
   display: flex;
