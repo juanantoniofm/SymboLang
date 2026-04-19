@@ -3,7 +3,7 @@
 const CANVAS_W = 360;
 const CANVAS_H = 210;
 const THUMB_SCALE = 72 / 360; // thumb outer width / canvas width
-const STORAGE_KEY = 'symbolang-playground-v2';
+const STORAGE_KEY = 'symbolang-playground-v3';
 
 const COLORS = { ink: '#1a1a2e', accent: '#00e5c0', dim: '#8a8a90' };
 const CANVAS_BG = '#ecedf2';
@@ -230,6 +230,7 @@ function makeLayerEl(layer, layerIdx) {
   el.className = 'glyph-layer sym';
   el.dataset.layerIdx = layerIdx;
   el.style.zIndex = layerIdx + 1;
+  el.textContent = layer.char;
   applyLayerStyle(el, layer);
   if (state.selectedLayerIdx === layerIdx) el.classList.add('selected');
   el.addEventListener('pointerdown', onCanvasPointerDown);
