@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <title>SymbolLang · Logo Playground</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/playground.css">
+</head>
+
+<body>
+  <div class="pg-header">
+    <h1 class="pg-title">Logo Playground</h1>
+    <p class="pg-subtitle">Four logo concepts built from SymboLang primitives. Select a layer to edit its axis values. Drag to reposition.</p>
+  </div>
+
+  <main class="pg-layout">
+    <div class="pg-cards" id="pg-cards">
+      <!-- injected by playground.js -->
+    </div>
+
+    <aside class="pg-panel" id="pg-panel">
+      <div class="panel-head">Layer Controls</div>
+
+      <div class="panel-hint" id="panel-hint">
+        <div class="hint-icon sym" style="font-size:36px; font-variation-settings:'wght' 500,'MORF' 900; color:var(--color-dimmer)">H</div>
+        <p>Click a glyph to select its layer</p>
+      </div>
+
+      <div class="panel-controls" id="panel-controls">
+        <div class="panel-preview-row">
+          <div class="panel-preview-box">
+            <span class="sym" id="panel-glyph">H</span>
+          </div>
+          <div class="panel-meta">
+            <div class="panel-layer-label" id="panel-layer-label">—</div>
+            <div class="panel-logo-name" id="panel-logo-name">—</div>
+          </div>
+        </div>
+
+        <div class="ctrl-group">
+          <div class="ctrl-label">Phase <code class="axis-tag">wght</code></div>
+          <div class="ctrl-row">
+            <input type="range" id="ctrl-wght" min="100" max="900" step="1" value="500">
+            <output id="val-wght">500</output>
+          </div>
+        </div>
+
+        <div class="ctrl-group">
+          <div class="ctrl-label">Form <code class="axis-tag">MORF</code></div>
+          <div class="ctrl-row">
+            <input type="range" id="ctrl-morf" min="100" max="900" step="1" value="500">
+            <output id="val-morf">500</output>
+          </div>
+        </div>
+
+        <div class="ctrl-group">
+          <div class="ctrl-label">Size</div>
+          <div class="ctrl-row">
+            <input type="range" id="ctrl-size" min="20" max="200" step="2" value="96">
+            <output id="val-size">96px</output>
+          </div>
+        </div>
+
+        <div class="ctrl-group">
+          <div class="ctrl-label">Color</div>
+          <div class="color-picker" id="color-picker">
+            <button class="color-btn" data-color="ink">
+              <span class="color-swatch ink-swatch"></span>Navy
+            </button>
+            <button class="color-btn" data-color="accent">
+              <span class="color-swatch accent-swatch"></span>Teal
+            </button>
+            <button class="color-btn" data-color="dim">
+              <span class="color-swatch dim-swatch"></span>Dim
+            </button>
+          </div>
+        </div>
+
+        <div class="ctrl-group">
+          <div class="ctrl-label">Position</div>
+          <div class="pos-row">
+            <span class="pos-field">x <output id="val-x">0</output></span>
+            <span class="pos-field">y <output id="val-y">0</output></span>
+          </div>
+        </div>
+
+        <button class="btn-reset-layer" id="btn-reset-layer">Reset Layer</button>
+      </div>
+    </aside>
+  </main>
+
+  <script src="js/shared.js"></script>
+  <script src="js/playground.js"></script>
+</body>
+
+</html>
