@@ -29,22 +29,78 @@
     </div>
   </nav>
 
-  <div class="pg-header">
-    <h1 class="pg-title">Logo Playground</h1>
-    <p class="pg-subtitle">Four logo concepts built from SymboLang primitives. Select a layer to edit its axis values. Drag to reposition.</p>
-  </div>
+  <div class="pg-layout">
 
-  <main class="pg-layout">
-    <div class="pg-cards" id="pg-cards">
-      <!-- injected by playground.js -->
-    </div>
+    <!-- ── Left: logo list ── -->
+    <aside class="logo-list-panel" id="logo-list-panel">
+      <div class="list-header">
+        <span class="list-header-label">Logos</span>
+        <button class="btn-icon" id="btn-new-logo" title="New logo">+</button>
+      </div>
+      <div class="logo-list" id="logo-list">
+        <!-- injected by JS -->
+      </div>
+    </aside>
 
-    <aside class="pg-panel" id="pg-panel">
+    <!-- ── Center: editor ── -->
+    <main class="editor-panel" id="editor-panel">
+
+      <div class="editor-empty" id="editor-empty">
+        <div class="empty-icon sym" style="font-size:48px;font-variation-settings:'wght' 500,'MORF' 900;color:var(--color-dimmer)">H</div>
+        <p>Select a logo or create a new one</p>
+      </div>
+
+      <div class="editor-content" id="editor-content">
+
+        <div class="editor-topbar">
+          <div class="editor-name-wrap">
+            <div class="editor-name" id="editor-name" contenteditable="true" spellcheck="false">—</div>
+            <div class="editor-formula" id="editor-formula">—</div>
+          </div>
+          <button class="btn-icon btn-delete-logo" id="btn-delete-logo" title="Delete logo">✕</button>
+        </div>
+
+        <div class="editor-canvas-wrap">
+          <div class="card-canvas" id="editor-canvas">
+            <!-- layers injected by JS -->
+          </div>
+        </div>
+
+        <section class="editor-section">
+          <div class="section-header">
+            <span class="section-label">Layers</span>
+          </div>
+          <div class="layer-list" id="layer-list">
+            <!-- layer rows injected by JS -->
+          </div>
+          <div class="layer-list-footer">
+            <button class="btn-add-layer" id="btn-add-layer">+ Add Layer</button>
+            <div class="char-picker" id="char-picker" hidden>
+              <!-- char buttons injected by JS -->
+            </div>
+          </div>
+        </section>
+
+        <section class="editor-section editor-export">
+          <div class="section-label">Export</div>
+          <div class="export-btns">
+            <button class="btn-export" id="btn-export-html" title="Copy as standalone HTML+CSS snippet">HTML + CSS</button>
+            <button class="btn-export" id="btn-export-svg" title="Download as SVG with embedded font">SVG</button>
+            <button class="btn-export" id="btn-export-png" title="Download as PNG (2×)">PNG</button>
+          </div>
+          <div class="export-feedback" id="export-feedback"></div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ── Right: layer controls ── -->
+    <aside class="ctrl-panel" id="ctrl-panel">
       <div class="panel-head">Layer Controls</div>
 
       <div class="panel-hint" id="panel-hint">
-        <div class="hint-icon sym" style="font-size:36px; font-variation-settings:'wght' 500,'MORF' 900; color:var(--color-dimmer)">H</div>
-        <p>Click a glyph to select its layer</p>
+        <div class="hint-glyph sym" style="font-variation-settings:'wght' 500,'MORF' 900;color:var(--color-dimmer)">H</div>
+        <p>Select a layer to edit</p>
       </div>
 
       <div class="panel-controls" id="panel-controls">
@@ -85,15 +141,9 @@
         <div class="ctrl-group">
           <div class="ctrl-label">Color</div>
           <div class="color-picker" id="color-picker">
-            <button class="color-btn" data-color="ink">
-              <span class="color-swatch ink-swatch"></span>Navy
-            </button>
-            <button class="color-btn" data-color="accent">
-              <span class="color-swatch accent-swatch"></span>Teal
-            </button>
-            <button class="color-btn" data-color="dim">
-              <span class="color-swatch dim-swatch"></span>Dim
-            </button>
+            <button class="color-btn" data-color="ink"><span class="color-swatch ink-swatch"></span>Navy</button>
+            <button class="color-btn" data-color="accent"><span class="color-swatch accent-swatch"></span>Teal</button>
+            <button class="color-btn" data-color="dim"><span class="color-swatch dim-swatch"></span>Dim</button>
           </div>
         </div>
 
@@ -108,7 +158,8 @@
         <button class="btn-reset-layer" id="btn-reset-layer">Reset Layer</button>
       </div>
     </aside>
-  </main>
+
+  </div>
 
   <script src="js/shared.js"></script>
   <script src="js/playground.js"></script>
