@@ -1,0 +1,40 @@
+foundry/build_symbolang.py
+  c10f98c013d8a81e 3,427-475
+foundry/SPEC.md
+  c10f98c013d8a81e 5,45,60
+public/index.html
+  c10f98c013d8a81e 379,414-415,534-539,604-609
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "10c6edd4cb8b6fd4209bd3c29381f78b1d67cc24",
+  "prompts": {
+    "1471b2094225afd7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b93c1c18-ab04-47a8-8cca-284ef6bc7bc2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 53,
+      "overriden_lines": 1
+    },
+    "c10f98c013d8a81e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "356bad02-d6d6-4e5f-9fc5-1dcb50b96010",
+        "model": "claude-sonnet-4-5-20250929"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 68,
+      "total_deletions": 4,
+      "accepted_lines": 68,
+      "overriden_lines": 0
+    }
+  }
+}
