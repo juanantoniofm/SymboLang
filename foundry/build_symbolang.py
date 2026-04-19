@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-SymbolLang v5 — 2-axis parametric symbol language, 14 primitives.
+SymbolLang v5 — 2-axis parametric symbol language, 15 primitives.
 
 Builds a variable TTF with 9 masters on a 3x3 grid over:
   wght (tag `wght`, axis label "Phase")  100..900 default 500
@@ -423,6 +423,55 @@ def draw_pulse(pen, scales, hole_ratio):
 
 draw_pulse.grid = {(w, m): dict(scales=PULSE_SCALE[m], hole_ratio=PULSE_HOLE[w])
                    for w in POSITIONS for m in POSITIONS}
+
+# --- Lens (L) — wght: fill, MORF: horizontal stretch distribution ---
+
+LENS_N, LENS_SIDES = 7, 12
+LENS_BASE_R = 38           # base radius (used for both rx and ry at mid)
+LENS_SPACING = 120         # center-to-center spacing
+
+# Horizontal width multipliers per circle [0..6], center = index 3
+# Height stays constant (1.0x) — only width changes → ellipses
+# MORF lo:  center wide (1.8x), edges narrow (0.35x) — "convex lens"
+# MORF mid: all circular (1.0x)
+# MORF hi:  edges wide (1.6x), center narrow (0.40x) — "concave lens"
+LENS_WX = {
+    "lo":  [0.35, 0.50, 0.70, 1.80, 0.70, 0.50, 0.35],
+    "mid": [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00],
+    "hi":  [1.60, 1.40, 1.20, 0.40, 1.20, 1.40, 1.60],
+}
+
+LENS_HOLE = {"lo": 0.80, "mid": 0.50, "hi": 0.10}
+
+@glyph("L", "lens", hint="wght: fill | MORF: horizontal stretch", kern_class="wide")
+def draw_lens(pen, wx_scales, hole_ratio):
+    """7 ellipses as rings. Height constant, width varies per MORF.
+    Topology: 7 x 2 contours x LENS_SIDES points = 168 points."""
+    start_x = CX - LENS_SPACING * (LENS_N - 1) / 2
+    for i in range(LENS_N):
+        cx = start_x + i * LENS_SPACING
+        cy = CY
+        rx_out = LENS_BASE_R * wx_scales[i]
+        ry_out = LENS_BASE_R  # constant height
+        rx_in = max(rx_out * hole_ratio, 2)
+        ry_in = max(ry_out * hole_ratio, 2)
+
+        # Outer contour (CW)
+        pen.moveTo((cx + rx_out, cy))
+        for j in range(1, LENS_SIDES):
+            a = 2 * math.pi * j / LENS_SIDES
+            pen.lineTo((cx + rx_out * math.cos(a), cy + ry_out * math.sin(a)))
+        pen.closePath()
+
+        # Inner contour (CCW — winding hole)
+        pen.moveTo((cx + rx_in, cy))
+        for j in range(LENS_SIDES - 1, 0, -1):
+            a = 2 * math.pi * j / LENS_SIDES
+            pen.lineTo((cx + rx_in * math.cos(a), cy + ry_in * math.sin(a)))
+        pen.closePath()
+
+draw_lens.grid = {(w, m): dict(wx_scales=LENS_WX[m], hole_ratio=LENS_HOLE[w])
+                  for w in POSITIONS for m in POSITIONS}
 
 
 # =====================================================================

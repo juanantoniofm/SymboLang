@@ -2,7 +2,7 @@
 
 ## Project
 
-Variable TTF font. 14 symbolic primitives mapped to ASCII letters. Two axes: `wght`/"Phase" (100–900) and `MORF`/"Form" (100–900). 9 masters on 3×3 grid. Built with fontTools `FontBuilder` + `varLib.build`.
+Variable TTF font. 15 symbolic primitives mapped to ASCII letters. Two axes: `wght`/"Phase" (100–900) and `MORF`/"Form" (100–900). 9 masters on 3×3 grid. Built with fontTools `FontBuilder` + `varLib.build`.
 
 ## Version History
 
@@ -42,7 +42,7 @@ Glyph registration uses `@glyph()` decorator → `SYMBOL_REGISTRY` list of `Glyp
 
 **Form (MORF):** Diffuse(100), Scattered(200), Open(300), Relaxed(400), Balanced(500), Gathered(600), Focused(700), Tight(800), Unified(900)
 
-## Glyphs (14)
+## Glyphs (15)
 
 | Char | Name | Phase controls | Form controls | Kern class |
 |------|------|---------------|---------------|------------|
@@ -57,6 +57,7 @@ Glyph registration uses `@glyph()` decorator → `SYMBOL_REGISTRY` list of `Glyp
 | R | relay | wide gap→converged | blunt→sharp | medium |
 | B | bowtie | pinched→open | closed→valve gap | medium |
 | P | pulse | thin rings→filled | center-dominant↔equal↔edge-dominant | wide |
+| L | lens | thin rings→filled | center-wide↔circular↔edge-wide | wide |
 
 ## GPOS Kerning
 
