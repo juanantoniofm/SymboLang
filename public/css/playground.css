@@ -611,21 +611,29 @@ body { margin: 0; }
   text-align: right;
   cursor: text;
   border-radius: 3px;
-  outline: 1px solid transparent;
-  transition: color 0.1s, outline-color 0.1s;
+  transition: color 0.1s;
 }
 
 .ctrl-row output:hover {
   color: var(--color-accent);
-  outline-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
 }
 
-.ctrl-row output[contenteditable="true"] {
-  outline-color: var(--color-accent);
+.val-edit-input {
+  font-family: ui-monospace, monospace;
+  font-size: 0.73rem;
   color: var(--color-ink);
+  width: 5ch;
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  border: none;
+  outline: 1px solid var(--color-accent);
+  border-radius: 3px;
+  text-align: right;
   padding: 0 2px;
-  background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  -moz-appearance: textfield;
 }
+
+.val-edit-input::-webkit-inner-spin-button,
+.val-edit-input::-webkit-outer-spin-button { -webkit-appearance: none; }
 
 .color-picker {
   display: grid;

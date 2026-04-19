@@ -568,37 +568,41 @@ function makeOutputEditable(outputId, sliderId, field, fmt) {
   output.addEventListener('click', () => {
     if (state.selectedLayerIdx === null) return;
     const logo = getCurrentLogo(); if (!logo) return;
-    output.contentEditable = 'true';
-    output.textContent = String(logo.layers[state.selectedLayerIdx][field]);
-    output.focus();
-    const range = document.createRange();
-    range.selectNodeContents(output);
-    const sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-  });
+    if (output.nextSibling?.classList?.contains('val-edit-input')) return;
 
-  function commit() {
-    if (output.contentEditable !== 'true') return;
-    output.contentEditable = 'false';
-    if (state.selectedLayerIdx === null) { updatePanel(); return; }
-    const logo = getCurrentLogo(); if (!logo) return;
-    const raw = parseFloat(output.textContent);
-    if (isNaN(raw)) { updatePanel(); return; }
-    const val = clamp(Math.round(raw), +slider.min, +slider.max);
-    logo.layers[state.selectedLayerIdx][field] = val;
-    slider.value = val;
-    output.textContent = fmt(val);
-    syncSelectedEl();
-    syncPanelPreview();
-    saveState();
-  }
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.value = logo.layers[state.selectedLayerIdx][field];
+    input.min = slider.min;
+    input.max = slider.max;
+    input.step = 1;
+    input.className = 'val-edit-input';
+    output.style.display = 'none';
+    output.after(input);
+    input.focus();
+    input.select();
 
-  output.addEventListener('keydown', e => {
-    if (e.key === 'Enter') { e.preventDefault(); commit(); output.blur(); }
-    if (e.key === 'Escape') { output.contentEditable = 'false'; updatePanel(); }
+    function applyAndRestore() {
+      const raw = parseFloat(input.value);
+      if (!isNaN(raw) && state.selectedLayerIdx !== null) {
+        const val = clamp(Math.round(raw), +slider.min, +slider.max);
+        logo.layers[state.selectedLayerIdx][field] = val;
+        slider.value = val;
+        output.value = fmt(val);
+        syncSelectedEl();
+        syncPanelPreview();
+        saveState();
+      }
+      output.style.display = '';
+      input.remove();
+    }
+
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); applyAndRestore(); }
+      if (e.key === 'Escape') { e.stopPropagation(); output.style.display = ''; input.remove(); }
+    });
+    input.addEventListener('blur', applyAndRestore);
   });
-  output.addEventListener('blur', commit);
 }
 
 // ── Controls wiring ───────────────────────────────────────────────────────────
