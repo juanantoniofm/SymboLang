@@ -254,7 +254,6 @@ function makeLayerEl(layer, layerIdx) {
   el.textContent = layer.char;
   applyLayerStyle(el, layer);
   if (state.selectedLayerIdx === layerIdx) el.classList.add('selected');
-  el.addEventListener('pointerdown', onCanvasPointerDown);
   return el;
 }
 
@@ -289,7 +288,10 @@ function renderLayerList(logo) {
     `;
 
     row.addEventListener('click', e => {
-      if (!e.target.classList.contains('layer-row-del')) selectLayer(idx);
+      if (!e.target.classList.contains('layer-row-del')) {
+        if (state.selectedLayerIdx === idx) deselectLayer();
+        else selectLayer(idx);
+      }
     });
 
     row.querySelector('.layer-row-del').addEventListener('click', e => {
@@ -379,28 +381,7 @@ function deselectLayer() {
 
 // ── Canvas drag (move layer) ──────────────────────────────────────────────────
 
-function onCanvasPointerDown(e) {
-  e.preventDefault();
-  e.stopPropagation();
-
-  const el = e.currentTarget;
-  const layerIdx = +el.dataset.layerIdx;
-  const logo = getCurrentLogo();
-  if (!logo) return;
-
-  selectLayer(layerIdx);
-  el.setPointerCapture(e.pointerId);
-  el.classList.add('dragging');
-
-  const layer = logo.layers[layerIdx];
-  canvasDrag = { el, layerIdx, startPX: e.clientX, startPY: e.clientY, startLX: layer.x, startLY: layer.y };
-
-  el.addEventListener('pointermove', onCanvasPointerMove);
-  el.addEventListener('pointerup', onCanvasPointerUp);
-  el.addEventListener('pointercancel', onCanvasPointerUp);
-}
-
-function onCanvasPointerMove(e) {
+function onCanvasDragMove(e) {
   if (!canvasDrag) return;
   const logo = getCurrentLogo();
   if (!logo) return;
@@ -411,8 +392,8 @@ function onCanvasPointerMove(e) {
   layer.x = clamp(canvasDrag.startLX + dx, 0, CANVAS_W);
   layer.y = clamp(canvasDrag.startLY + dy, 0, CANVAS_H);
 
-  canvasDrag.el.style.left = layer.x + 'px';
-  canvasDrag.el.style.top = layer.y + 'px';
+  const el = document.querySelector(`.glyph-layer[data-layer-idx="${canvasDrag.layerIdx}"]`);
+  if (el) { el.style.left = layer.x + 'px'; el.style.top = layer.y + 'px'; }
 
   const vx = document.getElementById('val-x');
   const vy = document.getElementById('val-y');
@@ -420,12 +401,10 @@ function onCanvasPointerMove(e) {
   if (vy) vy.value = Math.round(layer.y);
 }
 
-function onCanvasPointerUp() {
+function onCanvasDragEnd() {
   if (!canvasDrag) return;
-  canvasDrag.el.classList.remove('dragging');
-  canvasDrag.el.removeEventListener('pointermove', onCanvasPointerMove);
-  canvasDrag.el.removeEventListener('pointerup', onCanvasPointerUp);
-  canvasDrag.el.removeEventListener('pointercancel', onCanvasPointerUp);
+  const el = document.querySelector(`.glyph-layer[data-layer-idx="${canvasDrag.layerIdx}"]`);
+  if (el) el.classList.remove('dragging');
   saveState();
   renderSidebarItem(state.selectedLogoId);
   canvasDrag = null;
@@ -579,6 +558,49 @@ function syncPanelPreview() {
   pg.style.fontSize = clamp(layer.size, 24, 48) + 'px';
 }
 
+// ── Editable output values ────────────────────────────────────────────────────
+
+function makeOutputEditable(outputId, sliderId, field, fmt) {
+  const output = document.getElementById(outputId);
+  const slider = document.getElementById(sliderId);
+  if (!output || !slider) return;
+
+  output.addEventListener('click', () => {
+    if (state.selectedLayerIdx === null) return;
+    const logo = getCurrentLogo(); if (!logo) return;
+    output.contentEditable = 'true';
+    output.textContent = String(logo.layers[state.selectedLayerIdx][field]);
+    output.focus();
+    const range = document.createRange();
+    range.selectNodeContents(output);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+
+  function commit() {
+    if (output.contentEditable !== 'true') return;
+    output.contentEditable = 'false';
+    if (state.selectedLayerIdx === null) { updatePanel(); return; }
+    const logo = getCurrentLogo(); if (!logo) return;
+    const raw = parseFloat(output.textContent);
+    if (isNaN(raw)) { updatePanel(); return; }
+    const val = clamp(Math.round(raw), +slider.min, +slider.max);
+    logo.layers[state.selectedLayerIdx][field] = val;
+    slider.value = val;
+    output.textContent = fmt(val);
+    syncSelectedEl();
+    syncPanelPreview();
+    saveState();
+  }
+
+  output.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); commit(); output.blur(); }
+    if (e.key === 'Escape') { output.contentEditable = 'false'; updatePanel(); }
+  });
+  output.addEventListener('blur', commit);
+}
+
 // ── Controls wiring ───────────────────────────────────────────────────────────
 
 function initControls() {
@@ -644,9 +666,29 @@ function initControls() {
     if (e.key === 'Enter') { e.preventDefault(); nameEl.blur(); }
   });
 
-  // Canvas background click = deselect
-  document.getElementById('editor-canvas').addEventListener('pointerdown', e => {
-    if (e.target.id === 'editor-canvas') deselectLayer();
+  // Canvas: locked-drag if layer selected, else select foremost
+  const canvasEl = document.getElementById('editor-canvas');
+  canvasEl.addEventListener('pointerdown', e => {
+    const logo = getCurrentLogo();
+    if (!logo || !logo.layers.length) return;
+    if (state.selectedLayerIdx !== null) {
+      e.preventDefault();
+      const layer = logo.layers[state.selectedLayerIdx];
+      canvasDrag = { layerIdx: state.selectedLayerIdx, startPX: e.clientX, startPY: e.clientY, startLX: layer.x, startLY: layer.y };
+      canvasEl.setPointerCapture(e.pointerId);
+      const el = document.querySelector(`.glyph-layer[data-layer-idx="${state.selectedLayerIdx}"]`);
+      if (el) el.classList.add('dragging');
+    } else {
+      selectLayer(logo.layers.length - 1);
+    }
+  });
+  canvasEl.addEventListener('pointermove', onCanvasDragMove);
+  canvasEl.addEventListener('pointerup', onCanvasDragEnd);
+  canvasEl.addEventListener('pointercancel', onCanvasDragEnd);
+
+  // Escape to deselect layer
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') deselectLayer();
   });
 
   // Add layer
@@ -679,6 +721,11 @@ function initControls() {
     const logo = getCurrentLogo(); if (!logo) return;
     exportPNG(logo);
   });
+
+  makeOutputEditable('val-wght',     'ctrl-wght',     'wght',     v => String(v));
+  makeOutputEditable('val-morf',     'ctrl-morf',     'morf',     v => String(v));
+  makeOutputEditable('val-size',     'ctrl-size',     'size',     v => v + 'px');
+  makeOutputEditable('val-rotation', 'ctrl-rotation', 'rotation', v => v + '°');
 }
 
 // ── Export ────────────────────────────────────────────────────────────────────

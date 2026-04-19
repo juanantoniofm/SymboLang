@@ -398,6 +398,8 @@ body { margin: 0; }
   background: var(--color-bg);
 }
 
+.char-picker[hidden] { display: none; }
+
 .char-opt {
   width: 34px;
   height: 34px;
@@ -607,6 +609,22 @@ body { margin: 0; }
   color: var(--color-ink);
   min-width: 4ch;
   text-align: right;
+  cursor: text;
+  border-radius: 3px;
+  outline: 1px solid transparent;
+  transition: color 0.1s, outline-color 0.1s;
+}
+
+.ctrl-row output:hover {
+  color: var(--color-accent);
+  outline-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+.ctrl-row output[contenteditable="true"] {
+  outline-color: var(--color-accent);
+  color: var(--color-ink);
+  padding: 0 2px;
+  background: color-mix(in srgb, var(--color-accent) 8%, transparent);
 }
 
 .color-picker {
