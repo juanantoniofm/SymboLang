@@ -1,0 +1,42 @@
+public/playground.html
+  fcfe1dd4dc83a620 1-97
+.claude/launch.json
+  fcfe1dd4dc83a620 1-11
+public/css/playground.css
+  fcfe1dd4dc83a620 1-445
+public/js/playground.js
+  fcfe1dd4dc83a620 1-502
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "3b18698e81f73a5cc96c88a0d49ef5150cb34d0c",
+  "prompts": {
+    "1471b2094225afd7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b93c1c18-ab04-47a8-8cca-284ef6bc7bc2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 54,
+      "overriden_lines": 0
+    },
+    "fcfe1dd4dc83a620": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0832a928-71ff-444e-9d2b-949799db44b9",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 1055,
+      "total_deletions": 0,
+      "accepted_lines": 1055,
+      "overriden_lines": 0
+    }
+  }
+}
