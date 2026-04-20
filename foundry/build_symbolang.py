@@ -378,43 +378,44 @@ draw_bowtie.grid = {(w, m): dict(L=280, h=BOWTIE_H[w], gap=BOWTIE_GAP[m])
 # --- Pulse (P) — wght: fill, MORF: size distribution ---
 
 PULSE_N, PULSE_SIDES = 7, 12
-PULSE_BASE_R = 40          # base radius when all circles equal
-PULSE_SPACING = 120        # center-to-center spacing
+PULSE_BASE_R = 35          # base radius when all circles equal
 
-# Size multipliers per circle index [0..6], center = index 3
-# MORF lo:  center big (2.0x), edges tiny (0.25x) — "convex lens"
-# MORF mid: all equal (1.0x)
-# MORF hi:  edges big (1.75x), center small (0.5x) — "concave lens"
+# Size multipliers: smooth gradient edge→center, symmetric
+# MORF lo = center dominant, MORF hi = edges dominant (inverted)
 PULSE_SCALE = {
-    "lo":  [0.40, 0.55, 0.75, 1.40, 0.75, 0.55, 0.40],
+    "lo":  [0.50, 0.65, 0.85, 1.80, 0.85, 0.65, 0.50],
     "mid": [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00],
-    "hi":  [1.40, 1.25, 1.10, 0.60, 1.10, 1.25, 1.40],
+    "hi":  [1.80, 0.85, 0.65, 0.50, 0.65, 0.85, 1.80],
 }
 
-# Inner hole ratio: 1.0 = no fill (all hole), 0.0 = fully filled
-# wght lo = thin rings (big hole), wght hi = nearly solid (tiny hole)
 PULSE_HOLE = {"lo": 0.80, "mid": 0.50, "hi": 0.10}
 
 @glyph("P", "pulse", hint="wght: fill | MORF: size distribution", kern_class="wide")
 def draw_pulse(pen, scales, hole_ratio):
-    """7 circles as rings (outer + inner contour each).
-    scales: per-circle radius multiplier. hole_ratio: inner/outer radius.
+    """7 circles as rings with adaptive spacing.
+    Centers close together when circles shrink, spread when they grow.
     Topology: 7 circles x 2 contours x PULSE_SIDES points = 168 points."""
-    start_x = CX - PULSE_SPACING * (PULSE_N - 1) / 2
+    # Compute adaptive positions: each gap = sum of adjacent radii + small pad
+    radii = [PULSE_BASE_R * s for s in scales]
+    pad = 6  # minimum gap between circle edges
+    positions = [0.0]
+    for i in range(1, PULSE_N):
+        positions.append(positions[-1] + radii[i-1] + radii[i] + pad)
+    # Center the whole row
+    total = positions[-1]
+    offset = CX - total / 2
     for i in range(PULSE_N):
-        cx = start_x + i * PULSE_SPACING
+        cx = offset + positions[i]
         cy = CY
-        r_out = PULSE_BASE_R * scales[i]
-        r_in = max(r_out * hole_ratio, 2)  # floor at 2 to avoid zero
+        r_out = radii[i]
+        r_in = max(r_out * hole_ratio, 2)
 
-        # Outer contour (CW)
         pen.moveTo((cx + r_out, cy))
         for j in range(1, PULSE_SIDES):
             a = 2 * math.pi * j / PULSE_SIDES
             pen.lineTo((cx + r_out * math.cos(a), cy + r_out * math.sin(a)))
         pen.closePath()
 
-        # Inner contour (CCW — winding hole)
         pen.moveTo((cx + r_in, cy))
         for j in range(PULSE_SIDES - 1, 0, -1):
             a = 2 * math.pi * j / PULSE_SIDES
@@ -427,31 +428,35 @@ draw_pulse.grid = {(w, m): dict(scales=PULSE_SCALE[m], hole_ratio=PULSE_HOLE[w])
 # --- Lens (L) — wght: fill, MORF: horizontal stretch distribution ---
 
 LENS_N, LENS_SIDES = 7, 12
-LENS_BASE_R = 38           # base radius (used for both rx and ry at mid)
-LENS_SPACING = 120         # center-to-center spacing
+LENS_BASE_R = 35           # base radius (used for both rx and ry at mid)
 
-# Horizontal width multipliers per circle [0..6], center = index 3
-# Height stays constant (1.0x) — only width changes → ellipses
-# MORF lo:  center wide (1.8x), edges narrow (0.35x) — "convex lens"
-# MORF mid: all circular (1.0x)
-# MORF hi:  edges wide (1.6x), center narrow (0.40x) — "concave lens"
+# Horizontal width multipliers — same gradient as Pulse
+# MORF lo = center stretched wide, edges squeezed narrow
+# MORF hi = edges stretched wide, center squeezed narrow
 LENS_WX = {
-    "lo":  [0.35, 0.50, 0.70, 1.80, 0.70, 0.50, 0.35],
+    "lo":  [0.50, 0.65, 0.85, 1.80, 0.85, 0.65, 0.50],
     "mid": [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00],
-    "hi":  [1.60, 1.40, 1.20, 0.40, 1.20, 1.40, 1.60],
+    "hi":  [1.80, 0.85, 0.65, 0.50, 0.65, 0.85, 1.80],
 }
 
 LENS_HOLE = {"lo": 0.80, "mid": 0.50, "hi": 0.10}
 
 @glyph("L", "lens", hint="wght: fill | MORF: horizontal stretch", kern_class="wide")
 def draw_lens(pen, wx_scales, hole_ratio):
-    """7 ellipses as rings. Height constant, width varies per MORF.
+    """7 ellipses as rings with adaptive spacing. Height constant, width varies.
     Topology: 7 x 2 contours x LENS_SIDES points = 168 points."""
-    start_x = CX - LENS_SPACING * (LENS_N - 1) / 2
+    # Adaptive positions based on horizontal radii
+    rx_list = [LENS_BASE_R * s for s in wx_scales]
+    pad = 6
+    positions = [0.0]
+    for i in range(1, LENS_N):
+        positions.append(positions[-1] + rx_list[i-1] + rx_list[i] + pad)
+    total = positions[-1]
+    offset = CX - total / 2
     for i in range(LENS_N):
-        cx = start_x + i * LENS_SPACING
+        cx = offset + positions[i]
         cy = CY
-        rx_out = LENS_BASE_R * wx_scales[i]
+        rx_out = rx_list[i]
         ry_out = LENS_BASE_R  # constant height
         rx_in = max(rx_out * hole_ratio, 2)
         ry_in = max(ry_out * hole_ratio, 2)
