@@ -33,8 +33,9 @@ const GLYPH_NAMES = {
   H: 'hex', D: 'dots', C: 'chevron', A: 'arc', G: 'grid',
   R: 'relay', B: 'bowtie', M: 'stack', Q: 'quad',
   N: 'tri·n', S: 'tri·s', E: 'tri·e', W: 'tri·w',
+  P: 'pulse', L: 'lens',
 };
-const ALL_CHARS = ['H', 'D', 'C', 'A', 'G', 'R', 'B', 'M', 'Q', 'N', 'S', 'E', 'W'];
+const ALL_CHARS = ['H', 'D', 'C', 'A', 'G', 'R', 'B', 'M', 'Q', 'N', 'S', 'E', 'W', 'P', 'L'];
 
 // ── Presets ─────────────────────────────────────────────────────────────────
 
@@ -284,14 +285,21 @@ function renderLayerList(logo) {
       <span class="layer-row-char sym" style="${layerVarStyle(layer)};color:${getColor(layer.color)}">${layer.char}</span>
       <span class="layer-row-name">${layer.char} · ${GLYPH_NAMES[layer.char] || ''}</span>
       <span class="layer-row-vals">${layer.wght} · ${layer.morf}</span>
+      <button class="layer-row-clone" title="Clone layer">⧉</button>
       <button class="layer-row-del" title="Remove">×</button>
     `;
 
     row.addEventListener('click', e => {
-      if (!e.target.classList.contains('layer-row-del')) {
+      if (!e.target.classList.contains('layer-row-del') &&
+          !e.target.classList.contains('layer-row-clone')) {
         if (state.selectedLayerIdx === idx) deselectLayer();
         else selectLayer(idx);
       }
+    });
+
+    row.querySelector('.layer-row-clone').addEventListener('click', e => {
+      e.stopPropagation();
+      cloneLayer(idx);
     });
 
     row.querySelector('.layer-row-del').addEventListener('click', e => {
@@ -422,6 +430,18 @@ function addLayer(char) {
   renderSidebarItem(logo.id);
   updatePanel();
   document.getElementById('char-picker').hidden = true;
+}
+
+function cloneLayer(idx) {
+  const logo = getCurrentLogo();
+  if (!logo) return;
+  const src = logo.layers[idx];
+  logo.layers.splice(idx + 1, 0, { ...src, x: src.x + 10, y: src.y + 10 });
+  state.selectedLayerIdx = idx + 1;
+  saveState();
+  renderEditor();
+  renderSidebarItem(logo.id);
+  updatePanel();
 }
 
 function removeLayer(idx) {

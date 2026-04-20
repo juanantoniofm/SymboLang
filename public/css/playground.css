@@ -349,11 +349,11 @@ body { margin: 0; }
   white-space: nowrap;
 }
 
+.layer-row-clone,
 .layer-row-del {
   background: none;
   border: none;
   color: var(--color-dimmer);
-  font-size: 0.85rem;
   cursor: pointer;
   padding: 0 0.15rem;
   line-height: 1;
@@ -361,6 +361,10 @@ body { margin: 0; }
   flex-shrink: 0;
 }
 
+.layer-row-clone { font-size: 0.8rem; }
+.layer-row-clone:hover { color: var(--color-accent); }
+
+.layer-row-del { font-size: 0.85rem; }
 .layer-row-del:hover { color: #e55; }
 
 /* Add layer */
