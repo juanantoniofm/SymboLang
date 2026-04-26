@@ -1,0 +1,54 @@
+public/imgs/concepts/lua_v2_engine_hub.svg
+  991f147a494015f8 1-22
+public/imgs/concepts/perf_v1_chevron_triptych.svg
+  991f147a494015f8 1-18
+public/imgs/concepts/sso_v1_gated_domains.svg
+  991f147a494015f8 1-22
+public/imgs/concepts/perf_v2_hex_boost.svg
+  991f147a494015f8 1-22
+public/imgs/concepts/lua_v1_stream_gate_forward.svg
+  991f147a494015f8 1-22
+public/imgs/concepts/sso_v2_user_sync.svg
+  991f147a494015f8 1-22
+SymboLang.code-workspace
+  h_c7ab82dd7316d9 69-70
+  b8c8904f99c488ad 1-68,71-211
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "b9109dd85f34dd0f1e12fa4ba88eca90dc84caa8",
+  "prompts": {
+    "991f147a494015f8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f080df44-5a09-46b8-89c1-30910129cf91",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 128,
+      "total_deletions": 0,
+      "accepted_lines": 128,
+      "overriden_lines": 0
+    },
+    "b8c8904f99c488ad": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "6e3eba69-fa12-475b-bb2d-135e919ada46",
+        "model": "copilot/claude-sonnet-4.5"
+      },
+      "human_author": "juanantoniofm",
+      "messages": [],
+      "total_additions": 224,
+      "total_deletions": 0,
+      "accepted_lines": 209,
+      "overriden_lines": 1
+    }
+  },
+  "humans": {
+    "h_c7ab82dd7316d9": {
+      "author": "juanantoniofm"
+    }
+  }
+}
