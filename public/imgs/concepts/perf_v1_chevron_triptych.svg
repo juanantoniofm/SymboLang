@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <style>
+      @font-face {
+        font-family: "SymbolLang";
+        src: url("../../fonts/SymbolLang.ttf") format("truetype-variations");
+      }
+      .sym { font-family: "SymbolLang"; fill: #c8cdd8; }
+      .sym.hot { fill: #5eead4; }
+      .label { font-family: -apple-system, system-ui, sans-serif; fill: #8a8e99; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    </style>
+  </defs>
+  <rect fill="#0b0b0d" width="100%" height="100%"/>
+  <text class="sym" x="140" y="200" font-size="180" text-anchor="middle" style="font-variation-settings: 'wght' 150, 'MORF' 500;">C</text>
+  <text class="sym" x="400" y="200" font-size="180" text-anchor="middle" style="font-variation-settings: 'wght' 500, 'MORF' 500;">C</text>
+  <text class="sym hot" x="660" y="200" font-size="180" text-anchor="middle" style="font-variation-settings: 'wght' 900, 'MORF' 900;">C</text>
+  <text class="label" x="400" y="260" text-anchor="middle">Same glyph — Phase 150 → 500 → 900 · zero changes, full throttle</text>
+</svg>

@@ -1,0 +1,211 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "SymboLang"
+    }
+  ],
+  "settings": {
+    // Python Configuration
+    "python.defaultInterpreterPath": "${workspaceFolder}/env/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "basic",
+    // File Associations
+    "files.associations": {
+      "*.ttf": "binary",
+      "*.woff": "binary",
+      "*.woff2": "binary",
+      "*.otf": "binary"
+    },
+    // Exclude patterns (reduce noise, improve performance)
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/*.pyc": true,
+      "env/lib": true,
+      "env/include": true,
+      "**/.DS_Store": true
+    },
+    "search.exclude": {
+      "**/env/lib": true,
+      "**/env/include": true,
+      "**/*.ttf": true,
+      "**/*.woff": true,
+      "**/*.woff2": true
+    },
+    // Editor Settings for Font/Design Work
+    "editor.rulers": [
+      80,
+      120
+    ],
+    "editor.formatOnSave": true,
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+      }
+    },
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    // Live Preview Settings
+    "liveServer.settings.root": "/public",
+    "liveServer.settings.CustomBrowser": "chrome",
+    // Terminal
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "terminal.integrated.env.osx": {
+      "PYTHONPATH": "${workspaceFolder}"
+    },
+    // Git
+    "git.ignoreLimitWarning": true,
+    // Font Preview
+    "fontPreview.showFontPreviewForFile": true,
+    "folder-color.pathColors": []
+  },
+  "extensions": {
+    "recommendations": [
+      // Python Development
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "ms-python.black-formatter",
+      "ms-python.isort",
+      // Font Tools & Preview
+      "ctcuff.font-preview",
+      "ms-vscode.hexeditor",
+      // Web Development (for playground & docs)
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "ritwickdey.liveserver",
+      "ecmel.vscode-html-css",
+      "zignd.html-css-class-completion",
+      // Docker Support
+      "ms-azuretools.vscode-docker",
+      // Markdown & Documentation
+      "yzhang.markdown-all-in-one",
+      "davidanson.vscode-markdownlint",
+      // GitHub Integration
+      "github.vscode-pull-request-github",
+      // Utilities
+      "eamodio.gitlens",
+      "gruntfuggly.todo-tree",
+      "usernamehw.errorlens"
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build SymbolLang Font",
+        "type": "shell",
+        "command": "${workspaceFolder}/env/bin/python",
+        "args": [
+          "foundry/build_symbolang.py"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Build Font (Keep Masters)",
+        "type": "shell",
+        "command": "${workspaceFolder}/env/bin/python",
+        "args": [
+          "foundry/build_symbolang.py",
+          "--keep-masters"
+        ],
+        "group": "build",
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Start Web Playground",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "-m",
+          "http.server",
+          "8000",
+          "--directory",
+          "public"
+        ],
+        "isBackground": true,
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Docker Compose Up",
+        "type": "shell",
+        "command": "docker-compose",
+        "args": [
+          "up",
+          "-d"
+        ],
+        "group": "none",
+        "presentation": {
+          "reveal": "always"
+        }
+      },
+      {
+        "label": "Install Python Dependencies",
+        "type": "shell",
+        "command": "${workspaceFolder}/env/bin/pip",
+        "args": [
+          "install",
+          "-r",
+          "requirements.txt"
+        ],
+        "group": "none",
+        "presentation": {
+          "reveal": "always"
+        }
+      }
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Build Font (Debug)",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/foundry/build_symbolang.py",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "python": "${workspaceFolder}/env/bin/python",
+        "justMyCode": false
+      },
+      {
+        "name": "Build Font with Custom Output",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/foundry/build_symbolang.py",
+        "args": [
+          "-o",
+          "dist/SymbolLang.ttf"
+        ],
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "python": "${workspaceFolder}/env/bin/python"
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <style>
+      @font-face {
+        font-family: "SymbolLang";
+        src: url("../../fonts/SymbolLang.ttf") format("truetype-variations");
+      }
+      .sym { font-family: "SymbolLang"; fill: #c8cdd8; }
+      .sym.hot { fill: #5eead4; }
+      .label { font-family: -apple-system, system-ui, sans-serif; fill: #8a8e99; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+      .tick { font-family: -apple-system, system-ui, sans-serif; fill: #5a5e69; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+    </style>
+  </defs>
+  <rect fill="#0b0b0d" width="100%" height="100%"/>
+  <text class="sym" x="150" y="200" font-size="170" text-anchor="middle" style="font-variation-settings: 'wght' 500, 'MORF' 800;">Q</text>
+  <text class="sym hot" x="400" y="200" font-size="170" text-anchor="middle" style="font-variation-settings: 'wght' 800, 'MORF' 600;">B</text>
+  <text class="sym" x="650" y="200" font-size="170" text-anchor="middle" style="font-variation-settings: 'wght' 700, 'MORF' 800;">Q</text>
+  <text class="tick" x="150" y="252" text-anchor="middle">3rd party idp</text>
+  <text class="tick" x="400" y="252" text-anchor="middle">access gate</text>
+  <text class="tick" x="650" y="252" text-anchor="middle">your scope</text>
+  <text class="label" x="400" y="285" text-anchor="middle">Q · B · Q — domains bridged through a controlled valve</text>
+</svg>

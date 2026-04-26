@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <style>
+      @font-face {
+        font-family: "SymbolLang";
+        src: url("../../fonts/SymbolLang.ttf") format("truetype-variations");
+      }
+      .sym { font-family: "SymbolLang"; fill: #c8cdd8; }
+      .sym.hot { fill: #5eead4; }
+      .label { font-family: -apple-system, system-ui, sans-serif; fill: #8a8e99; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+      .tick { font-family: -apple-system, system-ui, sans-serif; fill: #5a5e69; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+    </style>
+  </defs>
+  <rect fill="#0b0b0d" width="100%" height="100%"/>
+  <text class="sym" x="130" y="200" font-size="160" text-anchor="middle" style="font-variation-settings: 'wght' 500, 'MORF' 500;">W</text>
+  <text class="sym" x="290" y="200" font-size="160" text-anchor="middle" style="font-variation-settings: 'wght' 700, 'MORF' 400;">D</text>
+  <text class="sym hot" x="460" y="200" font-size="170" text-anchor="middle" style="font-variation-settings: 'wght' 900, 'MORF' 900;">H</text>
+  <text class="sym" x="620" y="200" font-size="160" text-anchor="middle" style="font-variation-settings: 'wght' 700, 'MORF' 400;">D</text>
+  <text class="sym" x="770" y="200" font-size="160" text-anchor="middle" style="font-variation-settings: 'wght' 500, 'MORF' 500;">E</text>
+  <text class="tick" x="460" y="252" text-anchor="middle">lua engine</text>
+  <text class="label" x="400" y="285" text-anchor="middle">W · D · H · D · E — data in, engine manipulates, data forwarded</text>
+</svg>
