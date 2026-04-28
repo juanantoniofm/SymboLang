@@ -1,652 +1,1872 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
-
-<head>
-  <meta charset="utf-8">
-  <title>SymbolLang v5 · preview</title>
-  <link rel="stylesheet" href="css/shared.css">
-  <style>
-    body {
-      padding: 2.5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-      min-height: 100vh;
-    }
-
-    header {
-      text-align: center;
-    }
-
-    header h1 {
-      font-weight: 600;
-      font-size: 1.3rem;
-      margin: 0 0 0.4rem;
-      letter-spacing: 0.02em;
-    }
-
-    header p {
-      font-size: 0.85rem;
-      color: var(--color-dim);
-      margin: 0;
-      max-width: 620px;
-    }
-
-    header code {
-      color: var(--color-accent);
-      font-family: ui-monospace, monospace;
-      font-size: 0.78rem;
-    }
-
-    .panel {
-      background: var(--color-panel);
-      border: 1px solid var(--color-border);
-      border-radius: 14px;
-      padding: 1.5rem;
-      width: min(1280px, 96vw);
-    }
-
-    .section-title {
-      font-size: 0.72rem;
-      color: var(--color-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin: 0 0 1rem;
-    }
-
-    /* ---- live row ---- */
-    .live {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0;
-    }
-
-    .live-cell {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.5rem 0.6rem;
-      border-right: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-      flex: 0 0 calc(100% / 7);
-      box-sizing: border-box;
-    }
-
-    .live-cell:nth-child(7n) {
-      border-right: none;
-    }
-
-    .live-cell:nth-child(n+8) {
-      border-bottom: none;
-    }
-
-    .live-cell:last-child {
-      border-right: none;
-    }
-
-    .live-cell .glyph {
-      font-family: "SymbolLang";
-      font-size: 82px;
-      line-height: 1;
-      color: var(--color-ink);
-      font-variation-settings: "wght" var(--wght, 500), "MORF" var(--morf, 500);
-      transition: font-variation-settings 40ms linear;
-      height: 86px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .live-cell .role {
-      font-size: 0.6rem;
-      color: var(--color-accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-top: 0.3rem;
-    }
-
-    .live-cell .key {
-      font-family: ui-monospace, "SF Mono", monospace;
-      font-size: 0.7rem;
-      color: var(--color-dim);
-      letter-spacing: 0.1em;
-    }
-
-    .live-cell .hint {
-      font-size: 0.6rem;
-      color: var(--color-dimmer);
-      text-align: center;
-      padding: 0 0.1rem;
-      line-height: 1.25;
-      min-height: 2.2em;
-    }
-
-    /* ---- sliders ---- */
-    .sliders {
-      display: grid;
-      grid-template-columns: 60px 1fr auto;
-      gap: 0.6rem 0.9rem;
-      align-items: center;
-      margin-top: 1.2rem;
-    }
-
-    .slider-label {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      color: var(--color-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .slider-label.wght {
-      color: var(--color-accent);
-    }
-
-    .slider-label.morf {
-      color: var(--color-accent2);
-    }
-
-    input[type=range] {
-      width: 100%;
-    }
-
-    input[type=range].wght {
-      accent-color: var(--color-accent);
-    }
-
-    input[type=range].morf {
-      accent-color: var(--color-accent2);
-    }
-
-    .readout {
-      font-family: ui-monospace, monospace;
-      font-size: 0.85rem;
-      min-width: 3em;
-      text-align: right;
-    }
-
-    .readout.wght {
-      color: var(--color-accent);
-    }
-
-    .readout.morf {
-      color: var(--color-accent2);
-    }
-
-    .phase-buttons {
-      display: flex;
-      gap: 0.3rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 0.8rem;
-    }
-
-    .phase-buttons button {
-      background: transparent;
-      color: var(--color-ink);
-      border: 1px solid var(--color-border);
-      padding: 0.3rem 0.7rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font: inherit;
-      font-size: 0.72rem;
-      line-height: 1.15;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.1rem;
-      min-width: 70px;
-    }
-
-    .phase-buttons button small {
-      color: var(--color-dim);
-      font-size: 0.65rem;
-    }
-
-    .phase-buttons button:hover {
-      border-color: var(--color-accent);
-    }
-
-    .phase-buttons button.active {
-      background: color-mix(in srgb, var(--color-accent) 14%, transparent);
-      border-color: var(--color-accent);
-    }
-
-    /* ---- loaders ---- */
-    .loader-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 3rem;
-      padding: 1rem 0;
-      flex-wrap: wrap;
-    }
-
-    .loader-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .loader-item small {
-      font-size: 0.65rem;
-      color: var(--color-dim);
-      font-family: ui-monospace, monospace;
-    }
-
-    .loader-item .sym {
-      font-size: 120px;
-    }
-
-    @keyframes phase-pulse {
-
-      0%,
-      100% {
-        font-variation-settings: "wght" 100, "MORF" 500;
+  <head>
+    <meta charset="utf-8" />
+    <title>SymbolLang v5 · preview</title>
+    <link rel="stylesheet" href="css/shared.css" />
+    <style>
+      body {
+        padding: 2.5rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        min-height: 100vh;
       }
 
-      50% {
-        font-variation-settings: "wght" 900, "MORF" 500;
-      }
-    }
-
-    @keyframes form-bloom {
-
-      0%,
-      100% {
-        font-variation-settings: "wght" 500, "MORF" 100;
+      header {
+        text-align: center;
       }
 
-      50% {
-        font-variation-settings: "wght" 500, "MORF" 900;
-      }
-    }
-
-    @keyframes both-breathe {
-
-      0%,
-      100% {
-        font-variation-settings: "wght" 200, "MORF" 200;
+      header h1 {
+        font-weight: 600;
+        font-size: 1.3rem;
+        margin: 0 0 0.4rem;
+        letter-spacing: 0.02em;
       }
 
-      50% {
-        font-variation-settings: "wght" 800, "MORF" 800;
+      header p {
+        font-size: 0.85rem;
+        color: var(--color-dim);
+        margin: 0;
+        max-width: 620px;
       }
-    }
 
-    .anim-phase {
-      animation: phase-pulse 2s ease-in-out infinite;
-    }
+      header code {
+        color: var(--color-accent);
+        font-family: ui-monospace, monospace;
+        font-size: 0.78rem;
+      }
 
-    .anim-form {
-      animation: form-bloom 2.5s ease-in-out infinite;
-    }
+      .panel {
+        background: var(--color-panel);
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+        padding: 1.5rem;
+        width: min(1280px, 96vw);
+      }
 
-    .anim-both {
-      animation: both-breathe 3s ease-in-out infinite;
-    }
+      .section-title {
+        font-size: 0.72rem;
+        color: var(--color-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        margin: 0 0 1rem;
+      }
 
-    /* ---- matrices ---- */
-    .matrix {
-      display: grid;
-      grid-template-columns: 90px repeat(5, 1fr);
-      gap: 1px;
-      background: var(--color-border);
-      border: 1px solid var(--color-border);
-      border-radius: 8px;
-      overflow: hidden;
-    }
+      /* ---- live row ---- */
+      .live {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0;
+      }
 
-    .mcell {
-      background: var(--color-panel);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 78px;
-    }
+      .live-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.5rem 0.6rem;
+        border-right: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+        flex: 0 0 calc(100% / 7);
+        box-sizing: border-box;
+      }
 
-    .mcell span {
-      font-family: "SymbolLang";
-      font-size: 52px;
-      line-height: 1;
-    }
+      .live-cell:nth-child(7n) {
+        border-right: none;
+      }
 
-    .mhead {
-      font-size: 0.7rem;
-      color: var(--color-dim);
-      min-height: 44px;
-      text-align: center;
-      padding: 0.4rem 0;
-    }
+      .live-cell:nth-child(n + 8) {
+        border-bottom: none;
+      }
 
-    .mhead small {
-      color: var(--color-accent);
-      font-family: ui-monospace, monospace;
-      font-weight: 600;
-      display: block;
-      margin-top: 0.15rem;
-    }
+      .live-cell:last-child {
+        border-right: none;
+      }
 
-    .matrix.morf .mhead small {
-      color: var(--color-accent2);
-    }
+      .live-cell .glyph {
+        font-family: "SymbolLang";
+        font-size: 82px;
+        line-height: 1;
+        color: var(--color-ink);
+        font-variation-settings:
+          "wght" var(--wght, 500),
+          "MORF" var(--morf, 500);
+        transition: font-variation-settings 40ms linear;
+        height: 86px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    .mlabel {
-      font-size: 0.78rem;
-      color: var(--color-dim);
-      font-family: ui-monospace, monospace;
-    }
+      .live-cell .role {
+        font-size: 0.6rem;
+        color: var(--color-accent);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 0.3rem;
+      }
 
-    .sub-section-title {
-      font-size: 0.68rem;
-      color: var(--color-dimmer);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin: 1.5rem 0 0.7rem;
-    }
-  </style>
-  <script src="js/shared.js"></script>
-  <script src="js/palette.js"></script>
-</head>
+      .live-cell .key {
+        font-family: ui-monospace, "SF Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--color-dim);
+        letter-spacing: 0.1em;
+      }
 
-<body>
+      .live-cell .hint {
+        font-size: 0.6rem;
+        color: var(--color-dimmer);
+        text-align: center;
+        padding: 0 0.1rem;
+        line-height: 1.25;
+        min-height: 2.2em;
+      }
 
-  <nav class="site-nav">
-    <div class="nav-left">
-      <a href="index.html" class="nav-brand">SymbolLang</a>
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">About</a>
-      <a href="sample_catalog.html">Characters</a>
-      <a href="sample_brand_vocab.html">Compositions</a>
-      <a href="sample_packaging.html">Packaging</a>
-      <a href="playground.html">Playground</a>
-    </div>
-    <div class="nav-right">
-      <a href="downloads.html" class="nav-download">Download</a>
-      <a href="https://github.com/juanantoniofm/SymboLang.git" target="_blank" rel="noopener" class="nav-github"
-        aria-label="GitHub"><img class="icon-dark" src="icons/GitHub_Invertocat_White.svg" alt="GitHub"><img
-          class="icon-light" src="icons/GitHub_Invertocat_Black.svg" alt="GitHub"></a>
-      <button id="theme-toggle" aria-label="Toggle theme">◐</button>
-    </div>
-  </nav>
+      /* ---- sliders ---- */
+      .sliders {
+        display: grid;
+        grid-template-columns: 60px 1fr auto;
+        gap: 0.6rem 0.9rem;
+        align-items: center;
+        margin-top: 1.2rem;
+      }
 
-  <header>
-    <h1>SymbolLang · v5</h1>
-    <p>15 parametric primitives on two axes — <code>wght</code> and <code>MORF</code>. Most glyphs respond to both axes.
-      Defaults <code>(500, 500)</code>.</p>
-  </header>
+      .slider-label {
+        font-family: ui-monospace, monospace;
+        font-size: 0.75rem;
+        color: var(--color-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
 
-  <div class="panel">
-    <div class="section-title">Live · all primitives on two sliders</div>
-    <div class="live">
-      <div class="live-cell"><span class="glyph">N</span><span class="role">directional</span><span
-          class="key">N</span><span class="hint">squat → equilateral → spike</span></div>
-      <div class="live-cell"><span class="glyph">S</span><span class="role">directional</span><span
-          class="key">S</span><span class="hint">pointing down</span></div>
-      <div class="live-cell"><span class="glyph">E</span><span class="role">directional</span><span
-          class="key">E</span><span class="hint">pointing right</span></div>
-      <div class="live-cell"><span class="glyph">W</span><span class="role">directional</span><span
-          class="key">W</span><span class="hint">pointing left</span></div>
-      <div class="live-cell"><span class="glyph">H</span><span class="role">node</span><span class="key">H</span><span
-          class="hint">endpoint → gateway</span></div>
-      <div class="live-cell"><span class="glyph">D</span><span class="role">stream</span><span class="key">D</span><span
-          class="hint">discrete → flowing</span></div>
-      <div class="live-cell"><span class="glyph">C</span><span class="role">throughput</span><span
-          class="key">C</span><span class="hint">wght: thin → thick · MORF: flat → sharp</span></div>
-      <div class="live-cell"><span class="glyph">A</span><span class="role">bridge</span><span class="key">A</span><span
-          class="hint">wght: pipe → rise · MORF: uniform → bulged</span></div>
-      <div class="live-cell"><span class="glyph">Q</span><span class="role">container</span><span
-          class="key">Q</span><span class="hint">tilt-left → frame → tilt-right</span></div>
-      <div class="live-cell"><span class="glyph">G</span><span class="role">lattice</span><span
-          class="key">G</span><span class="hint">MORF: sparse → dense</span></div>
-      <div class="live-cell"><span class="glyph">M</span><span class="role">metrics</span><span
-          class="key">M</span><span class="hint">wght: heights · MORF: wavy bottoms</span></div>
-      <div class="live-cell"><span class="glyph">R</span><span class="role">relay</span><span class="key">R</span><span
-          class="hint">wght: gap · MORF: arrow sharpness</span></div>
-      <div class="live-cell"><span class="glyph">B</span><span class="role">valve</span><span class="key">B</span><span
-          class="hint">wght: openness · MORF: valve gap</span></div>
-      <div class="live-cell"><span class="glyph">P</span><span class="role">pulse</span><span class="key">P</span><span
-          class="hint">wght: fill · MORF: size distribution</span></div>
-      <div class="live-cell"><span class="glyph">L</span><span class="role">lens</span><span class="key">L</span><span
-          class="hint">wght: fill · MORF: horizontal stretch</span></div>
-    </div>
-    <div class="sliders">
-      <span class="slider-label wght">wght</span>
-      <input id="wght" type="range" class="wght" min="100" max="900" value="500" step="1">
-      <span class="readout wght" id="wghtVal">500</span>
+      .slider-label.wght {
+        color: var(--color-accent);
+      }
 
-      <span class="slider-label morf">MORF</span>
-      <input id="morf" type="range" class="morf" min="100" max="900" value="500" step="1">
-      <span class="readout morf" id="morfVal">500</span>
-    </div>
-    <div class="phase-buttons" id="phases"></div>
-  </div>
+      .slider-label.morf {
+        color: var(--color-accent2);
+      }
 
-  <div class="panel">
-    <div class="section-title">Motion · Animated loaders</div>
-    <div class="loader-row">
-      <div class="loader-item"><span class="sym anim-phase" style="color:var(--color-accent);">D</span><small>phase
-          pulse</small></div>
-      <div class="loader-item"><span class="sym anim-form" style="color:#7eb8da;">H</span><small>form bloom</small>
+      input[type="range"] {
+        width: 100%;
+      }
+
+      input[type="range"].wght {
+        accent-color: var(--color-accent);
+      }
+
+      input[type="range"].morf {
+        accent-color: var(--color-accent2);
+      }
+
+      .readout {
+        font-family: ui-monospace, monospace;
+        font-size: 0.85rem;
+        min-width: 3em;
+        text-align: right;
+      }
+
+      .readout.wght {
+        color: var(--color-accent);
+      }
+
+      .readout.morf {
+        color: var(--color-accent2);
+      }
+
+      .phase-buttons {
+        display: flex;
+        gap: 0.3rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 0.8rem;
+      }
+
+      .phase-buttons button {
+        background: transparent;
+        color: var(--color-ink);
+        border: 1px solid var(--color-border);
+        padding: 0.3rem 0.7rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.72rem;
+        line-height: 1.15;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.1rem;
+        min-width: 70px;
+      }
+
+      .phase-buttons button small {
+        color: var(--color-dim);
+        font-size: 0.65rem;
+      }
+
+      .phase-buttons button:hover {
+        border-color: var(--color-accent);
+      }
+
+      .phase-buttons button.active {
+        background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+        border-color: var(--color-accent);
+      }
+
+      /* ---- loaders ---- */
+      .loader-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        padding: 1rem 0;
+        flex-wrap: wrap;
+      }
+
+      .loader-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .loader-item small {
+        font-size: 0.65rem;
+        color: var(--color-dim);
+        font-family: ui-monospace, monospace;
+      }
+
+      .loader-item .sym {
+        font-size: 120px;
+      }
+
+      @keyframes phase-pulse {
+        0%,
+        100% {
+          font-variation-settings:
+            "wght" 100,
+            "MORF" 500;
+        }
+
+        50% {
+          font-variation-settings:
+            "wght" 900,
+            "MORF" 500;
+        }
+      }
+
+      @keyframes form-bloom {
+        0%,
+        100% {
+          font-variation-settings:
+            "wght" 500,
+            "MORF" 100;
+        }
+
+        50% {
+          font-variation-settings:
+            "wght" 500,
+            "MORF" 900;
+        }
+      }
+
+      @keyframes both-breathe {
+        0%,
+        100% {
+          font-variation-settings:
+            "wght" 200,
+            "MORF" 200;
+        }
+
+        50% {
+          font-variation-settings:
+            "wght" 800,
+            "MORF" 800;
+        }
+      }
+
+      .anim-phase {
+        animation: phase-pulse 2s ease-in-out infinite;
+      }
+
+      .anim-form {
+        animation: form-bloom 2.5s ease-in-out infinite;
+      }
+
+      .anim-both {
+        animation: both-breathe 3s ease-in-out infinite;
+      }
+
+      /* ---- matrices ---- */
+      .matrix {
+        display: grid;
+        grid-template-columns: 90px repeat(5, 1fr);
+        gap: 1px;
+        background: var(--color-border);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .mcell {
+        background: var(--color-panel);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 78px;
+      }
+
+      .mcell span {
+        font-family: "SymbolLang";
+        font-size: 52px;
+        line-height: 1;
+      }
+
+      .mhead {
+        font-size: 0.7rem;
+        color: var(--color-dim);
+        min-height: 44px;
+        text-align: center;
+        padding: 0.4rem 0;
+      }
+
+      .mhead small {
+        color: var(--color-accent);
+        font-family: ui-monospace, monospace;
+        font-weight: 600;
+        display: block;
+        margin-top: 0.15rem;
+      }
+
+      .matrix.morf .mhead small {
+        color: var(--color-accent2);
+      }
+
+      .mlabel {
+        font-size: 0.78rem;
+        color: var(--color-dim);
+        font-family: ui-monospace, monospace;
+      }
+
+      .sub-section-title {
+        font-size: 0.68rem;
+        color: var(--color-dimmer);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin: 1.5rem 0 0.7rem;
+      }
+    </style>
+    <script src="js/shared.js"></script>
+    <script src="js/palette.js"></script>
+  </head>
+
+  <body>
+    <nav class="site-nav">
+      <div class="nav-left">
+        <a href="index.html" class="nav-brand">SymbolLang</a>
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="sample_catalog.html">Characters</a>
+        <a href="sample_brand_vocab.html">Compositions</a>
+        <a href="sample_packaging.html">Packaging</a>
+        <a href="playground.html">Playground</a>
       </div>
-      <div class="loader-item"><span class="sym anim-both" style="color:var(--color-accent2);">B</span><small>dual
-          breathe</small></div>
+      <div class="nav-right">
+        <a href="downloads.html" class="nav-download">Download</a>
+        <a
+          href="https://github.com/juanantoniofm/SymboLang.git"
+          target="_blank"
+          rel="noopener"
+          class="nav-github"
+          aria-label="GitHub"
+          ><img
+            class="icon-dark"
+            src="icons/GitHub_Invertocat_White.svg"
+            alt="GitHub" /><img
+            class="icon-light"
+            src="icons/GitHub_Invertocat_Black.svg"
+            alt="GitHub"
+        /></a>
+        <button id="theme-toggle" aria-label="Toggle theme">◐</button>
+      </div>
+    </nav>
+
+    <header>
+      <h1>SymbolLang · v5</h1>
+      <p>
+        15 parametric primitives on two axes — <code>wght</code> and
+        <code>MORF</code>. Most glyphs respond to both axes. Defaults
+        <code>(500, 500)</code>.
+      </p>
+    </header>
+
+    <div class="panel">
+      <div class="section-title">Live · all primitives on two sliders</div>
+      <div class="live">
+        <div class="live-cell">
+          <span class="glyph">N</span><span class="role">directional</span
+          ><span class="key">N</span
+          ><span class="hint">squat → equilateral → spike</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">H</span><span class="role">node</span
+          ><span class="key">H</span
+          ><span class="hint">endpoint → gateway</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">D</span><span class="role">stream</span
+          ><span class="key">D</span
+          ><span class="hint">discrete → flowing</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">C</span><span class="role">throughput</span
+          ><span class="key">C</span
+          ><span class="hint">wght: thin → thick · MORF: flat → sharp</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">A</span><span class="role">bridge</span
+          ><span class="key">A</span
+          ><span class="hint">wght: pipe → rise · MORF: uniform → bulged</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">Q</span><span class="role">container</span
+          ><span class="key">Q</span
+          ><span class="hint">tilt-left → frame → tilt-right</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">G</span><span class="role">lattice</span
+          ><span class="key">G</span
+          ><span class="hint">MORF: sparse → dense</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">M</span><span class="role">metrics</span
+          ><span class="key">M</span
+          ><span class="hint">wght: heights · MORF: wavy bottoms</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">R</span><span class="role">relay</span
+          ><span class="key">R</span
+          ><span class="hint">wght: gap · MORF: arrow sharpness</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">B</span><span class="role">valve</span
+          ><span class="key">B</span
+          ><span class="hint">wght: openness · MORF: valve gap</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">P</span><span class="role">pulse</span
+          ><span class="key">P</span
+          ><span class="hint">wght: fill · MORF: size distribution</span>
+        </div>
+        <div class="live-cell">
+          <span class="glyph">L</span><span class="role">lens</span
+          ><span class="key">L</span
+          ><span class="hint">wght: fill · MORF: horizontal stretch</span>
+        </div>
+      </div>
+      <div class="sliders">
+        <span class="slider-label wght">wght</span>
+        <input
+          id="wght"
+          type="range"
+          class="wght"
+          min="100"
+          max="900"
+          value="500"
+          step="1"
+        />
+        <span class="readout wght" id="wghtVal">500</span>
+
+        <span class="slider-label morf">MORF</span>
+        <input
+          id="morf"
+          type="range"
+          class="morf"
+          min="100"
+          max="900"
+          value="500"
+          step="1"
+        />
+        <span class="readout morf" id="morfVal">500</span>
+      </div>
+      <div class="phase-buttons" id="phases"></div>
     </div>
-  </div>
 
-  <div class="panel">
-    <div class="section-title">Matrix · wght phases at default MORF (500)</div>
-    <div class="matrix">
-      <div class='mcell mhead'></div>
-      <div class="mcell mhead">Min<br><small>100</small></div>
-      <div class="mcell mhead">Low<br><small>300</small></div>
-      <div class="mcell mhead">Mid<br><small>500</small></div>
-      <div class="mcell mhead">High<br><small>700</small></div>
-      <div class="mcell mhead">Max<br><small>900</small></div>
-      <div class="mcell mlabel">tri-n</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">N</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">N</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">N</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">N</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">N</span></div>
-      <div class="mcell mlabel">tri-s</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">S</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">S</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">S</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">S</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">S</span></div>
-      <div class="mcell mlabel">tri-e</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">E</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">E</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">E</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">E</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">E</span></div>
-      <div class="mcell mlabel">tri-w</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">W</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">W</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">W</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">W</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">W</span></div>
-      <div class="mcell mlabel">hex</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">H</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">H</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">H</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">H</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">H</span></div>
-      <div class="mcell mlabel">dots</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">D</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">D</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">D</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">D</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">D</span></div>
-      <div class="mcell mlabel">chevron</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">C</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">C</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">C</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">C</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">C</span></div>
-      <div class="mcell mlabel">arc</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">A</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">A</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">A</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">A</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">A</span></div>
-      <div class="mcell mlabel">quad</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">Q</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">Q</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">Q</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">Q</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">Q</span></div>
-      <div class="mcell mlabel">grid</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">G</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">G</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">G</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">G</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">G</span></div>
-      <div class="mcell mlabel">stack</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">M</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">M</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">M</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">M</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">M</span></div>
-      <div class="mcell mlabel">relay</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">R</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">R</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">R</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">R</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">R</span></div>
-      <div class="mcell mlabel">bowtie</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">B</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">B</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">B</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">B</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">B</span></div>
-      <div class="mcell mlabel">pulse</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">P</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">P</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">P</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">P</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">P</span></div>
-      <div class="mcell mlabel">lens</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 100,'MORF' 500">L</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 300,'MORF' 500">L</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">L</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 700,'MORF' 500">L</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 900,'MORF' 500">L</span></div>
+    <div class="panel">
+      <div class="section-title">Motion · Animated loaders</div>
+      <div class="loader-row">
+        <div class="loader-item">
+          <span class="sym anim-phase" style="color: var(--color-accent)"
+            >D</span
+          ><small>phase pulse</small>
+        </div>
+        <div class="loader-item">
+          <span class="sym anim-form" style="color: #7eb8da">H</span
+          ><small>form bloom</small>
+        </div>
+        <div class="loader-item">
+          <span class="sym anim-both" style="color: var(--color-accent2)"
+            >B</span
+          ><small>dual breathe</small>
+        </div>
+      </div>
     </div>
 
-    <div class="sub-section-title">MORF sweep · all MORF-responsive glyphs at default wght (500)</div>
-    <div class="matrix morf">
-      <div class='mcell mhead'></div>
-      <div class="mcell mhead">Form<br><small>100</small></div>
-      <div class="mcell mhead">Form<br><small>300</small></div>
-      <div class="mcell mhead">Form<br><small>500</small></div>
-      <div class="mcell mhead">Form<br><small>700</small></div>
-      <div class="mcell mhead">Form<br><small>900</small></div>
-      <div class="mcell mlabel">chevron</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 100">C</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 300">C</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">C</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 700">C</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 900">C</span></div>
-      <div class="mcell mlabel">arc</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 100">A</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 300">A</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">A</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 700">A</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 900">A</span></div>
-      <div class="mcell mlabel">grid</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 100">G</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 300">G</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">G</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 700">G</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 900">G</span></div>
-      <div class="mcell mlabel">hex</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 100">H</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 300">H</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">H</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 700">H</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 900">H</span></div>
-      <div class="mcell mlabel">quad</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 100">Q</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 300">Q</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">Q</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 700">Q</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 900">Q</span></div>
-      <div class="mcell mlabel">stack</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 100">M</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 300">M</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">M</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 700">M</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 900">M</span></div>
-      <div class="mcell mlabel">relay</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 100">R</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 300">R</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">R</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 700">R</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 900">R</span></div>
-      <div class="mcell mlabel">bowtie</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 100">B</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 300">B</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">B</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 700">B</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 900">B</span></div>
-      <div class="mcell mlabel">pulse</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 100">P</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 300">P</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">P</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 700">P</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 900">P</span></div>
-      <div class="mcell mlabel">lens</div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 100">L</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 300">L</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 500">L</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 700">L</span></div>
-      <div class="mcell"><span style="font-variation-settings:'wght' 500,'MORF' 900">L</span></div>
+    <div class="panel">
+      <div class="section-title">
+        Matrix · wght phases at default MORF (500)
+      </div>
+      <div class="matrix">
+        <div class="mcell mhead"></div>
+        <div class="mcell mhead">Min<br /><small>100</small></div>
+        <div class="mcell mhead">Low<br /><small>300</small></div>
+        <div class="mcell mhead">Mid<br /><small>500</small></div>
+        <div class="mcell mhead">High<br /><small>700</small></div>
+        <div class="mcell mhead">Max<br /><small>900</small></div>
+        <div class="mcell mlabel">tri-n</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >N</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >N</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >N</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >N</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >N</span
+          >
+        </div>
+        <div class="mcell mlabel">tri-s</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >S</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >S</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >S</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >S</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >S</span
+          >
+        </div>
+        <div class="mcell mlabel">tri-e</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >E</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >E</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >E</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >E</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >E</span
+          >
+        </div>
+        <div class="mcell mlabel">tri-w</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >W</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >W</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >W</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >W</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >W</span
+          >
+        </div>
+        <div class="mcell mlabel">hex</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >H</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >H</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >H</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >H</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >H</span
+          >
+        </div>
+        <div class="mcell mlabel">dots</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >D</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >D</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >D</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >D</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >D</span
+          >
+        </div>
+        <div class="mcell mlabel">chevron</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >C</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >C</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >C</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >C</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >C</span
+          >
+        </div>
+        <div class="mcell mlabel">arc</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >A</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >A</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >A</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >A</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >A</span
+          >
+        </div>
+        <div class="mcell mlabel">quad</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >Q</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >Q</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >Q</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >Q</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >Q</span
+          >
+        </div>
+        <div class="mcell mlabel">grid</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >G</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >G</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >G</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >G</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >G</span
+          >
+        </div>
+        <div class="mcell mlabel">stack</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >M</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >M</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >M</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >M</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >M</span
+          >
+        </div>
+        <div class="mcell mlabel">relay</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >R</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >R</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >R</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >R</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >R</span
+          >
+        </div>
+        <div class="mcell mlabel">bowtie</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >B</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >B</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >B</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >B</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >B</span
+          >
+        </div>
+        <div class="mcell mlabel">pulse</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >P</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >P</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >P</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >P</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >P</span
+          >
+        </div>
+        <div class="mcell mlabel">lens</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 100,
+                &quot;MORF&quot; 500;
+            "
+            >L</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 300,
+                &quot;MORF&quot; 500;
+            "
+            >L</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >L</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 700,
+                &quot;MORF&quot; 500;
+            "
+            >L</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 900,
+                &quot;MORF&quot; 500;
+            "
+            >L</span
+          >
+        </div>
+      </div>
+
+      <div class="sub-section-title">
+        MORF sweep · all MORF-responsive glyphs at default wght (500)
+      </div>
+      <div class="matrix morf">
+        <div class="mcell mhead"></div>
+        <div class="mcell mhead">Form<br /><small>100</small></div>
+        <div class="mcell mhead">Form<br /><small>300</small></div>
+        <div class="mcell mhead">Form<br /><small>500</small></div>
+        <div class="mcell mhead">Form<br /><small>700</small></div>
+        <div class="mcell mhead">Form<br /><small>900</small></div>
+        <div class="mcell mlabel">chevron</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 100;
+            "
+            >C</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 300;
+            "
+            >C</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >C</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 700;
+            "
+            >C</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 900;
+            "
+            >C</span
+          >
+        </div>
+        <div class="mcell mlabel">arc</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 100;
+            "
+            >A</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 300;
+            "
+            >A</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >A</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 700;
+            "
+            >A</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 900;
+            "
+            >A</span
+          >
+        </div>
+        <div class="mcell mlabel">grid</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 100;
+            "
+            >G</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 300;
+            "
+            >G</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >G</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 700;
+            "
+            >G</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 900;
+            "
+            >G</span
+          >
+        </div>
+        <div class="mcell mlabel">hex</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 100;
+            "
+            >H</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 300;
+            "
+            >H</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >H</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 700;
+            "
+            >H</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 900;
+            "
+            >H</span
+          >
+        </div>
+        <div class="mcell mlabel">quad</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 100;
+            "
+            >Q</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 300;
+            "
+            >Q</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >Q</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 700;
+            "
+            >Q</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 900;
+            "
+            >Q</span
+          >
+        </div>
+        <div class="mcell mlabel">stack</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 100;
+            "
+            >M</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 300;
+            "
+            >M</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >M</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 700;
+            "
+            >M</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 900;
+            "
+            >M</span
+          >
+        </div>
+        <div class="mcell mlabel">relay</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 100;
+            "
+            >R</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 300;
+            "
+            >R</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >R</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 700;
+            "
+            >R</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 900;
+            "
+            >R</span
+          >
+        </div>
+        <div class="mcell mlabel">bowtie</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 100;
+            "
+            >B</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 300;
+            "
+            >B</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >B</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 700;
+            "
+            >B</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 900;
+            "
+            >B</span
+          >
+        </div>
+        <div class="mcell mlabel">pulse</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 100;
+            "
+            >P</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 300;
+            "
+            >P</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >P</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 700;
+            "
+            >P</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 900;
+            "
+            >P</span
+          >
+        </div>
+        <div class="mcell mlabel">lens</div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 100;
+            "
+            >L</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 300;
+            "
+            >L</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 500;
+            "
+            >L</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 700;
+            "
+            >L</span
+          >
+        </div>
+        <div class="mcell">
+          <span
+            style="
+              font-variation-settings:
+                &quot;wght&quot; 500,
+                &quot;MORF&quot; 900;
+            "
+            >L</span
+          >
+        </div>
+      </div>
     </div>
-  </div>
 
-  <script>
-    var slW = document.getElementById("wght");
-    var slM = document.getElementById("morf");
-    var valW = document.getElementById("wghtVal");
-    var valM = document.getElementById("morfVal");
-    var root = document.documentElement;
-    var phasesEl = document.getElementById("phases");
+    <script>
+      var slW = document.getElementById("wght");
+      var slM = document.getElementById("morf");
+      var valW = document.getElementById("wghtVal");
+      var valM = document.getElementById("morfVal");
+      var root = document.documentElement;
+      var phasesEl = document.getElementById("phases");
 
-    var PHASES = [["Min", 100], ["Low", 300], ["Mid", 500], ["High", 700], ["Max", 900]];
-    PHASES.forEach(function (pair) {
-      var name = pair[0], w = pair[1];
-      var b = document.createElement("button");
-      b.innerHTML = name + "<small>wght " + w + "</small>";
-      b.dataset.w = w;
-      b.addEventListener("click", function () { setW(w); });
-      phasesEl.appendChild(b);
-    });
-    var btns = phasesEl.querySelectorAll("button");
+      var PHASES = [
+        ["Min", 100],
+        ["Low", 300],
+        ["Mid", 500],
+        ["High", 700],
+        ["Max", 900],
+      ];
+      PHASES.forEach(function (pair) {
+        var name = pair[0],
+          w = pair[1];
+        var b = document.createElement("button");
+        b.innerHTML = name + "<small>wght " + w + "</small>";
+        b.dataset.w = w;
+        b.addEventListener("click", function () {
+          setW(w);
+        });
+        phasesEl.appendChild(b);
+      });
+      var btns = phasesEl.querySelectorAll("button");
 
-    function setW(w) {
-      w = Number(w);
-      slW.value = w;
-      valW.textContent = w;
-      root.style.setProperty("--wght", w);
-      btns.forEach(function (b) { b.classList.toggle("active", Number(b.dataset.w) === w); });
-    }
-    function setM(m) {
-      m = Number(m);
-      slM.value = m;
-      valM.textContent = m;
-      root.style.setProperty("--morf", m);
-    }
-    slW.addEventListener("input", function () { setW(slW.value); });
-    slM.addEventListener("input", function () { setM(slM.value); });
-    setW(500);
-    setM(500);
-  </script>
-</body>
-
+      function setW(w) {
+        w = Number(w);
+        slW.value = w;
+        valW.textContent = w;
+        root.style.setProperty("--wght", w);
+        btns.forEach(function (b) {
+          b.classList.toggle("active", Number(b.dataset.w) === w);
+        });
+      }
+      function setM(m) {
+        m = Number(m);
+        slM.value = m;
+        valM.textContent = m;
+        root.style.setProperty("--morf", m);
+      }
+      slW.addEventListener("input", function () {
+        setW(slW.value);
+      });
+      slM.addEventListener("input", function () {
+        setM(slM.value);
+      });
+      setW(500);
+      setM(500);
+    </script>
+  </body>
 </html>
